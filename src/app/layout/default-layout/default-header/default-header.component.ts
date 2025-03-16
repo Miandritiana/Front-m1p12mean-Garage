@@ -56,7 +56,7 @@ export class DefaultHeaderComponent extends HeaderComponent {
   readonly colorMode = this.#colorModeService.colorMode;
   public nom: string = '';
   public prenom: string = '';
-  public poste: string = 'PAT';
+  public override role: string = '';
 
   readonly colorModes = [
     { name: 'light', text: 'Light', icon: 'cilSun' },
@@ -84,6 +84,7 @@ export class DefaultHeaderComponent extends HeaderComponent {
   ngOnInit() {
     this.nom = this.localStorageService.getLoginInfo()?.nom ?? '';
     this.prenom = this.localStorageService.getLoginInfo()?.prenom ?? '';
+    this.role = this.localStorageService.getLoginInfo()?.role ?? '';
   }
 
   handleLogoutClick(event: Event) {

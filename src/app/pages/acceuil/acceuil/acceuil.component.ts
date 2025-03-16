@@ -52,4 +52,10 @@ import { NgFor, NgStyle } from '@angular/common';
 })
 export class AcceuilComponent {
 
+  rdvAttente = [
+    { date: '2023-05-01', motif: 'Simba daholo' },
+    { date: '2023-05-02', motif: 'Mila fanovana' },
+    { date: '2023-05-03', motif: 'Blabla car' },
+  ];
+
 }
