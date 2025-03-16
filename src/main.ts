@@ -1,17 +1,20 @@
-/**
- * @license
- * Copyright Akveo. All Rights Reserved.
- * Licensed under the MIT License. See License.txt in the project root for license information.
- */
-import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+/// <reference types="@angular/localize" />
 
-import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
+import { bootstrapApplication } from '@angular/platform-browser';
 
-if (environment.production) {
-  enableProdMode();
-}
+import { AppComponent } from './app/app.component';
+import { appConfig } from './app/app.config';
+import { provideHttpClient } from '@angular/common/http';
 
-platformBrowserDynamic().bootstrapModule(AppModule)
+
+const updatedAppConfig = {
+  appConfig,
+  providers: [
+    appConfig.providers || [], // Inclure les autres providers s'il y en a
+    provideHttpClient(), // Fournir HttpClient ici
+  ],
+};
+
+bootstrapApplication(AppComponent, updatedAppConfig)
   .catch(err => console.error(err));
+

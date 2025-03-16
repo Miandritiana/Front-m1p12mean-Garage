@@ -1,0 +1,129 @@
+<c-row ngPreserveWhitespaces>
+    <c-col xs="12">
+        <c-card class="mb-4">
+        
+          <c-card-body>
+            
+            <div class="row w-100" style="margin-bottom: 16px;">
+              <div class="col-sm-12 d-flex" >
+                  
+
+                <c-dropdown #dropdown="cDropdown">
+                  <button
+                    class="c-dropdown-toggle"
+                    cButton
+                    cDropdownToggle
+                    color="secondary"
+                    variant="outline"
+                    style="margin-right:5px; background-color: #565f6a; color: white;"
+                  >
+                    <svg cIcon name="cil-filter" size="1" title="Action"></svg>
+                    Filtre
+                  </button>
+                  <ul cDropdownMenu (click)="$event.stopPropagation()" class="filtre">
+                    <li>
+                      <label cLabel for="exampleFormControlInput1">Niveau</label>
+                      <select aria-label="Default select example" cSelect [(ngModel)]="idNiveau" (click)="appliquer()">
+                        <option *ngFor="let item of niveau ; let i=index" [value]="i">{{ item.nom }}</option>
+                      </select>
+                    </li>
+                    <li>
+                      <label cLabel for="exampleFormControlInput1">Mois</label>
+                      <select aria-label="Default select example" cSelect [(ngModel)]="idMois" (click)="appliquer()">
+                        <option *ngFor="let item of mois; let i = index" [value]="i + 1">{{ item }}</option>
+                      </select>
+                    </li>
+                    <li>
+                      <div xs="4">
+                        <label cLabel for="exampleFormControlInput1">Année</label>
+                        <input cFormControl [(ngModel)]="annee" type="text" type ="number" (click)="appliquer()"/>
+                      </div>
+                    </li>
+                    
+                    <li>
+                      <button type="button" class="btn btn-primary button-appliquer"cDropdownClose (click)="appliquer()">Appliquer</button>
+                    </li>
+                  </ul>
+                </c-dropdown>
+                
+                  
+                  <input cFormControl
+                        id="exampleFormControlInput1"
+                        placeholder="Recherche"
+                        type="text"
+                        style="max-width: 220px;"
+                        [(ngModel)]="recherche" 
+                        (click)="getData()"
+                        (keydown.enter) = "getData()"
+                  />
+              </div>
+              
+            </div>
+            
+            <div class="badge-recherche" *ngIf="appliquerRecherche">
+              <c-badge class="text-secondary" color="light" shape="rounded-pill" *ngIf="idNiveau">
+                {{niveau[idNiveau!]!.nom}}
+                <a  (click)="closeIdNiveau()">
+                  <svg class="icon-x" cIcon name="cil-x" size="m" title="Action"></svg>
+                </a>
+              </c-badge>
+                <c-badge class="text-secondary" color="light" shape="rounded-pill" *ngIf="idMois">
+                  {{mois[idMois-1!]}}
+                  <a  (click)="closeIMois()">
+                    <svg class="icon-x" cIcon name="cil-x" size="m" title="Action"></svg>
+                  </a>
+                </c-badge>
+                  <c-badge class="text-secondary" color="light" shape="rounded-pill" *ngIf="annee">
+                    {{annee}}
+                    <a  (click)="closeAnnee()">
+                      <svg class="icon-x" cIcon name="cil-x" size="m" title="Action"></svg>
+                    </a>
+              </c-badge>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table-hover" >
+                <thead>
+                <tr cTableColor="light">
+                  <th scope="col">Reference</th>
+                  <th scope="col">Niveau</th>
+                  <th scope="col">Mois</th>
+                  <th scope="col">Année</th>
+                    <th scope="col">Extait sujet</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let rowData of dataSource" (click)="redirigerFiche(rowData.idSujet)">
+                      <td>{{ rowData.idSujet }} </td>
+                      <td>{{ rowData.niveau }} </td>
+                      <td>{{ rowData.moisLibelle }} </td>
+                      <td>{{ rowData.annee }} </td>
+                        <td>
+                            <span [innerHTML]="rowData.sujet | truncateHtml: 50"></span>
+
+                        </td>
+                    </tr>
+                <tr>
+                </tbody>
+              </table>
+
+            </div>
+            
+              <c-pagination aria-label="Page navigation example" cla>
+                <li cPageItem>
+                  <a cPageLink (click)="previous()">Previous</a>
+                </li>
+                <li cPageItem *ngFor="let item of  [].constructor(pageNumber); let i = index"  [active]="i+1==page">
+                  <a cPageLink (click)="chercherPage(i+1)">{{i+1}}</a>
+                </li>
+                <li cPageItem>
+                  <a cPageLink (click)="next()">Next</a>
+                </li>
+              </c-pagination>
+
+          </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>
+
+

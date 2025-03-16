@@ -1,0 +1,327 @@
+
+<c-row ngPreserveWhitespaces>
+  <c-col xs="12">
+    <h4 class="mb-3">Liste des intéressés aux concours</h4>
+      <c-card class="mb-4">
+      
+        <c-card-body>
+
+          <div class="row w-100" style="margin-bottom: 16px;">
+           
+            <div class="col-sm-6 d-flex">
+              
+              <button [cPopover]="popoverHtml"
+                    cPopoverPlacement="bottom"
+                    [cPopoverTrigger]="'click'"
+                    cButton
+                    color="secondary"
+                    variant="outline" 
+                    style="margin-right:5px ; background-color: #565f6a; color: white;">
+                    <svg cIcon name="cil-filter" size="l" title="Action"></svg>
+                    
+              filtre
+              <ng-template #popoverHtml>
+                <div class="popover-body">
+                  <div class="flex align-items-center m-b-10" *ngFor="let item of filtres">
+                    <c-form-check>
+                      <input 
+                      cFormCheckInput type="radio"
+                      [(ngModel)]="status"
+                      name="status" 
+                      [value]="item.value"
+                      (change)="chercher()"  />
+                      <label cFormCheckLabel>{{item.label}}</label>
+                    </c-form-check>
+                  </div>
+
+                </div>
+              </ng-template>
+              </button>
+
+              <input cFormControl
+                    id="exampleFormControlInput1"
+                    placeholder="Nom ou Prénom"
+                    type="text"
+                    style="max-width: 220px;"
+                    [(ngModel)]="recherche" 
+                    (keydown.enter)="chercher()"
+              />
+              
+            </div>
+
+          
+            <div class="col-sm-6 d-flex  justify-content-end">
+              <app-saisie 
+              [showSaisie]="showSaisie" 
+              (close)="handleLiveDemoChange($event)"
+              (openMessage)="openMessage()" 
+              (message)="setMessage($event)" 
+              ></app-saisie>
+              
+              <button cButton color="primary" (click)="toggleLiveDemo()">
+                <svg cIcon name="cil-plus" size="l" title="Action"></svg>
+                Ajouter un(e) intéressé(e)
+              </button>
+
+              <button cButton color="light"  class="mx-2" style="cursor: pointer; color: #5856d6;" (click)="sendEmails()">
+                <svg cIcon name="cil-envelope-closed" size="l" title="Action"></svg>
+                Envoi de mail de rappel {{selectedItemsManifestation.length>0 ? "("+selectedItemsManifestation.length+")":""}}
+              </button>
+            </div>
+            
+          </div>
+          
+          <div class="col-sm-5 justify-content-end" style="margin-bottom: 15px;">
+            <c-badge class="badge-info" *ngIf="countNonInscrit()>1">
+              <svg cIcon name="cil-info" size="l" title="Action"></svg>
+              {{ countNonInscrit() }} personnes intéressées ne se sont pas encore inscrites
+            </c-badge>
+            <c-badge class="badge-info" *ngIf="countNonInscrit()==1">
+              <svg cIcon name="cil-info" size="l" title="Action"></svg>
+              {{ countNonInscrit() }} personnes intéressées ne se sont pas encore inscrites
+            </c-badge>
+          </div>
+
+          <div class="table-responsive">
+            <table cTable>
+              <thead>
+                <tr cTableColor="light">
+                  <th scope="col">
+                    <c-form-check>
+                      <input
+                        cFormCheckInput
+                        id="checkAll"
+                        type="checkbox"
+                        [(ngModel)]="isCheckedAll"
+                        (change)="selectAll()"
+                      />
+                    </c-form-check>
+                  </th>
+                  <th scope="col">Nom</th>
+                  <th scope="col">Prénom(s)</th>
+                  <th scope="col">Date de contact</th>
+                  <th scope="col">Parcours souhaité</th>
+                  <th scope="col">Niveau souhaité</th>
+                  <th scope="col" class="text-center">Statut</th>
+                  <th scope="col" class="text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let rowData of listeManifestation">
+                  <td class="text-center">
+                    <c-form-check>
+                      <input
+                        cFormCheckInput
+                        type="checkbox"
+                        [(ngModel)]="rowData.isSelected"
+                        (change)="onCheckboxChange(rowData)"
+                        [disabled]="isInscrit(rowData.statutConcours!)"
+                      />
+                    </c-form-check>
+                  </td>
+                  <td class="text-nowrap">{{ rowData.nom }}</td>
+                  <td>{{ rowData.prenom }}</td>
+                  <td class="text-nowrap">{{ formatedDate2(rowData.dateManifestation!) }}</td>
+                  <td>{{ rowData.nomParcours }}</td>
+                  <td>{{ formatedNomNiveau(rowData.nomNiveau!) }}</td>
+                  <td class="text-center">
+                    <c-badge
+                      [color]="isInscrit(rowData.statutConcours!) ? 'success' : 'warning'"
+                      >{{ rowData.statutConcours | titlecase }}
+                    </c-badge>
+                  </td>
+                  <td class="text-nowrap text-center" style="max-width: 190px;">
+                    <c-row class="no-gutters justify-content-center align-items-center">
+                      <c-col class="col-sm-4">
+                        <a cButton color="light" variant="ghost" 
+                        (click)="toggleLiveUpdate(rowData)"
+                        style="cursor: pointer; color: #5856d6;"
+                        cTooltip="Modifier" cTooltipPlacement="top">
+                          <svg cIcon name="cil-pencil" size="l" title="Action"></svg>
+                        </a>
+                      </c-col>
+                      <c-col class="col-sm-4">
+                        <a [cModalToggle]="verticallyCenteredModal.id" 
+                        cButton color="light" variant="ghost"
+                        (click)="getFicheManifestation(rowData)"
+                        style="cursor: pointer; color: #5856d6;"
+                        cTooltip="Voir fiche" cTooltipPlacement="top">
+                          <svg cIcon name="cil-search" size="l" title="Action"></svg>
+                        </a>
+                      </c-col>
+                      <c-col class="col-sm-4">
+                        <a cButton color="light" variant="ghost" 
+                        *ngIf="!isInscrit(rowData.statutConcours!)"
+                        (click)="sendEmail(rowData.idManifestation!)"
+                        style="cursor: pointer; color: #5856d6;"
+                        cTooltip="Envoyer un mail" cTooltipPlacement="top">
+                          <svg cIcon name="cil-envelope-closed" size="l" title="Action"></svg>
+                        </a>
+                      </c-col>
+                    </c-row>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+          
+            <c-pagination aria-label="Page navigation example" cla>
+              <li cPageItem>
+                <a cPageLink (click)="previous()">Précédent</a>
+              </li>
+              <li cPageItem *ngFor="let item of  [].constructor(pageNumber); let i = index"  [active]="i+1==page">
+                <a cPageLink (click)="chercherPage(i+1)">{{i+1}}</a>
+              </li>
+              <li cPageItem>
+                <a cPageLink (click)="next()">Suivant</a>
+              </li>
+            </c-pagination>
+
+        </c-card-body>
+      </c-card>
+  </c-col>
+</c-row>
+
+<c-modal #verticallyCenteredModal alignment="center" id="verticallyCenteredModal">
+  <c-modal-header>
+    <span cModalTitle>
+      <img alt="Nouvel manifestation" src="./assets/icon/icons8-file.svg" style="
+        border-radius: 10px;
+        border: 1px solid #E4E7EC;
+        background: #FFF;
+        padding: 8px;
+        margin-right: 10px;">      
+    </span>
+    <span>
+      <h5>Fiche détaillée</h5>
+      <span>Voir les informations sur l’étudiant(e)</span>
+    </span>
+    <button [cModalToggle]="verticallyCenteredModal.id" cButtonClose></button>
+
+  </c-modal-header>
+
+  <c-modal-body>
+    <c-row class="align-items-center">
+      <c-col class="col-sm-4">
+        <label cLabel="col" for="inputPassword-3"> Nom(s) : </label>
+      </c-col>
+      <c-col class="col-sm-8">
+        <span cFormText id="passwordHelpInline-3" class="text-black">
+          {{ manifestation!.nom }}
+        </span>
+      </c-col>
+    </c-row>
+    <br>
+    <c-row class="align-items-center">
+      <c-col class="col-sm-4">
+        <label cLabel="col" for="inputPassword-3"> Prénom(s) : </label>
+      </c-col>
+      <c-col class="col-sm-8">
+        <span cFormText id="passwordHelpInline-3" class="text-black">
+          {{ manifestation!.prenom }}
+        </span>
+      </c-col>
+    </c-row>
+    <br>
+    <c-row class="align-items-center">
+      <c-col class="col-sm-4">
+        <label cLabel="col" for="inputPassword-3"> Date de naissance : </label>
+      </c-col>
+      <c-col class="col-sm-8">
+        <span cFormText id="passwordHelpInline-3" class="text-black">
+          {{ formatedDate(manifestation!.dateNaissance!, true) }}
+        </span>
+      </c-col>
+    </c-row>
+    <br>
+    <c-row class="align-items-center">
+      <c-col class="col-sm-4">
+        <label cLabel="col" for="inputPassword-3"> Adresse e-mail : </label>
+      </c-col>
+      <c-col class="col-sm-8">
+        <span cFormText id="passwordHelpInline-3" class="text-primary">
+          {{ manifestation!.email }}
+        </span>
+      </c-col>
+    </c-row>
+    <br>
+    <c-row class="align-items-center">
+      <c-col class="col-sm-4">
+        <label cLabel="col" for="inputPassword-3"> Contact téléphonique : </label>
+      </c-col>
+      <c-col class="col-sm-8">
+        <span cFormText id="passwordHelpInline-3" class="text-black">
+          {{ manifestation!.contact }}
+        </span>
+      </c-col>
+    </c-row>
+    <br>
+    <c-row class="align-items-center">
+      <c-col class="col-sm-4">
+        <label cLabel="col" for="inputPassword-3"> Etablissement d'origine : </label>
+      </c-col>
+      <c-col class="col-sm-8">
+        <span cFormText id="passwordHelpInline-3" class="text-black">
+          {{ manifestation!.nomEtablissement }}
+        </span>
+      </c-col>
+    </c-row>
+    <br>
+    <c-row class="align-items-center">
+      <c-col class="col-sm-4">
+        <label cLabel="col" for="inputPassword-3"> Niveau souhaité : </label>
+      </c-col>
+      <c-col class="col-sm-8">
+        <span cFormText id="passwordHelpInline-3" class="text-black">
+          {{ manifestation!.nomNiveau! }}
+        </span>
+      </c-col>
+    </c-row>
+    <br>
+    <c-row class="align-items-center">
+      <c-col class="col-sm-4">
+        <label cLabel="col" for="inputPassword-3"> Parcours souhaité : </label>
+      </c-col>
+      <c-col class="col-sm-8">
+        <span cFormText id="passwordHelpInline-3" class="text-black">
+          {{ manifestation!.nomParcours! }}
+        </span>
+      </c-col>
+    </c-row>
+    <br>
+    <c-row class="align-items-center">
+      <c-col class="col-sm-4">
+        <label cLabel="col" for="inputPassword-3"> Ville de contact : </label>
+      </c-col>
+      <c-col class="col-sm-8">
+        <span cFormText id="passwordHelpInline-3" class="text-black">
+          {{ manifestation!.nomVilleContact }}
+        </span>
+      </c-col>
+    </c-row>
+    <br>
+    <c-row class="align-items-center">
+      <c-col class="col-sm-4">
+        <label cLabel="col" for="inputPassword-3"> Date de contact : </label>
+      </c-col>
+      <c-col class="col-sm-8">
+        <span cFormText id="passwordHelpInline-3" class="text-black">
+          {{ formatedDate(manifestation!.dateManifestation!, false) }}
+        </span>
+      </c-col>
+    </c-row>
+    <br>
+  </c-modal-body>
+</c-modal>
+
+<app-update 
+  [showUpdate]="showUpdate" 
+  (close)="handleLiveUpdateChange($event)" 
+  (openMessage)="openMessage()" 
+  (message)="setMessage($event)" 
+  [manifestation]="manifestation"></app-update>
+<app-message [show]="show"
+  [message]="message"
+></app-message>

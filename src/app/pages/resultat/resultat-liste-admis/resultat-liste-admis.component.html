@@ -1,0 +1,92 @@
+<c-row ngPreserveWhitespaces>
+    <c-col>
+      <h4>Liste des élèves admis au concours</h4>
+        <c-card>
+          <c-card-body>
+            <div class="row w-100 " style="margin-bottom: 16px;">
+              <div class="col-sm-12 d-flex gap-2">
+                <select 
+                    aria-label="Default select example" 
+                    cSelect 
+                    (change)="chercherFiliere($event)">
+                    <option value="">Choisissez une option</option>
+                    <option *ngFor="let filiere of listeFiliere" [value]="filiere.nom">
+                      {{ filiere.nom }}
+                    </option>
+                  </select>
+
+                  <select 
+                    aria-label="Default select example" 
+                    cSelect 
+                    (change)="chercherNiveau($event)">
+                    <option value="">Choisissez un niveau</option>
+                    <option *ngFor="let niveau of listeNiveau" [value]="niveau.nom">
+                      {{ niveau.nom }}
+                    </option>
+                  </select>
+  
+                  <input cFormControl
+                        id="exampleFormControlInput1"
+                        placeholder="Recherche"
+                        type="text"
+                        style="max-width: 220px;"
+                        [(ngModel)]="searchValue" 
+                        (keydown.enter)="chercher()"
+                  />
+                
+              </div>
+              
+            </div>
+
+            <div class="table-responsive">
+              <table cTable>
+                <thead>
+                <tr cTableColor="light">
+                    <th scope="col">Nom(s) et prénom(s)</th>
+                    <th scope="col">Filiere</th>
+                    <th scope="col">Niveau</th>
+                    <th scope="col">Statut</th>
+                    <th scope="col" class="text-center">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let rowData of etudiants">
+                        <td>{{ rowData.participant }} </td>
+                        <td>{{ rowData.filiere }}</td>
+                        <td>{{ rowData.niveau }}</td>
+                        <td>
+                          <c-badge [color]="getStatusSeverity(rowData.statusEleve!)">{{ rowData.statusEleve | titlecase }}</c-badge>
+                        </td>
+                        <td class="text-center"><input cButton color="primary" type="submit" value="Inscription definitive" (click)="goToInscriptionDefinitive(rowData.idConcours)"/></td>
+                    </tr>
+                </tbody>
+              </table>
+
+            </div>
+
+            <app-modal-inscription-definitive [showModalInscriDef]="showModalInscriDef" (close)="handleLiveDemoChangeModalInscriDef($event)"></app-modal-inscription-definitive>
+
+            <c-pagination align="center" aria-label="Page navigation example" style="cursor: pointer;">
+                <li cPageItem [disabled]="disableprevious">
+                  <a cPageLink aria-label="Previous" 
+                  (click)="onPreviousChange()">
+                      <span>Précédent</span>
+                  </a>
+                </li>
+                <li cPageItem *ngFor="let page of nombrePage"
+                [class.active]="page - 1 === pageActuelle">
+                  <a cPageLink (click)="onPageChange(page-1)" >{{page}}</a>
+                </li>
+                <li cPageItem [disabled]="disablenext">
+                  <a cPageLink aria-label="Next" 
+                  (click)="onNextChange()">
+                      <span>Suivant</span>
+                  </a>
+                </li>
+              </c-pagination>
+
+          </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>
+

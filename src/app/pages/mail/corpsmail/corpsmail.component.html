@@ -1,0 +1,43 @@
+<c-row ngPreserveWhitespaces>
+    <c-col xs="12">
+        <h3 class="mb-3">Configurez le coprs d'un mail pour envoyer aux étudiants.</h3>
+        <c-card class="mb-4">
+        
+            <c-card-body class="p-4">
+               
+
+                <div class="d-flex justify-content-center">
+                    <div class="table-responsive w-100">
+                        <table cTable class="w-100">
+                            <thead>
+                                <tr cTableColor="light">
+                                    <th scope="col">Sujet</th>
+                                    <th scope="col">Contenue</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let corpsmail of dataSource ;let i = index " (click)="modifCorpMail(i)">
+                                    <td>{{ corpsmail.description }}</td>
+                                    <td>
+                                        <span [innerHTML]="corpsmail.corps | truncateHtml: 100"></span>
+                                    </td>
+                                    <td><button cButton color="primary" class="w-100 me-2" (click)="voirHistorique(corpsmail.idTemplateMail, corpsmail.description, $event)">Voir historique</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </c-card-body>
+
+            <app-saisie 
+                [showSaisie]="showSaisie" 
+                [selectedCorpsMail]="selectedCorpsMail" 
+                (updatedData)="updateCorpsMail($event)"
+                >
+            </app-saisie>
+
+        </c-card>
+    </c-col>
+</c-row>

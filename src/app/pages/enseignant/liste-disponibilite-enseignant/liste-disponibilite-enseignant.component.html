@@ -1,0 +1,70 @@
+<c-row ngPreserveWhitespaces>
+    <c-col>
+        <c-card>
+        
+          <c-card-body>
+
+            <div class="row w-100 " style="margin-bottom: 16px;">
+              <div class="col-sm-12 d-flex gap-2">
+                <div>
+                    <p-calendar 
+                      [(ngModel)]="dateRange" 
+                      selectionMode="range"
+                      dateFormat="dd/mm/yy"
+                      placeholder="filtrer par date"
+                      [style]="{'height':'38px'}"
+                      (keydown.enter)="filterListeEnseignant()"
+                    ></p-calendar>
+                  </div>
+              </div>
+              
+            </div>
+
+            <div class="table-responsive">
+              <table cTable>
+                <thead>
+                <tr cTableColor="light">
+                    <th scope="col">Enseignant</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Début</th>
+                    <th scope="col">fin</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let rowData of listeEnseignant">
+                        <td>{{ rowData.enseignant }} </td>
+                        <td>{{ rowData.dateDisponibiliter }}</td>
+                        <td>{{ rowData.heureDebut }}</td>
+                        <td>{{ rowData.heureFin }}</td>
+                    </tr>
+                </tbody>
+              </table>
+
+            </div>
+
+            
+
+            <c-pagination align="center" aria-label="Page navigation example" style="cursor: pointer;">
+                <li cPageItem [disabled]="disableprevious">
+                  <a cPageLink aria-label="Previous" 
+                  (click)="onPreviousChange()">
+                      <span>Précédent</span>
+                  </a>
+                </li>
+                <li cPageItem *ngFor="let page of nombrePage"
+                [class.active]="page - 1 === pageActuelle">
+                  <a cPageLink (click)="onPageChange(page-1)" >{{page}}</a>
+                </li>
+                <li cPageItem [disabled]="disablenext">
+                  <a cPageLink aria-label="Next" 
+                  (click)="onNextChange()">
+                      <span>Suivant</span>
+                  </a>
+                </li>
+              </c-pagination>
+
+          </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>
+

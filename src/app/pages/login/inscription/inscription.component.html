@@ -1,0 +1,95 @@
+<div
+  class="dark:bg-transparent min-vh-100 d-flex flex-row align-items-center"
+  style="background: linear-gradient(to right, #162e52, #2a76a6, #00a49e);"
+>
+  <c-container breakpoint="md">
+    <c-row class="justify-content-center">
+      <c-col lg="10" xl="8">
+        <c-card-group class="align-items-center">
+          <c-card
+            [ngStyle]="{
+              'minWidth.%': 44
+            }"
+            class="text-white py-5"
+            style="background: transparent; border: none;"
+          >
+            <c-card-body class="text-center">
+              <h1>Garage Mecanique</h1>
+              <h5>Gestion de parc automobile</h5>
+            </c-card-body>
+          </c-card>
+
+          <c-card class="p-4" [ngStyle]="{ 'border-radius': '20px' }">
+            <c-card-body>
+              <form cForm [formGroup]="inscriptionForm" (ngSubmit)="onInscription()">
+                <h1 style="color: #162e52;">Inscription</h1>
+                <p class="text-body-secondary">Create your account</p>
+
+                <label for="">Nom</label>
+                <input type="text" cFormControl placeholder="Nom" formControlName="nom">
+
+                <label for="">Prénom</label>
+                <input type="text" cFormControl placeholder="Prenom" formControlName="prenom">
+
+                <label for="">Email</label>
+                <input type="email" cFormControl placeholder="Email" formControlName="email">
+
+                <label for="">Téléphone</label>
+                <input type="phone" cFormControl placeholder="034 00 000 00" formControlName="telephone">
+
+                <c-input-group class="mb-3">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilUser"></svg>
+                  </span>
+                  <input
+                    autoComplete="login"
+                    cFormControl
+                    placeholder="Login"
+                    formControlName="login"
+                  />
+                  <div
+                    *ngIf="
+                      loginForm.get('login')?.invalid &&
+                      loginForm.get('login')?.touched
+                    "
+                    class="error"
+                  >
+                    Login requise
+                  </div>
+                </c-input-group>
+                <c-input-group class="mb-4">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilLockLocked"></svg>
+                  </span>
+                  <input
+                    autoComplete="mot-de-passe"
+                    cFormControl
+                    placeholder="Mot de passe"
+                    type="password"
+                    formControlName="motDePasse"
+                  />
+                  <div
+                    *ngIf="
+                      loginForm.get('motDePasse')?.invalid &&
+                      loginForm.get('motDePasse')?.touched
+                    "
+                    class="error"
+                  >
+                    Mot de passe requise
+                  </div>
+                </c-input-group>
+                <c-row>
+                  <c-col xs="6">
+                    <button cButton class="px-4" type="submit" style="background-color: #162e52; border-color: #162e52;">
+                      S'inscrire
+                    </button>
+                  </c-col>
+                </c-row>
+              </form>
+            </c-card-body>
+          </c-card>
+        </c-card-group>
+      </c-col>
+    </c-row>
+  </c-container>
+</div>

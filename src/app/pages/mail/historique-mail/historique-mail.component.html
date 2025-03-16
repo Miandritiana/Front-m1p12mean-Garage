@@ -1,0 +1,42 @@
+<c-row ngPreserveWhitespaces>
+    <c-col xs="12">
+        <c-card class="mb-4">
+        
+            <c-card-body class="p-4">
+                <h3 class="mb-3">Sujet : {{ description }}</h3>
+
+                <div class="d-flex justify-content-center">
+                    <div class="table-responsive w-100">
+                        <table cTable class="w-100">
+                            <thead>
+                                <tr cTableColor="light">
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Modifé par</th>
+                                    <th scope="col">Objet</th>
+                                    <th scope="col">Corps</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let histomail of historiqueMails" (click)="apercuHisto(histomail)">
+                                    <td>{{ histomail.dateSaisie | date: 'dd/MM/yyyy HH:mm'}}</td>
+                                    <td>{{ histomail.pat }}</td>
+                                    <td>{{ histomail.objet }}</td>
+                                    <td>
+                                        <span [innerHTML]="histomail.corps | truncateHtml: 100"></span>
+                                    </td>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </c-card-body>
+        </c-card>
+
+        <app-historique-apercu 
+            [showHistoApercu]="showHistoApercu" 
+            [objet]="objet" 
+            [corps]="corps"
+            [idTempalteMailEnvoye]="idTemplateMailEnvoye">
+        </app-historique-apercu>
+
+    </c-col>
+</c-row>

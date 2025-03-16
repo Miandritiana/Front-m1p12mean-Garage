@@ -1,0 +1,24 @@
+
+td,th{
+    padding: 1.5rem;
+ }
+ .c-dropdown-toggle::after {
+    display: none !important; /* Cacher l'icône de flèche */
+}
+
+.filtre{
+    padding: 1rem;
+}
+
+.button-appliquer{
+    margin-top: 1rem;
+    width: 100%;
+}
+.badge-recherche{
+    margin-bottom:5px;
+}
+.icon:not(.icon-c-s):not(.icon-custom-size) {
+    width: 12px;
+    height: 12px;
+    font-size: 12px;
+}

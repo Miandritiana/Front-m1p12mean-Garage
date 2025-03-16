@@ -1,0 +1,60 @@
+<div class="text-center">
+
+  <div class="col-sm-10 d-flex mb-3 justify-content-end">
+    <button cButton color="primary" color="primary" (click)="toggleLiveDemoSaisie()">
+      <svg cIcon name="cil-plus" size="l" title="Action"></svg>
+      Ajouter
+    </button>
+    <app-saisie [showSaisie]="showSaisie" (close)="handleLiveDemoChangeSaisie($event)"></app-saisie>
+  </div>
+   
+<c-row ngPreserveWhitespaces>
+ <c-col xs="10">
+        <c-card class="mb-4">
+        
+          <c-card-body>
+
+            <div class="table-responsive">
+              <table cTable >
+                <thead>
+                <tr cTableColor="light">
+                    <th scope="col">Id</th>
+                    <th scope="col">Date concours</th>
+                    <th scope="col">Année scolaire</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let rowData of dataSource">
+                    <td>{{ rowData.idCalendrierConcours }} </td>
+                    <td>{{ formatedDate(rowData.dateConcours) }}</td>
+                    <td>{{ rowData.anneeScolaire }}</td>
+                </tbody>
+              </table>
+            </div>
+
+            <app-update 
+              [showUpdate]="showUpdate" 
+              [dateConcours]="selectedDateConcours" 
+              [id]="selectedId" 
+              (close)="handleLiveDemoChangeUpdate($event)">
+            </app-update>
+            
+              <c-pagination aria-label="Page navigation example" cla>
+                <li cPageItem>
+                  <a cPageLink (click)="previous()">Previous</a>
+                </li>
+                <li cPageItem *ngFor="let item of  [].constructor(pageNumber); let i = index"  [active]="i+1==page">
+                  <a cPageLink (click)="chercherPage(i+1)">{{i+1}}</a>
+                </li>
+                <li cPageItem>
+                  <a cPageLink (click)="next()">Next</a>
+                </li>
+              </c-pagination>
+
+          </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>
+
+</div>
+

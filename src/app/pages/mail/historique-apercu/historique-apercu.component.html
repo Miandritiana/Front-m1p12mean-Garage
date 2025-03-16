@@ -1,0 +1,18 @@
+<c-modal id="liveDemoModal" [visible]="showHistoApercu" alignment="center" size="lg">
+
+    <c-modal-header>
+        <h3>Objet : {{ objet }}</h3>
+        <button (click)="toggleLiveDemo()" cButtonClose></button>
+    </c-modal-header>
+
+    <c-modal-body class="p-4">
+        <p [innerHTML]="corps"></p>
+
+        <div class="d-flex justify-content-center gap-2 mt-3">
+            <button cButton color="light" (click)="backToList()" class="w-100 me-2">Annuler</button> 
+            <button class="text-white w-100" cButton color="primary" (click)="restaurer()">Restaurer</button>
+        </div>
+
+    </c-modal-body>
+
+</c-modal>

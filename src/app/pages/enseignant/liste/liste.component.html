@@ -1,0 +1,85 @@
+<c-row ngPreserveWhitespaces>
+    <c-col xs="12">
+        <c-card class="mb-4">
+        
+          <c-card-body>
+
+            <div class="row mb-4">
+              <div class="col-6 d-flex" >
+                <input cFormControl
+                      id="exampleFormControlInput1"
+                      placeholder="Recherche"
+                      type="text"
+                      [(ngModel)]="recherche" 
+                      (click)="getData()"
+                      (keydown.enter) = "getData()"
+                      class="w-100"
+                />
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table cTable >
+                <thead>
+                <tr cTableColor="light">
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prenom</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let rowData of dataSource">
+                      <td>{{ rowData.nom }} </td>
+                      <td>{{ rowData.prenom }}</td>
+                      <td class="text-center">
+                        <c-dropdown>
+                          <!-- Dropdown Toggle -->
+                          <a 
+                            cDropdownToggle
+                            class="btn btn-light btn-sm p-2 d-inline-flex align-items-center justify-content-center custom-dropdown-toggle"
+                          >
+                            <svg cIcon name="cil-options" size="lg" title="Options"></svg>
+                          </a>
+                      
+                          <!-- Dropdown Menu -->
+                          <ul cDropdownMenu class="dropdown-menu dropdown-menu-start">
+                            <li (click)="redirectDisponible(rowData.idEnseignant)">
+                              <a 
+                                cDropdownItem 
+                                class="d-flex align-items-center"
+                                style="cursor: pointer;"
+                              >
+                                <svg cIcon name="cil-pencil" size="lg" class="me-2" title="Insertion"></svg>
+                                Insertion disponibilité
+                              </a>
+                            </li>
+                          </ul>
+                        </c-dropdown>
+                      </td>
+                    </tr>
+                <tr>
+                </tbody>
+              </table>
+
+            </div>
+
+
+            
+              <c-pagination aria-label="Page navigation example" cla>
+                <li cPageItem>
+                  <a cPageLink (click)="previous()">Previous</a>
+                </li>
+                <li cPageItem *ngFor="let item of  [].constructor(pageNumber); let i = index"  [active]="i+1==page">
+                  <a cPageLink (click)="chercherPage(i+1)">{{i+1}}</a>
+                </li>
+                <li cPageItem>
+                  <a cPageLink (click)="next()">Next</a>
+                </li>
+              </c-pagination>
+
+          </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>
+
+

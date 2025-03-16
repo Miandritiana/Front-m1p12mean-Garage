@@ -1,0 +1,191 @@
+<c-row ngPreserveWhitespaces>
+    <c-col>
+      <h4>Résultat du concours</h4>
+        <c-card>
+          <c-card-body>
+            <div class="row w-100 " style="margin-bottom: 16px;">
+             
+              <div class="col-sm-12 d-flex gap-4">
+                <!-- Filter Button with Icon -->
+                <div class="dropdown">
+
+                  <p-button
+                  (click)="toggleDropdown()"
+                  [style]="{
+                    'background-color': '#565f6a', 
+                    'color': 'white',
+                    'border-radius':'6px',
+                    'height': '38px'}"
+                  severity="secondary"
+                >
+                  <svg cIcon name="cil-filter" size="l" title="Action"></svg>
+                  filtre
+                </p-button>
+              
+                  <div class="dropdown-menu p-3" [ngClass]="{ 'show': isDropdownOpen }">
+                    <!-- Select Filière -->
+                    <label for="filiere" class="form-label">Parcours</label>
+                    <select id="filiere" [(ngModel)]="filiere" class="form-select">
+                      <option value="">Tous</option>
+                      <option *ngFor="let filiere of listeFiliere" [value]="filiere.idFiliere">
+                        {{ filiere.nom }}
+                      </option>
+                    </select>
+              
+                    <!-- Select Niveau -->
+                    <label for="niveau" class="form-label mt-2">Niveau</label>
+                    <select id="niveau" [(ngModel)]="niveau" class="form-select">
+                      <option value="">Tous</option>
+                      <option *ngFor="let niveau of listeNiveau" [value]="niveau.idNiveau">
+                        {{ niveau.nom }}
+                      </option>
+                    </select>
+              
+                    <!-- Dropdown for État -->
+                    <label class="form-label mt-2">État</label>
+                    <div class="custom-dropdown" (click)="toggleEtatDropdown($event)">
+                      <div class="selected-option">
+                        {{ selectedEtat?.nom || 'Tous' }}
+                        <i class="bi bi-chevron-down"></i>
+                      </div>
+                      <div class="dropdown-options" *ngIf="isEtatDropdownOpen">
+                        <div *ngFor="let etat of listeEtat" (click)="setTempEtat(etat)">
+                          <c-badge [color]="getStatusSeverity(etat.badge!)">{{ etat.nom | titlecase }}</c-badge>
+                        </div>
+                        <div class="text-primary mt-1" (click)="clearEtat($event)">Tous</div>
+                      </div>
+                    </div>
+              
+                    <!-- Apply Button -->
+                    <button class="btn btn-primary w-100 mt-3" (click)="applyFilters()">Appliquer</button>
+                  </div>
+                </div>
+              
+                <!-- Search Input -->
+                <input 
+                  class="form-control"
+                  placeholder="Recherche"
+                  type="text"
+                  style="max-width: 220px;"
+                  [(ngModel)]="recherche"
+                  (keydown.enter)="getData()"
+                />
+              </div>
+              
+              
+            </div>
+
+            <div class="table-responsive">
+              <table cTable >
+                <thead>
+                <tr cTableColor="light">
+                    <th scope="col">Nom(s) et prénom(s)</th>
+                    <th scope="col">Filiere</th>
+                    <th scope="col">Niveau</th>
+                    <th scope="col">Note oral</th>
+                    <th scope="col">Note ecrit</th>
+                    <th scope="col">Moyenne</th>
+                    <th scope="col" style="white-space: nowrap;">DAAQP</th>
+                    <th scope="col" style="white-space: nowrap;">DE</th>
+                    <th scope="col" style="white-space: nowrap;">DAR</th>
+                    <th scope="col">Resultat</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let rowData of dataSource">
+                      <td>{{ rowData.participant }} </td>
+                      <td>{{ rowData.filiere }}</td>
+                      <td>{{ rowData.niveau }}</td>
+                      <td>{{ rowData.noteEntretien==0?"": rowData.noteEntretien}}</td>
+                      <td>{{ rowData.noteEssai==0?"":rowData.noteEssai  }}</td>
+                      <td>{{ rowData.moyenne==0?"":rowData.moyenne  }}</td>
+                      <!-- <td>
+                        <c-badge [color]="getStatusSeverity(rowData.etat!)">{{ rowData.etat | titlecase }}</c-badge>
+                      </td>
+                      <td class="text-center" style="cursor: pointer;">
+                        <c-dropdown [class.disabled]="rowData.etat === 'admis' || rowData.etat === 'non-admis'">
+                            <a cDropdownToggle color="secondary" 
+                            class="custom-dropdown-toggle text-center"
+                            [attr.disabled]="rowData.etat === 'admis' || rowData.etat === 'non-admis' ? true : null">
+                                <svg cIcon name="cil-options" size="l" title="Action"></svg>
+                            </a>
+                            <ul cDropdownMenu>
+                              <li>
+                                <a cDropdownItem  
+                                (click)="accepterConcours(rowData.idConcours)">
+                                  <svg cIcon name="cil-check" size="l" title="Action"></svg>
+                                  Admis 
+                                </a>
+                              </li>
+                              <div >
+                                <li><a cDropdownItem
+                                  (click)="refuserConcours(rowData.idConcours)">
+                                  <svg cIcon name="cil-x" size="l" title="Action"></svg>
+                                  Non-admis</a></li>
+                              </div>
+                              <ng-template #nonInscritBlock>
+                                <li>
+                                  <a  cDropdownItem>
+                                    <svg cIcon name="cil-find-in-page" size="l" title="Action"></svg>
+                                    Voir candidature</a></li>
+                              </ng-template>
+                            </ul>
+                        </c-dropdown>
+                      </td> -->
+                      <td style="white-space: nowrap;">
+                        <button cButton color="success" variant="ghost">
+                          <svg cIcon name="cil-check" size="l" title="Action" 
+                          style="color: black;"></svg>
+                        </button>
+                        <button cButton color="danger" variant="ghost">
+                          <svg cIcon name="cil-x" size="l" title="Action" 
+                          style="color: black;"></svg>
+                        </button>
+                      </td>
+                      <td style="white-space: nowrap;">
+                        <button cButton color="success" variant="ghost">
+                          <svg cIcon name="cil-check" size="l" title="Action" 
+                          style="color: green;"></svg>
+                        </button>
+                        <button cButton color="danger" variant="ghost">
+                          <svg cIcon name="cil-x" size="l" title="Action" 
+                          style="color: black;"></svg>
+                        </button>
+                      </td>
+                      <td style="white-space: nowrap;">
+                        <button cButton color="success" variant="ghost">
+                          <svg cIcon name="cil-check" size="l" title="Action" 
+                          style="color: black;"></svg>
+                        </button>
+                        <button cButton color="danger" variant="ghost">
+                          <svg cIcon name="cil-x" size="l" title="Action" 
+                          style="color: red;"></svg>
+                        </button>
+                      </td>
+                      <td style="color: green;">
+                        <c-badge [color]="getStatusSeverity(rowData.etat!)">{{ rowData.etat | titlecase }}</c-badge>
+                      </td>
+                    </tr>
+                    <tr>
+                </tbody>
+              </table>
+
+            </div>
+
+              <c-pagination aria-label="Page navigation example" cla>
+                <li cPageItem>
+                  <a cPageLink (click)="previous()">Previous</a>
+                </li>
+                <li cPageItem *ngFor="let item of  [].constructor(pageNumber); let i = index"  [active]="i+1==page">
+                  <a cPageLink (click)="chercherPage(i+1)">{{i+1}}</a>
+                </li>
+                <li cPageItem>
+                  <a cPageLink (click)="next()">Next</a>
+                </li>
+              </c-pagination>
+
+          </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>
+

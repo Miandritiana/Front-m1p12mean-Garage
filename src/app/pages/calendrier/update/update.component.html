@@ -1,0 +1,28 @@
+<c-modal id="liveDemoModal" [visible]="showUpdate">
+    <c-modal-header> 
+          <button (click)="toggleLiveDemo()" cButtonClose></button>
+    </c-modal-header>
+
+    <c-modal-body class="p-4">
+      <form [formGroup]="form" (ngSubmit)="save()">
+
+        <c-row>
+          <p class="text-start mb-1">ID : {{ id }}</p>
+          <input type="hidden" name="id" [value]="id">
+          <label cLabel for="exampleFormControlInput1">Date concours</label>
+          <input
+            cFormControl
+            formControlName="dateConcours"
+            type="date"
+          />
+        </c-row>
+    
+        <c-row>
+          <c-col xs="12" style="margin-top: 15px; margin-bottom: 15px;">
+            <button cButton color="primary" type="submit" class="w-100">Enregistrer</button>
+          </c-col>
+        </c-row>
+      </form>
+    </c-modal-body>          
+
+</c-modal>

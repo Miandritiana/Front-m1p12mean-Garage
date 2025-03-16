@@ -1,0 +1,40 @@
+<c-modal id="liveDemoModal" [visible]="showSaisie" alignment="center" size="lg">
+
+    <c-modal-header>
+        <h3>{{ selectedCorpsMail?.description }}</h3>
+        <button (click)="toggleLiveDemo()" cButtonClose></button>
+    </c-modal-header>
+
+    <c-modal-body class="p-4">
+        <form [formGroup]="editorForm" (ngSubmit)="save()">
+            <c-input-group class="mb-3">
+                <span cInputGroupText id="basic-addon1" >Objet</span>
+                <input aria-describedby="basic-addon1"
+                       cFormControl
+                       placeholder="Username"
+                       formControlName="objet"
+                />
+              </c-input-group>
+              <editor 
+              apiKey="xzwz4i3j3fsvrhlg9pwraswwbkr5cdxgie18ete1ckjewo3b"
+              [init]="{
+                  plugins: ['lists', 'link', 'textcolor', 'insertdatetime', 'wordcount'],
+                  toolbar: 'undo redo | styleselect | bold italic | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | link',
+                  menubar: false,
+                  statusbar: false,
+                  toolbar_mode: 'floating'
+              }"
+              #editor
+              formControlName="corps"
+          />
+
+            <div class="d-flex justify-content-center gap-2 mt-3">
+                <button cButton color="light" (click)="backToList()" class="w-100 me-2">Annuler</button> 
+                <button class="text-white w-100" cButton color="primary" (click)="save()">Modifier</button>
+            </div>
+
+        </form>
+
+    </c-modal-body>
+
+</c-modal>

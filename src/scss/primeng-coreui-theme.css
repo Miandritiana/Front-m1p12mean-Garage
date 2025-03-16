@@ -1,0 +1,17 @@
+:root {
+    /* Couleur principale de PrimeNG, reliée à la couleur de CoreUI */
+    --primary-color: var(--cui-primary);
+    --primary-dark-color: #4b4acc; /* Vous pouvez ajuster si nécessaire */
+    --primary-light-color: #7a79e0;
+    
+    /* Texte, arrière-plan et bordures */
+    --text-color: #495057;
+    --surface-border: #ced4da;
+    --border-radius: 0.25rem;
+
+    /* Couleurs des états */
+    --success-color: #198754;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --info-color: #0dcaf0;
+}

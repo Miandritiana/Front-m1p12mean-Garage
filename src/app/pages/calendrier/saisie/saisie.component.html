@@ -1,0 +1,36 @@
+<c-modal id="liveDemoModal" [visible]="showSaisie" alignment="center">
+  <c-modal-header> 
+    <button (click)="toggleLiveDemo()" cButtonClose></button>
+  </c-modal-header>
+
+  <c-modal-body>
+    <form [formGroup]="form" (ngSubmit)="save()" novalidate>
+      <label cLabel for="exampleFormControlInput1">Date concours</label>
+
+      <!-- Champ calendrier relié au formulaire -->
+      <p-calendar 
+        formControlName="dateConcours"
+        selectionMode="multiple"
+        dateFormat="dd/mm/yy"
+        placeholder="Filtrer par date"
+        (onSelect)="updateChips()"
+        [style]="{'height':'38px'}">
+      </p-calendar>
+
+      <!-- Affichage des dates sélectionnées sous forme de chips -->
+      <div *ngIf="formattedDates.length > 0">
+        <p-chip *ngFor="let date of formattedDates; let i = index" [label]="date">
+          <button (click)="removeDate(i)" style="border: none; background: none; cursor: pointer;">
+            ❌
+          </button>
+        </p-chip>
+      </div>
+
+      <c-row>
+        <c-col xs="12" style="margin-top: 15px; margin-bottom: 15px;">
+          <button cButton color="primary" type="submit" class="w-100">Enregistrer</button>
+        </c-col>
+      </c-row>
+    </form>
+  </c-modal-body>          
+</c-modal>

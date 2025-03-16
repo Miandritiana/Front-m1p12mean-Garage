@@ -1,0 +1,28 @@
+<c-row ngPreserveWhitespaces>
+    <c-col xs="12">
+        <c-card class="mb-4">
+            <c-card-header>
+                <h5> Sujet: {{sujet?.idSujet}}</h5>
+            </c-card-header>
+          <c-card-body>
+            <div>
+              <ul>
+                <li>
+                  <b>Niveau: </b>{{sujet?.niveau}}
+                </li>
+                <li>
+                  <b>Mois: </b>{{sujet?.moisLibelle}}
+                </li>
+                <li>
+                  <b>Année: </b>{{sujet?.annee}}
+                </li>
+              </ul>
+            </div>
+            <div [innerHTML]="this.sujet?.sujet"></div>
+          </c-card-body>
+          <c-card-footer>
+            <button cButton color="warning" class="text-white" (click)="redirigerUpdate()">Modifier</button>
+          </c-card-footer>
+        </c-card>
+    </c-col>
+</c-row>

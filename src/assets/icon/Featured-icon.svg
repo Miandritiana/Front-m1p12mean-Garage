@@ -1,0 +1,12 @@
+<svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Featured icon">
+<rect x="4" y="4" width="48" height="48" rx="24" fill="#FEE4E2"/>
+<rect x="4" y="4" width="48" height="48" rx="24" stroke="#FEF3F2" stroke-width="8"/>
+<g id="Group">
+<path id="Vector" d="M28.4545 34.5C28.4545 34.2239 28.251 34 28 34C27.7489 34 27.5454 34.2239 27.5454 34.5C27.5454 34.7761 27.7489 35 28 35C28.251 35 28.4545 34.7761 28.4545 34.5Z" fill="#D92D20" stroke="#D92D20" stroke-width="2"/>
+<path id="Vector_2" d="M28 38C33.5228 38 38 33.5228 38 28C38 22.4772 33.5228 18 28 18C22.4772 18 18 22.4772 18 28C18 33.5228 22.4772 38 28 38Z" stroke="#D92D20" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_3" d="M28 22V30" stroke="#D92D20" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_4" d="M27.9995 34C28.2505 34 28.454 33.7761 28.454 33.5C28.454 33.2239 28.2505 33 27.9995 33C27.7484 33 27.5449 33.2239 27.5449 33.5C27.5449 33.7761 27.7484 34 27.9995 34Z" stroke="#D92D20" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

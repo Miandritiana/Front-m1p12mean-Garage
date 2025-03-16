@@ -1,0 +1,165 @@
+<c-row ngPreserveWhitespaces>
+    <c-col xs="12">
+      <h4>Gestion de dossier</h4>
+        <c-card class="mb-4">
+        
+          <c-card-body>
+
+            
+            <div class="row w-100 d-flex" style="margin-bottom: 16px;">
+              
+              <div class="col-sm-10 d-flex">
+
+               
+                <!-- Filter Button with Icon -->
+                <div class="dropdown">
+
+                  <p-button
+                  (click)="toggleDropdown()"
+                  [style]="{
+                    'background-color': '#565f6a', 
+                    'color': 'white',
+                    'border-radius':'6px',
+                    'height': '38px'}"
+                  severity="secondary"
+                >
+                  <svg cIcon name="cil-filter" size="l" title="Action"></svg>
+                  filtre
+                </p-button>
+              
+                  <div class="dropdown-menu p-3" [ngClass]="{ 'show': isDropdownOpen }">
+                    <!-- Select Filière -->
+                    <label for="idCampus" class="form-label">Campus</label>
+                    <select id="idCampus" [(ngModel)]="idCampus" class="form-select">
+                      <option value="">Tous</option>
+                      <option *ngFor="let campus of listeCampus" [value]="campus.idCampus">
+                        {{ campus.nomCampus }}
+                      </option>
+                    </select>
+
+                    
+                    <!-- Select Filière -->
+                    <label for="etat" class="form-label">Etat</label>
+                    <select id="etat" [(ngModel)]="etat" class="form-select">
+                      <option *ngFor="let item of filtres" [value]="item.value">
+                        {{ item.label }}
+                      </option>
+                    </select>
+
+
+                    <!-- Apply Button -->
+                     
+                    <button class="btn btn-primary w-100 mt-3" (click)="chercher()">Appliquer</button>
+                  </div>
+                </div>
+
+                <span style="margin-right:5px ;">
+                <p-calendar 
+                  [(ngModel)]="dateRange" 
+                  selectionMode="range"
+                  dateFormat="dd/mm/yy"
+                  placeholder="filtrer par date"
+                  (keydown.enter)="chercher()"
+                  [style]="{'height':'38px' , 'margin-left':'5px'}"
+                ></p-calendar>
+
+                </span>
+
+                
+                <input cFormControl
+                      id="exampleFormControlInput1"
+                      placeholder="Recherche"
+                      type="text"
+                      style="max-width: 220px; height: 38px;"
+                      [(ngModel)]="recherche" 
+                      (keydown.enter)="chercher()"
+                />
+                
+                  
+              </div>
+
+              <div class="col-sm-2 justify-content-end">
+                <c-badge
+                  class="me-2 d-flex align-items-center justify-content-center"
+                  *ngIf="countCheck()>0"
+                  (click)="validerMultiple()"
+                  color="success"
+                  style="cursor: pointer;"
+                >
+                  <h3 class="me-2">{{countCheck()}} </h3> sélectionnés
+                  <svg cIcon name="cil-check" size="l" title="Action" class="me-2 mx-2"></svg>
+                </c-badge>
+              </div>
+              
+            </div>
+            <div  style="margin-bottom: 16px;">
+              <p-chip *ngIf="etat"
+              label="{{findEtatLib()}}"
+              [removable]="true"
+              (onRemove)="onEtatChange($event);chercher()"/>
+  
+            </div>
+            <div class="table-responsive">
+              <table cTable>
+                <thead>
+                <tr cTableColor="light">
+                  <th>#</th>
+                  <th scope="col">Nom(s)</th>
+                  <th scope="col">Prenom(s)</th>
+                  <th scope="col">Campus</th>
+                  <th scope="col">Niveau</th>
+                  <th scope="col">Documents A Revoir</th>
+                  <th scope="col" class="text-center">Statut Candidat</th>
+                  <th scope="col" class="text-center">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let rowData of dataSource1; let i=index">
+                    <td>{{ rowData.idConcours }}</td>
+                    <td>{{ rowData.nom }}</td>
+                    <td>{{ rowData.prenom }}</td>
+                    <td>{{ rowData.nomCampus }}</td>
+                    <td>{{ rowData.abreviationNiveau }}</td>
+                    <td [innerHTML]="formaterheure(getDossierManquantHTML(rowData.dossierInvalide))"
+                    ></td>
+                    
+                  
+                    <td class="text-center">
+                      <c-badge [color]="getColorStatut(rowData.etat!)">
+                        {{ rowData.etatDossier}}</c-badge>
+                    </td>
+                    <td>
+                      
+                          <a (click)="redirigerFiche(rowData.idConcours)"
+                          cButton color="light" variant="ghost"
+                          style="cursor: pointer; color: #5856d6;"
+                          cTooltip="Voir fiche" cTooltipPlacement="top">
+                            <svg cIcon name="cil-search"  size="l" title="Action"></svg>
+                          </a>
+                          
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+
+            
+            <c-pagination aria-label="Page navigation example" cla>
+              <li cPageItem>
+                <a cPageLink (click)="previous()">Previous</a>
+              </li>
+              <li cPageItem *ngFor="let item of  [].constructor(pageNumber); let i = index"  [active]="i+1==page">
+                <a cPageLink (click)="chercherPage(i+1)">{{i+1}}</a>
+              </li>
+              <li cPageItem>
+                <a cPageLink (click)="next()">Next</a>
+              </li>
+            </c-pagination>
+
+          </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>
+
+

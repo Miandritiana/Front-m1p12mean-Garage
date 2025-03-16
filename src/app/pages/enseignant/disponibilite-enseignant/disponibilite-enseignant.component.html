@@ -1,0 +1,97 @@
+<c-row ngPreserveWhitespaces>
+  <c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-body class="p-5">
+        <form cForm [formGroup]="form" (ngSubmit)="save()">
+          <!-- Champ Date -->
+          <div class="mb-4">
+            <label class="label" for="date">Choisir date</label><br>
+           
+            <p-dropdown 
+            [style]="{ width: '100%' }"
+            [options]="calendriers" 
+            formControlName="idCalendrier"
+            optionLabel="dateEntretien" 
+            optionValue="idCalendrier"
+            placeholder="Choisir une date" />
+          </div>
+
+          <c-row class="mb-2">
+            <c-col xs="6">
+              <!-- Champ Heure Début -->
+              <div class="mb-3">
+                <label class="label" for="debut">Choisir heure début</label>
+                <input
+                  cFormControl
+                  class="inputTime"
+                  id="debut"
+                  formControlName="debut"
+                  type="time"
+                  sizing="lg"
+                  required
+                  [class.is-invalid]="form.get('debut')?.invalid && (form.get('debut')?.touched || clickSave)"
+                />
+                <c-form-feedback *ngIf="form.get('debut')?.invalid && (form.get('debut')?.touched || clickSave)">
+                  L'heure de début est obligatoire.
+                </c-form-feedback>
+              </div>
+            </c-col>
+
+            <c-col xs="6">
+                <!-- Champ Heure Fin -->
+              <div class="mb-3">
+                <label class="label" for="fin">Choisir heure fin</label>
+                <input
+                  cFormControl
+                  class="inputTime"
+                  id="fin"
+                  formControlName="fin"
+                  type="time"
+                  sizing="lg"
+                  required
+                  [class.is-invalid]="form.get('fin')?.invalid && (form.get('fin')?.touched || clickSave)"
+                />
+                <c-form-feedback *ngIf="form.get('fin')?.invalid && (form.get('fin')?.touched || clickSave)">
+                  L'heure de fin est obligatoire.
+                </c-form-feedback>
+              </div>
+            </c-col>
+
+          </c-row>
+
+          <!-- Liste des Enseignants -->
+          <div class="mb-4">
+            <label class="label" for="idEnseignant">Liste des enseignants</label><br />
+            <p-multiSelect
+              [style]="{ width: '100%' }"
+              [options]="enseignant"
+              formControlName="idEnseignant"
+              placeholder="Choisir les enseignants"
+              optionLabel="nomPrenom"
+              optionValue="idEnseignant"
+              display="chip"
+              [showClear]="true"
+              [class.is-invalid]="form.get('idEnseignant')?.invalid && (form.get('idEnseignant')?.touched || clickSave) "
+              [class]="form.get('idEnseignant')?.invalid && (form.get('idEnseignant')?.touched || clickSave)?'ng-dirty ng-invalid':''"
+              ></p-multiSelect>
+            <c-form-feedback *ngIf="form.get('idEnseignant')?.invalid && (form.get('idEnseignant')?.touched|| clickSave)">
+              Veuillez sélectionner au moins un enseignant.
+            </c-form-feedback>
+          </div>
+
+          <!-- Boutons -->
+          <button
+            class="w-100"
+            cButton
+            color="primary"
+            type="submit"
+            style="margin-bottom: 1rem;"
+          >
+            Enregistrer
+          </button>
+          <button class="w-100" cButton color="light" (click)="form.reset()">Annuler</button>
+        </form>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>

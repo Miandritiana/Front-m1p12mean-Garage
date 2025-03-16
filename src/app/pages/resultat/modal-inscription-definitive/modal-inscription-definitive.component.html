@@ -1,0 +1,38 @@
+<c-modal id="liveDemoModal" [visible]="showModalInscriDef" alignment="center" class="modal-lg">
+    <c-modal-header>
+            <h1 class="modal-title m-2">Inscription définitive</h1>
+            <button (click)="toggleLiveDemo()" cButtonClose class="me-3"></button>
+    </c-modal-header>
+
+    <c-modal-body class="m-2">
+          <form [formGroup]="form" (ngSubmit)="save()">
+            <div>
+                <label cLabel for="exampleFormControlInput1">Engagement</label>
+                <select 
+                    aria-label="Engagement" 
+                    cSelect >
+                    <option value="">Choisissez un niveau</option>
+                    <!-- <option *ngFor="let niveau of listeNiveau" [value]="niveau.nom"> -->
+                    <!-- {{ niveau.nom }}
+                    </option> -->
+                </select>
+            </div>
+
+            <div>
+                <label cLabel for="exampleFormControlInput1">Date</label>
+                <input
+                cFormControl
+                formControlName="dateConcours"
+                type="date"
+                />
+            </div>
+        
+            <c-row>
+              <c-col xs="12" style="margin-top: 15px; margin-bottom: 15px;">
+                <button cButton color="primary" type="submit" class="w-100">Enregistrer</button>
+              </c-col>
+            </c-row>
+          </form>
+    </c-modal-body>          
+
+</c-modal>

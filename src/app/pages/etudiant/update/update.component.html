@@ -1,0 +1,182 @@
+<c-modal id="liveDemoModal" [visible]="showUpdate" alignment="center">
+    <c-modal-header>
+        <span cModalTitle>
+          <img alt="Nouvel manifestation" src="./assets/icon/pencil-square.svg" style="
+            border-radius: 10px;
+            border: 1px solid #E4E7EC;
+            background: #FFF;
+            padding: 8px;
+            margin-right: 10px;
+            width: 40px;
+            height: 40px;">      
+        </span>
+        <span>
+          <h5>Modification</h5>
+          <span>Modifier les informations sur l’étudiant(e)</span>
+        </span>
+        <button (click)="toggleLiveDemo()" cButtonClose></button>
+  
+      </c-modal-header>
+      <c-modal-body>
+        <div>
+          <div>
+            <p>Date de contact : {{ formatedDateManifestation(manifestation!.dateManifestation) }}</p>
+          </div>
+
+          <form [formGroup]="form" (ngSubmit)="update()">
+              <div class="mb-3">
+                  <label cLabel for="nom">Nom*</label>
+                  <input 
+                    cFormControl
+                    id="nom"
+                    formControlName="nom"
+                    placeholder="Entrer son nom"
+                    type="text"
+                  />
+                  <div *ngIf="form.get('nom')?.touched && form.get('nom')?.invalid" class="error">
+                    <span *ngIf="form.get('nom')?.errors?.['required']">Le champ "Nom" est obligatoire.</span>
+                  </div>
+                </div>
+              
+                <!-- Champ Prénom -->
+                <div class="mb-3">
+                  <label cLabel for="prenom">Prénom*</label>
+                  <input 
+                    cFormControl
+                    id="prenom"
+                    formControlName="prenom"
+                    placeholder="Entrer son prénom"
+                    type="text"
+                  />
+                  <div *ngIf="form.get('prenom')?.touched && form.get('prenom')?.invalid" class="error">
+                    <span *ngIf="form.get('prenom')?.errors?.['required']">Le champ "Prénom" est obligatoire.</span>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label cLabel for="dateNaissance">Date de naissance *</label>
+                  <input 
+                    cFormControl
+                    id="dateNaissance"
+                    formControlName="dateNaissance"
+                    placeholder="Entrer sa date de naissance"
+                    type="date"
+                  />
+                  <div class="text-danger" *ngIf="isRequired('dateNaissance')">
+                    La date de naissance est obligatoire
+                  </div>
+                  <div class="text-danger" *ngIf="dateNaissanceInvalide()">
+                    Année de naissance incorrecte
+                  </div>
+                </div>
+                
+                <!-- Champ Email -->
+                <div class="mb-3">
+                  <label cLabel for="email">Email*</label>
+                  <input 
+                    cFormControl
+                    id="email"
+                    formControlName="email"
+                    type="email"
+                    placeholder="exemple@gmail.com"
+                  />
+                  <div *ngIf="form.get('email')?.touched && form.get('email')?.invalid" class="error">
+                    <span *ngIf="form.get('email')?.errors?.['required']">Le champ "Email" est obligatoire.</span>
+                    <span *ngIf="form.get('email')?.errors?.['email']">L'adresse email n'est pas valide.</span>
+                  </div>
+                </div>
+              
+                <!-- Champ Contact -->
+                <div class="mb-3">
+                  <label cLabel for="contact">Contact*</label>
+                  <c-input-group>
+                    <span cInputGroupText id="basic-addon1">+261</span>
+                    <input 
+                      cFormControl
+                      id="contact"
+                      formControlName="contact"
+                      aria-describedby="basic-addon1"
+                      aria-label="Contact"
+                      type="text"
+                      placeholder="03* ** *** **"
+                    />
+                  </c-input-group>
+                  <div *ngIf="form.get('contact')?.touched && form.get('contact')?.invalid" class="error">
+                    <span *ngIf="form.get('contact')?.errors?.['required']">Le champ "Contact" est obligatoire.</span>
+                    <span *ngIf="form.get('contact')?.errors?.['pattern']">
+                      Le numéro de téléphone doit respecter le format "03* ** *** **".
+                    </span>
+                  </div>
+                </div>  
+        
+                <div class="mb-3">
+                  <label cLabel for="ville">Ville de contact *</label>
+                  <p-autoComplete 
+                      [suggestions]="filteredVille"
+                      (completeMethod)="searchVille($event)"
+                      (onSelect)="getVilleSelected($event)"
+                      formControlName="ville"
+                      field="nomVille"
+                      [dropdown]="true"
+                      styleClass="w-100"
+                      [style]="{'height':'38px'}"
+                      placeholder="Entrer la ville où il(elle) se manifeste"
+                      >
+                  </p-autoComplete>
+                  <div *ngIf="form.get('ville')?.touched && form.get('ville')?.invalid" class="error">
+                    <span *ngIf="form.get('ville')?.errors?.['required']">Le champ "Ville" est obligatoire.</span>
+                  </div>
+                </div>
+        
+                <div class="mb-3">
+                  <label cLabel for="etablissement">Etablissement d'origine *</label>
+                  <p-autoComplete 
+                      [suggestions]="filteredEtablissement"
+                      (completeMethod)="search($event)"
+                      (onSelect)="getEtablissementSelected($event)"
+                      formControlName="etablissement"
+                      field="nomEtablissement"
+                      [dropdown]="true"
+                      styleClass="w-100"
+                      [style]="{'height':'38px'}"
+                      placeholder="Entrer son établissement d'origine"
+                      >
+                  </p-autoComplete>
+                  <div *ngIf="form.get('etablissement')?.touched && form.get('etablissement')?.invalid" class="error">
+                    <span *ngIf="form.get('etablissement')?.errors?.['required']">Le champ "Etablissement d'origine" est obligatoire.</span>
+                  </div>
+                </div>
+        
+                <div class="mb-3">
+                  <label cLabel for="niveau">Niveau souhaité</label>
+                  <select cSelect
+                  formControlName="niveau" 
+                  (change)="getListeParcours()">
+                  <option value="" disabled>Selectionner le niveau souhaité par l'étudiant(e)</option>
+                    <option *ngFor="let liste of listeNiveau" 
+                    value="{{ liste.idNiveau }}">{{ liste.nomNiveau }}</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label cLabel for="parcours">Parcours souhaité</label>
+                  <select cSelect
+                  formControlName="parcours">
+                  <option value="" disabled>Sélectionner le parcours que l’étudiant(e) souhaite</option>
+                    <option *ngFor="let liste of listeParcours" 
+                    value="{{ liste.idParcours }}">{{ liste.nomParcours }}</option>
+                  </select>
+                </div>
+                      
+              <button class="w-100" cButton color="primary" type="submit" 
+              style="margin-bottom: 1rem;">
+                Enregistrer
+              </button>
+              <button  class="w-100" cButton color="light" (click)="toggleLiveDemo()">
+                Annuler
+              </button>
+          </form>
+        </div>
+        </c-modal-body>
+
+</c-modal>

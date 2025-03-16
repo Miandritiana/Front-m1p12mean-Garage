@@ -1,0 +1,131 @@
+<c-row ngPreserveWhitespaces>
+    <c-col xs="12">
+      <h1 class="mb-0">Page d'ajout et de liste des frais de scolarité</h1>
+        <c-card class="mb-4">
+        
+          <c-card-body>
+            <div class="d-flex align-items-center justify-content-between mb-4">
+             
+              <button cButton color="primary" (click)="toggleLiveDemo()">
+                <svg cIcon name="cil-plus" size="l" title="Action"></svg>
+                Année scolaire
+              </button> 
+            </div>
+            <div class="row mb-4">
+              <div class="col-3 d-flex" >
+                <select aria-label="Default select example" [(ngModel)]="niveauFormation" (change)="onTypeFormationChange()" cSelect >
+                    <option value="">Choisissez un niveau</option>
+                    <option *ngFor="let niveau of typeFormation" [value]="niveau.nomTypeFormation">
+                      {{ niveau.nomTypeFormation}}
+                    </option>
+                </select>
+              </div>
+              <div class="col-3 d-flex" >
+                <select aria-label="Default select example" [(ngModel)]="niveau" cSelect >
+                    <option value="">Choisissez un niveau</option>
+                    <option *ngFor="let niveau of listeNiveauParCursus" [value]="niveau.nomNiveau">
+                      {{ niveau.nomNiveau}}
+                    </option>
+                </select>
+              </div>
+              <div class="col-3 d-flex" >
+                <select aria-label="Default select example" [(ngModel)]="idAnneeScolaire" cSelect >
+                    <option value="">Année - scolaire</option>
+                    <option *ngFor="let annee of listeAnneeScolaire" [value]="annee.idAnneeScolaire">
+                      {{ annee.anneeScolaire }}
+                    </option>
+                </select>
+              </div>
+              <div class="col-2 d-flex" >
+                <button  cButton type="submit" (click) = "getListeFrais()"> Rechercher</button>
+              </div>
+
+              <div class="col-1 d-flex">
+                <button cButton class="mx-2" *ngIf="showButtonUpdate == false"
+                color="light" 
+                [cTooltip]="'Modifier ou Inserer détails'" 
+                cTooltipPlacement="top"
+                (click)="insertionMontant()">
+                  <svg cIcon name="cil-pen" title="cil-account-logout" size="3s"></svg>
+                </button>
+                
+                <button cButton class="mx-2" *ngIf="showButtonUpdate == true"
+                color="light" 
+                [cTooltip]="'Annuler'" 
+                cTooltipPlacement="top"
+                (click)="annuler()">
+                  <svg cIcon name="cil-x" title="cil-account-logout" size="3s"></svg>
+                </button>
+              </div>
+
+            </div>
+
+            <div>
+              <p-chip *ngIf="niveauFormation"
+              label="{{niveauFormation}}"
+              [removable]="true"
+              (onRemove)="onNiveauChange($event)"/>
+            </div>
+
+            <div class="table-responsive">
+              <table cTable >
+                <thead>
+                <tr cTableColor="light">
+                    <th scope="col">Cursus</th>
+                    <th scope="col">Niveau</th>
+                    <th scope="col">Montant des frais de scolarité</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let rowData of listeFraisScolarite">
+                      <td>{{ rowData.cursus }}</td>
+                      <td>{{ rowData.niveau}}</td>
+                      <td *ngIf="showButtonUpdate; else elseTd">
+                        <input cFormControl type="number" [(ngModel)]="rowData.montant" placeholder="Montant">
+                      </td>
+                      <ng-template #elseTd>
+                        <td>{{ formatMontant(rowData.montant) }} Ar</td>
+                      </ng-template>
+                    </tr>
+                <tr>
+                </tbody>
+              </table>
+
+            </div>
+
+            <div class="text-end">
+              <button cButton 
+              color="success" 
+              class="text-white" 
+              (click)="enregistrerMontants()"
+              *ngIf="showButtonUpdate">
+                  Valider
+              </button>
+          </div>
+          </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>
+
+
+
+<c-modal id="liveDemoModal" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
+  <c-modal-header>
+    <h5 cModalTitle>Section pour ajouter une année scolaire</h5>
+    <button (click)="toggleLiveDemo()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <p>dernière année scolaire saisie :  <strong>{{ lastAnneeScolaire }}</strong></p>
+    <input cFormControl type="string" [(ngModel)]="anneeScolaireString" placeholder="Année Scolaire">
+  </c-modal-body>
+  <c-modal-footer>
+    <button (click)="toggleLiveDemo()" cButton color="danger">
+      Fermer
+    </button>
+    <button cButton color="primary" (click) = "ajouterAnneeScolaire()">Ajouter</button>
+  </c-modal-footer>
+</c-modal>
+
+
+
+
