@@ -74,9 +74,8 @@ export class LoginComponent implements OnInit {
     }
 
     const loginData: LoginRequest = {
-      login: this.loginForm.value.login,
-      motDePasse: this.loginForm.value.motDePasse,
-      typeUtilisateur: Constants.TYPE_PAT,
+      email: this.loginForm.value.login,
+      mdp: this.loginForm.value.motDePasse,
     };
 
     this.authService.login(loginData).subscribe(

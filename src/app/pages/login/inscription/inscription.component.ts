@@ -23,6 +23,7 @@ import { LoginRequest } from 'src/app/modele/LoginRequest';
 import { Constants } from 'src/app/util/constants';
 import { LoginResponse } from 'src/app/modele/LoginResponse';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Inscription } from 'src/app/modele/Inscription';
 
 @Component({
   selector: 'app-inscription',
@@ -42,7 +43,8 @@ import { HttpErrorResponse } from '@angular/common/http';
     TextColorDirective,
     IconDirective,
     NgIf,
-    NgStyle
+    NgStyle,
+    ReactiveFormsModule
   ],
   templateUrl: './inscription.component.html',
   styleUrl: './inscription.component.scss'
@@ -59,13 +61,22 @@ export class InscriptionComponent implements OnInit {
     private localStorageService: LocalStorageService
   ) {
     this.inscriptionForm = this.fb.group({
-      login: ['', Validators.required],
-      motDePasse: ['', Validators.required],
+      nom: ['', Validators.required],
+      prenom: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      telephone: ['', [Validators.required, Validators.pattern(/^03[2-9]\s\d{2}\s\d{3}\s\d{2}$/)]],
+      mdp: ['', Validators.required],
     });
   }
 
-  ngOnInit(): void {
-  
+  ngOnInit(): void {  }
+
+  onInscription(){
+    const inscription: Inscription = this.inscriptionForm.value;
+    console.log(inscription);
+    
+    this.authService.inscrire(inscription);
+    this.router.navigate(['/login']);
   }
 
 }

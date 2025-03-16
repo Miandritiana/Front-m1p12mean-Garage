@@ -54,8 +54,9 @@ export class NoteConcoursService {
 
   
   valider(idNoteConcours:number):Observable<NoteConcours>{
-    var idPersonne=this.localStorageService.getIdUtilisateur();
-    const url = `${this.urlNoteConcours}/valider/${idNoteConcours}?idPersonne=${idPersonne}`;
+    // var idPersonne=this.localStorageService.getIdUtilisateur();
+    // const url = `${this.urlNoteConcours}/valider/${idNoteConcours}?idPersonne=${idPersonne}`;
+    const url = '';
     return this.http.get<NoteConcours>(url);
   }
 

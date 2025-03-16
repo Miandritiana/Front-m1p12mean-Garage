@@ -15,14 +15,6 @@ export const routes: Routes = [
     },
     children: [
       {
-        path: 'concours',
-        loadChildren: () => import('./pages/inscription/routes').then((m) => m.routes)
-      },
-      {
-        path: 'inscription-concours',
-        loadChildren: () => import('./pages/inscription-concours/routes').then((m) => m.routes)
-      },
-      {
         path: 'programme',
         loadChildren: () => import('./pages/programme/routes').then((m) => m.routes)
       },
@@ -71,14 +63,6 @@ export const routes: Routes = [
         loadChildren: () => import('./pages/reduction/routes').then((m) => m.routes)
       },
       {
-        path: 'seuil-note-concours',
-        loadChildren: () => import('./pages/seuil-note-concours/routes').then((m) => m.routes)
-      },
-      {
-        path: 'corpsmail',
-        loadChildren: () => import('./pages/mail/routes').then((m) => m.routes)
-      },
-      {
         path: 'acceuil',
         loadChildren: () => import('./pages/acceuil/routes').then((m) => m.routes) 
       }
@@ -106,10 +90,10 @@ export const routes: Routes = [
     }
   },
   {
-    path: 'register',
-    loadComponent: () => import('./views/pages/register/register.component').then(m => m.RegisterComponent),
+    path: 'inscription',
+    loadComponent: () => import('./pages/login/inscription/inscription.component').then(m => m.InscriptionComponent),
     data: {
-      title: 'Register Page'
+      title: 'Inscription Page'
     }
   },
   { path: '**', redirectTo: 'etudiant' }

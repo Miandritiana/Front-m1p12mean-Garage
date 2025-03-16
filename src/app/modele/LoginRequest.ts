@@ -1,5 +1,4 @@
 export interface LoginRequest {
-    login: string;
-    motDePasse: string;
-    typeUtilisateur: number;
+    email: string;
+    mdp: string;
 } 

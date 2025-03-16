@@ -53,9 +53,9 @@ export class LocalStorageService {
     this.setItem(LocalStorageService.keyLoginInfo, encryptedData);
   }
 
-  getIdUtilisateur(){
-    return this.getLoginInfo()?.idUtilisateur;
-  }
+  // getIdUtilisateur(){
+  //   return this.getLoginInfo()?.iduser;
+  // }
 
   logout(){
     this.removeItem(LocalStorageService.keyLoginInfo);

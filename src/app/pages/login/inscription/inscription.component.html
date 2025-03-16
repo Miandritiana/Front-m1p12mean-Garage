@@ -25,66 +25,36 @@
                 <h1 style="color: #162e52;">Inscription</h1>
                 <p class="text-body-secondary">Create your account</p>
 
-                <label for="">Nom</label>
+                <label class="mt-2">Nom</label>
                 <input type="text" cFormControl placeholder="Nom" formControlName="nom">
 
-                <label for="">Prénom</label>
+                <label class="mt-2">Prénom</label>
                 <input type="text" cFormControl placeholder="Prenom" formControlName="prenom">
 
-                <label for="">Email</label>
+                <label class="mt-2">Email</label>
                 <input type="email" cFormControl placeholder="Email" formControlName="email">
 
-                <label for="">Téléphone</label>
+                <label class="mt-2">Téléphone</label>
                 <input type="phone" cFormControl placeholder="034 00 000 00" formControlName="telephone">
 
-                <c-input-group class="mb-3">
-                  <span cInputGroupText>
-                    <svg cIcon name="cilUser"></svg>
-                  </span>
-                  <input
-                    autoComplete="login"
-                    cFormControl
-                    placeholder="Login"
-                    formControlName="login"
-                  />
-                  <div
-                    *ngIf="
-                      loginForm.get('login')?.invalid &&
-                      loginForm.get('login')?.touched
-                    "
-                    class="error"
-                  >
-                    Login requise
-                  </div>
-                </c-input-group>
-                <c-input-group class="mb-4">
-                  <span cInputGroupText>
-                    <svg cIcon name="cilLockLocked"></svg>
-                  </span>
-                  <input
-                    autoComplete="mot-de-passe"
-                    cFormControl
-                    placeholder="Mot de passe"
-                    type="password"
-                    formControlName="motDePasse"
-                  />
-                  <div
-                    *ngIf="
-                      loginForm.get('motDePasse')?.invalid &&
-                      loginForm.get('motDePasse')?.touched
-                    "
-                    class="error"
-                  >
-                    Mot de passe requise
-                  </div>
-                </c-input-group>
-                <c-row>
+                <label class="mt-2">Mot de passe</label>
+                <input type="text" cFormControl formControlName="mdp">
+
+                <c-row class="mt-4">
                   <c-col xs="6">
                     <button cButton class="px-4" type="submit" style="background-color: #162e52; border-color: #162e52;">
                       S'inscrire
                     </button>
                   </c-col>
+                  <c-col class="text-right" xs="6">
+                    <a href="/#/login">
+                      <button cButton class="px-0" color="link" >
+                        Se connecter
+                      </button>
+                    </a>
+                  </c-col>
                 </c-row>
+
               </form>
             </c-card-body>
           </c-card>

@@ -1,10 +1,10 @@
 import { Menu } from "./menu";
 
 export interface LoginResponse {
-    idUtilisateur: number; 
-    jwtToken: string;
-    expiration: Date;
+    message: string; 
+    token: string;
+    idUser: string;
+    role: string;
     nom: string;
     prenom: string;
-    menu:Menu[]
 } 
