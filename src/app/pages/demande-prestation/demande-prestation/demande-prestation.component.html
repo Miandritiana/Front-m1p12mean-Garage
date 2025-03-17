@@ -34,36 +34,39 @@
 
               <div class="bs-stepper-content">
                   <div id="test-l-1" class="content active">
-                      <app-etape1 (messageEvent)="receiveMessage($event)" (dataEvent)="receiveDataEtape1($event)"> </app-etape1>
+                      <app-info-vehicule 
+                        (messageEvent)="receiveMessage($event)" 
+                        (dataEvent)="receiveDataEtape1($event)"
+                      ></app-info-vehicule>
                   </div>
 
                   <div id="test-l-2" class="content">
-                      <app-etape2 
+                      <app-votre-devis 
                         (messageEvent)="receiveMessage($event)" 
                         (dataEvent)="receiveDataEtape2($event)"
                         (fraisScolariteEvent)="receiveDatafraisScolarite($event)"
-                        ></app-etape2>
+                        ></app-votre-devis>
                   </div>
 
                   <div id="test-2-3" class="content">
-                      <app-etape3 
+                      <app-confirme-devis 
                           (messageEvent)="receiveMessage($event)" 
                           [idNiveau]="idNiveau" [idParcours]="idParcours"  
                           (dataEvent)="receiveDataEtape3($event)"
                           [currentStep]="currentStep"
                           (bordereauEvent)="receiveDataBordereau($event)"
                           >
-                      </app-etape3>
+                      </app-confirme-devis>
                   </div>
 
                   <div id="test-2-4" class="content">
-                    <app-etape4 
+                    <app-rendez-vous 
                       [fraisScolarite]="fraisScolarite"
                       [bordereau]="bordereau"
                       (messageEvent)="receiveMessage($event)" 
                       (dataEvent)="receiveDataEtape4($event)"
                       (BorderauxEvent)="receiveDataBordereauValue($event)"
-                      ></app-etape4>
+                      ></app-rendez-vous>
                   </div>
               </div>
 
