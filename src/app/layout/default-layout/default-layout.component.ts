@@ -61,5 +61,77 @@ export class DefaultLayoutComponent {
   }
   constructor(
     private localStorageService : LocalStorageService
-  ){ }
+  ){ 
+    
+    DefaultLayoutComponent.nombre++;
+    var role=this.localStorageService.getLoginInfo()?.role ?? '';
+
+    console.log(role);
+    
+
+    const menuByRole: Record<string, any[]> = {
+      client: [
+        { title: true, name: 'Client' },
+        {
+          name: 'Acceuil',
+          url: '/acceuil',
+          iconComponent: { name: 'cil-home' },
+        },
+        {
+          name: 'Devis',
+          url: '/devis',
+          iconComponent: { name: 'cil-file' },
+        },
+        {
+          name: 'Suivi',
+          url: '/suivi',
+          iconComponent: { name: 'cil-check-circle' },
+        },
+      ],
+      manager: [
+        {
+          name: 'Demande préstation',
+          url: '/demande-prestation',
+          iconComponent: { name: 'cil-file' },
+        },
+        {
+          name: 'Parametrage',
+          url: '/parametre',
+          iconComponent: { name: 'cil-settings' },
+          children: [
+            {
+              name: 'Mécanicien',
+              url: '/parametre-mecanicien',
+              icon: 'nav-icon-bullet',
+            },
+            {
+              name: 'Préstation',
+              url: '/parametre-prestation',
+              icon: 'nav-icon-bullet',
+            },
+          ],
+        },
+        {
+          name: 'Historique',
+          url: '/historique',
+          iconComponent: { name: 'cil-history' },
+        },
+      ],
+      mecanicien: [
+        {
+          title: true,
+          name: 'Mécanicien',
+        },
+        {
+          name: 'Tache',
+          url: '/tache',
+          iconComponent: { name: 'cil-task' },
+        },
+      ],
+    };
+
+    // Assign menu dynamically based on role, fallback to an empty array if role is not found
+    this.menuDynamique = menuByRole[role] || [];
+
+  }
 }
