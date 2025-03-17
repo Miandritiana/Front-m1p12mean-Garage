@@ -6,24 +6,30 @@ import { ConfirmeDevisComponent } from './confirme-devis/confirme-devis.componen
 import { RendezVousComponent } from './rendez-vous/rendez-vous.component';
 import { DemandePrestationComponent } from './demande-prestation/demande-prestation.component';
 
+import { DemandePrestationRoutingModule } from './demande-prestation-routing.module';
+
 import { ButtonModule } from 'primeng/button';
 import { StepsModule } from 'primeng/steps';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
+    DemandePrestationComponent,
     InfoVehiculeComponent,
     VotreDevisComponent,
     ConfirmeDevisComponent,
-    RendezVousComponent,
-    DemandePrestationComponent
+    RendezVousComponent
   ],
   imports: [
     CommonModule,
     ButtonModule,
     StepsModule,
     FormsModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    RouterModule.forChild(DemandePrestationRoutingModule),
+
+  ],
+  exports: [DemandePrestationComponent]
 })
 export class DemandePrestationModule { }

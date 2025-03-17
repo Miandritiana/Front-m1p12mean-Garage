@@ -22,6 +22,8 @@ import {
 } from '@coreui/angular';
 import { IconDirective } from '@coreui/icons-angular';
 import { NgFor, NgStyle } from '@angular/common';
+import { StepperService } from '../../../services/stepper.service';
+import { DemandePrestationComponent } from '../../demande-prestation/demande-prestation/demande-prestation.component';
 
 @Component({
   selector: 'app-acceuil',
@@ -45,7 +47,8 @@ import { NgFor, NgStyle } from '@angular/common';
     TextColorDirective,
     IconDirective,
     NgFor,
-    NgStyle
+    NgStyle,
+    DemandePrestationComponent
   ],
   templateUrl: './acceuil.component.html',
   styleUrl: './acceuil.component.scss'
@@ -57,5 +60,13 @@ export class AcceuilComponent {
     { date: '2023-05-02', motif: 'Mila fanovana' },
     { date: '2023-05-03', motif: 'Blabla car' },
   ];
+
+  constructor(private stepperService: StepperService) {
+    
+  }
+
+  goToStep4() {
+    this.stepperService.setStep(4); // Définit l'étape 4
+  }
 
 }

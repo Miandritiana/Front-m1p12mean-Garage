@@ -1,76 +1,53 @@
 <section class="m-0">
-    <div class="container px-5">
-
-        <div id="stepper" class="bs-stepper w-100">
-            <div class="bs-stepper-header">
-              <div class="step active" id="test-l-1">
-                <button type="button" class="step-trigger pb-2">
-                  <span class="bs-stepper-circle">1</span>
-                  <span class="bs-stepper-label">Véhicule</span>
-                </button>
-              </div>
-              <div class="line"></div>
-              <div class="step" id="test-l-2">
-                <button type="button" class="step-trigger pb-2">
-                  <span class="bs-stepper-circle">2</span>
-                  <span class="bs-stepper-label">Votre devis</span>
-                </button>
-              </div>
-              <div class="line"></div>
-              <div class="step" id="test-2-3">
-                <button type="button" class="step-trigger pb-2">
-                  <span class="bs-stepper-circle">3</span>
-                  <span class="bs-stepper-label">Confirmer devis</span>
-                </button>
-              </div>
-              <div class="line"></div>
-              <div class="step" id="test-2-4">
-                <button type="button" class="step-trigger pb-2">
-                  <span class="bs-stepper-circle">4</span>
-                  <span class="bs-stepper-label">Rendez-vous</span>
-                </button>
-              </div>
-            </div>
-
-              <div class="bs-stepper-content">
-                  <div id="test-l-1" class="content active">
-                      <app-info-vehicule 
-                        (messageEvent)="receiveMessage($event)" 
-                        (dataEvent)="receiveDataEtape1($event)"
-                      ></app-info-vehicule>
-                  </div>
-
-                  <div id="test-l-2" class="content">
-                      <app-votre-devis 
-                        (messageEvent)="receiveMessage($event)" 
-                        (dataEvent)="receiveDataEtape2($event)"
-                        (fraisScolariteEvent)="receiveDatafraisScolarite($event)"
-                        ></app-votre-devis>
-                  </div>
-
-                  <div id="test-2-3" class="content">
-                      <app-confirme-devis 
-                          (messageEvent)="receiveMessage($event)" 
-                          [idNiveau]="idNiveau" [idParcours]="idParcours"  
-                          (dataEvent)="receiveDataEtape3($event)"
-                          [currentStep]="currentStep"
-                          (bordereauEvent)="receiveDataBordereau($event)"
-                          >
-                      </app-confirme-devis>
-                  </div>
-
-                  <div id="test-2-4" class="content">
-                    <app-rendez-vous 
-                      [fraisScolarite]="fraisScolarite"
-                      [bordereau]="bordereau"
-                      (messageEvent)="receiveMessage($event)" 
-                      (dataEvent)="receiveDataEtape4($event)"
-                      (BorderauxEvent)="receiveDataBordereauValue($event)"
-                      ></app-rendez-vous>
-                  </div>
-              </div>
-
+  <div class="container px-5">
+    <div id="stepper" class="bs-stepper w-100">
+      <div class="bs-stepper-header">
+        <div class="step" [class.active]="currentStep === 1">
+          <button type="button" class="step-trigger pb-2" (click)="stepperService.setStep(1)">
+            <span class="bs-stepper-circle">1</span>
+            <span class="bs-stepper-label">Véhicule</span>
+          </button>
         </div>
-          
+        <div class="line"></div>
+        <div class="step" [class.active]="currentStep === 2">
+          <button type="button" class="step-trigger pb-2" (click)="stepperService.setStep(2)">
+            <span class="bs-stepper-circle">2</span>
+            <span class="bs-stepper-label">Votre devis</span>
+          </button>
+        </div>
+        <div class="line"></div>
+        <div class="step" [class.active]="currentStep === 3">
+          <button type="button" class="step-trigger pb-2" (click)="stepperService.setStep(3)">
+            <span class="bs-stepper-circle">3</span>
+            <span class="bs-stepper-label">Confirmer devis</span>
+          </button>
+        </div>
+        <div class="line"></div>
+        <div class="step" [class.active]="currentStep === 4">
+          <button type="button" class="step-trigger pb-2" (click)="stepperService.setStep(4)">
+            <span class="bs-stepper-circle">4</span>
+            <span class="bs-stepper-label">Rendez-vous</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="bs-stepper-content">
+        <div *ngIf="currentStep === 1">
+          <app-info-vehicule></app-info-vehicule>
+        </div>
+
+        <div *ngIf="currentStep === 2">
+          <app-votre-devis></app-votre-devis>
+        </div>
+
+        <div *ngIf="currentStep === 3">
+          <app-confirme-devis></app-confirme-devis>
+        </div>
+
+        <div *ngIf="currentStep === 4">
+          <app-rendez-vous></app-rendez-vous>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
