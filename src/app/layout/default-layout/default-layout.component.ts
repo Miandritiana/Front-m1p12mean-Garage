@@ -68,7 +68,6 @@ export class DefaultLayoutComponent {
 
     console.log(role);
     
-
     const menuByRole: Record<string, any[]> = {
       client: [
         { title: true, name: 'Client' },

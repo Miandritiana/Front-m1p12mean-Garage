@@ -1,0 +1,73 @@
+<section class="m-0">
+    <div class="container px-5">
+
+        <div id="stepper" class="bs-stepper w-100">
+            <div class="bs-stepper-header">
+              <div class="step active" id="test-l-1">
+                <button type="button" class="step-trigger pb-2">
+                  <span class="bs-stepper-circle">1</span>
+                  <span class="bs-stepper-label">Véhicule</span>
+                </button>
+              </div>
+              <div class="line"></div>
+              <div class="step" id="test-l-2">
+                <button type="button" class="step-trigger pb-2">
+                  <span class="bs-stepper-circle">2</span>
+                  <span class="bs-stepper-label">Votre devis</span>
+                </button>
+              </div>
+              <div class="line"></div>
+              <div class="step" id="test-2-3">
+                <button type="button" class="step-trigger pb-2">
+                  <span class="bs-stepper-circle">3</span>
+                  <span class="bs-stepper-label">Confirmer devis</span>
+                </button>
+              </div>
+              <div class="line"></div>
+              <div class="step" id="test-2-4">
+                <button type="button" class="step-trigger pb-2">
+                  <span class="bs-stepper-circle">4</span>
+                  <span class="bs-stepper-label">Rendez-vous</span>
+                </button>
+              </div>
+            </div>
+
+              <div class="bs-stepper-content">
+                  <div id="test-l-1" class="content active">
+                      <app-etape1 (messageEvent)="receiveMessage($event)" (dataEvent)="receiveDataEtape1($event)"> </app-etape1>
+                  </div>
+
+                  <div id="test-l-2" class="content">
+                      <app-etape2 
+                        (messageEvent)="receiveMessage($event)" 
+                        (dataEvent)="receiveDataEtape2($event)"
+                        (fraisScolariteEvent)="receiveDatafraisScolarite($event)"
+                        ></app-etape2>
+                  </div>
+
+                  <div id="test-2-3" class="content">
+                      <app-etape3 
+                          (messageEvent)="receiveMessage($event)" 
+                          [idNiveau]="idNiveau" [idParcours]="idParcours"  
+                          (dataEvent)="receiveDataEtape3($event)"
+                          [currentStep]="currentStep"
+                          (bordereauEvent)="receiveDataBordereau($event)"
+                          >
+                      </app-etape3>
+                  </div>
+
+                  <div id="test-2-4" class="content">
+                    <app-etape4 
+                      [fraisScolarite]="fraisScolarite"
+                      [bordereau]="bordereau"
+                      (messageEvent)="receiveMessage($event)" 
+                      (dataEvent)="receiveDataEtape4($event)"
+                      (BorderauxEvent)="receiveDataBordereauValue($event)"
+                      ></app-etape4>
+                  </div>
+              </div>
+
+        </div>
+          
+    </div>
+</section>
