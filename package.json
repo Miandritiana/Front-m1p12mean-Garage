@@ -37,6 +37,7 @@
     "@coreui/icons-angular": "~5.2.16",
     "@coreui/utils": "^2.0.2",
     "@tinymce/tinymce-angular": "^8.0.1",
+    "bs-stepper": "^1.7.0",
     "chart.js": "^4.4.8",
     "coreui-free-angular-admin-template": "file:",
     "crypto-js": "^4.2.0",
@@ -48,7 +49,7 @@
     "primeicons": "^7.0.0",
     "primeng": "^17.18.12",
     "rxjs": "~7.8.1",
-    "sweetalert2": "^11.14.4",
+    "sweetalert2": "^11.17.2",
     "tinymce": "^7.4.1",
     "tslib": "^2.7.0",
     "zone.js": "~0.14.10"

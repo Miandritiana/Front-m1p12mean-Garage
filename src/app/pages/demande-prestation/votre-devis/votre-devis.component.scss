@@ -1,0 +1,98 @@
+#submitButton {
+    background-color: #162e52;
+    border-color: #162e52;
+  }
+  
+  .line {
+    background-color: #162e52;
+    width: 5px;
+  }
+  
+  
+  .form-label {
+    color: #162e52;
+    font-size: 1.25rem; /* Increase font size (adjust as needed) */
+  }
+  
+  
+  .dropdown-item:hover {
+    background-color: #b7cae6;
+  }
+
+
+
+.form-control {
+  font-size: 18px;
+  color: #05053d;
+}
+ 
+
+.form-check {
+  font-size: 18px;
+  color: #05053d;
+}
+
+.form-select {
+  font-size: 18px;
+  color: #05053d;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.category-section {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.category-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.prestation-list {
+  margin-top: 10px;
+}
+
+.prestation-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.prestation-checkbox {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.prestation-label {
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  cursor: pointer;
+}
+
+.prestation-name {
+  font-weight: normal;
+}
+
+.prestation-price {
+  font-weight: bold;
+  color: #007bff;
+}
+
+  

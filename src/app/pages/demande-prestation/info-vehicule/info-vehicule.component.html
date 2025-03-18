@@ -1,1 +1,41 @@
-<p>info-vehicule works!</p>
+<form [formGroup]="form" method="post" #uploadForm="ngForm" enctype="multipart/form-data">
+    <div class="row gx-5 justify-content-center px-5">
+        <div class="col-lg-12 m-3">
+
+            <div class="mb-3">
+                <label for="name" class="form-label fs-5 mb-0">Immatriculation</label>
+                <input [class]="getFormClass('immatriculation')" formControlName="immatriculation" id="immatriculation" type="text" 
+                placeholder="" data-sb-validations="required"/>
+                <div  class="text-danger" *ngIf="form.get('immatriculation')?.errors?.['required'] && check">
+                    L'immatriculation est obligatoire
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="typeMoteurSelect" class="form-label fs-5 mb-0">Type</label>
+                <select formControlName="idType"  [class]="getFormSelectClass('idType')" id="typeMoteurSelect" aria-label="Default select example">
+                    <option value="">Sélectionnez un type moteur</option>
+                    <option *ngFor="let item of typeMoteur" [value]="item._id" >{{item.nom}}</option>
+
+                </select>
+                <div  class="text-danger" *ngIf="isValide('idType')">
+                    Veuillez choisir le type moteur
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="modeleSelect" class="form-label fs-5 mb-0">Modele</label>
+                <select formControlName="idModele"  [class]="getFormSelectClass('idModele')" id="modeleSelect" aria-label="Default select example">
+                    <option value="">Sélectionnez une modele</option>
+                    <option *ngFor="let item of modele" [value]="item._id" >{{item.nom}}</option>
+
+                </select>
+                <div  class="text-danger" *ngIf="isValide('idModele')">
+                    Veuillez choisir un modèle
+                </div>
+            </div>
+
+            <div class="d-grid"><button class="btn btn-primary btn-md mt-3" id="submitButton" type="button" (click)="firstStep()">Suivant</button></div>
+        </div>
+    </div>
+</form>

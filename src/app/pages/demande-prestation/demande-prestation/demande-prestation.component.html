@@ -32,22 +32,28 @@
       </div>
 
       <div class="bs-stepper-content">
-        <div *ngIf="currentStep === 1">
-          <app-info-vehicule></app-info-vehicule>
+        <div class="content active">
+          <app-info-vehicule (messageEvent)="receiveMessage($event)" (dataEvent)="receiveDataInfoVehicule($event)"></app-info-vehicule>
         </div>
 
-        <div *ngIf="currentStep === 2">
-          <app-votre-devis></app-votre-devis>
+        <div class="content">
+          <app-votre-devis 
+            (messageEvent)="receiveMessage($event)" 
+            (dateEvent)="receiveDataVotreDevis($event)" 
+            [idType]="infoVehiculeData?.idType" 
+            [idModele]="infoVehiculeData?.idModele">
+          </app-votre-devis>
         </div>
 
-        <div *ngIf="currentStep === 3">
-          <app-confirme-devis></app-confirme-devis>
+        <div class="content">
+          <app-confirme-devis (messageEvent)="receiveMessage($event)"></app-confirme-devis>
         </div>
 
-        <div *ngIf="currentStep === 4">
-          <app-rendez-vous></app-rendez-vous>
+        <div class="content">
+          <app-rendez-vous (messageEvent)="receiveMessage($event)"></app-rendez-vous>
         </div>
       </div>
+
     </div>
   </div>
 </section>

@@ -1,0 +1,72 @@
+.bs-stepper-label {
+    white-space: normal;
+    word-wrap: break-word;
+    text-align: center;
+    color: #162e52;
+  }
+  
+  @media (max-width: 576px) { /* pour les petits écrans */
+    .bs-stepper-label {
+      display: none;
+    }
+  }
+  
+  .content {
+    display: none;
+  }
+  .content.active {
+    display: block;
+  }
+  
+  .step.active .step-trigger {
+    pointer-events: auto;
+  }
+  
+  .text-note{
+    color: #697A8D;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+  }
+  
+  .step.active,
+  .step.active .bs-stepper-label {
+      color: #f78d20 !important;
+  }
+  
+  .bs-stepper-circle{
+    background-color: #162e52 !important;
+  }
+  
+  .step.active {
+    .bs-stepper-circle{
+      background-color: #f78d20 !important;
+    }
+  } 
+  
+  #submitButton {
+    background-color: #162e52;
+    border-color: #162e52;
+  }
+  
+  .line {
+    background-color: #162e52;
+    width: 5px;
+  }
+  
+  
+  .form-label {
+    color: #162e52;
+    font-size: 1.25rem; /* Increase font size (adjust as needed) */
+  }
+  
+  
+  .dropdown-item:hover {
+    background-color: #b7cae6;
+  }
+  
+  .step-trigger.step-trigger:hover {
+    background: transparent;
+    cursor: default;
+  }

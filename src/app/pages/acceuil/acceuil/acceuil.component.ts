@@ -24,6 +24,7 @@ import { IconDirective } from '@coreui/icons-angular';
 import { NgFor, NgStyle } from '@angular/common';
 import { StepperService } from '../../../services/stepper.service';
 import { DemandePrestationComponent } from '../../demande-prestation/demande-prestation/demande-prestation.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-acceuil',
@@ -61,12 +62,12 @@ export class AcceuilComponent {
     { date: '2023-05-03', motif: 'Blabla car' },
   ];
 
-  constructor(private stepperService: StepperService) {
+  constructor(private stepperService: StepperService, private router: Router) {
     
   }
 
-  goToStep4() {
-    this.stepperService.setStep(4); // Définit l'étape 4
+  goToDemandePrestation() {
+    this.router.navigate(['/demande-prestation']);
   }
 
 }

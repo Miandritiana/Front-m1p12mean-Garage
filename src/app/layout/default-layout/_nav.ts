@@ -12,6 +12,11 @@ export const navItems: INavData[] = [
     iconComponent: { name: 'cil-home' },
   },
   {
+    name: 'Demande préstation',
+    url: '/demande-prestation',
+    iconComponent: { name: 'cil-task' },
+  },
+  {
     name: 'Devis',
     url: '/devis',
     iconComponent: { name: 'cil-file' },
@@ -30,7 +35,7 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Demande préstation',
-    url: '/demande-prestation',
+    url: '/demande-prestation-manager',
     iconComponent: { name: 'cil-file' },
   },
   {
