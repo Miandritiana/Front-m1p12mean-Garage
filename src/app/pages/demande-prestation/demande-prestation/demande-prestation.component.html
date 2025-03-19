@@ -39,14 +39,15 @@
         <div class="content">
           <app-votre-devis 
             (messageEvent)="receiveMessage($event)" 
-            (dateEvent)="receiveDataVotreDevis($event)" 
+            (dateEvent)="receiveDataInfoVehicule($event)"
             [idType]="infoVehiculeData?.idType" 
-            [idModele]="infoVehiculeData?.idModele">
+            [idModele]="infoVehiculeData?.idModele"
+            [infoVehiculeData]="infoVehiculeData">
           </app-votre-devis>
         </div>
 
         <div class="content">
-          <app-confirme-devis (messageEvent)="receiveMessage($event)"></app-confirme-devis>
+          <app-confirme-devis (messageEvent)="receiveMessage($event)" (dateEvent)="receiveDataConfirmeDevis($event)"></app-confirme-devis>
         </div>
 
         <div class="content">

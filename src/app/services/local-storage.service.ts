@@ -52,11 +52,6 @@ export class LocalStorageService {
     const encryptedData = CryptoJs.AES.encrypt(JSON.stringify(loginInfo), Constants.SECRET_KEY).toString();
     this.setItem(LocalStorageService.keyLoginInfo, encryptedData);
   }
-
-  // getIdUtilisateur(){
-  //   return this.getLoginInfo()?.iduser;
-  // }
-
   logout(){
     this.removeItem(LocalStorageService.keyLoginInfo);
   }

@@ -81,14 +81,19 @@ export class DemandePrestationComponent implements AfterViewInit {
   }
 
   receiveDataInfoVehicule(data:any) {
-    console.log("Received data in parent:", data);
     this.infoVehiculeData = data;
     this.idType = this.infoVehiculeData.idType;
     this.idModele = this.infoVehiculeData.idModele;
   }
 
   receiveDataVotreDevis(data:any) {
+    console.log(data);
+    
     this.votreDevisData = data;
+  }
+
+  receiveDataConfirmeDevis(data: any) {
+    this.confirmeDevisData = data;
   }
 
 }

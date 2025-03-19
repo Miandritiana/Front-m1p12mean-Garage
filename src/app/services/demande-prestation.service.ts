@@ -25,6 +25,23 @@ export class DemandePrestationService {
     return this.http.get<any>(url);
   }
   
+  demandeDevis(immatriculation: any, idType: any, idModele: any, idClient: any, idPrestations: string[]): Observable<any> {
+    const data = {
+      immatriculation, 
+      idtypemoteur: idType, 
+      idmodele: idModele, 
+      idclient: idClient, 
+      idprestations: idPrestations
+    };
+    console.log(data);
+    
+    return this.http.post<any>(this.url+'/devis', data);
+  }
+
+  acceptezDevis(idDevis: any): Observable<any> {
+    const url = `${this.url}/devis/accepter/${idDevis}`;
+    return this.http.post(url, {});  // Assuming you're making a POST request, adjust if necessary
+  }
 
   
 }

@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { DemandePrestationService } from '../../../services/demande-prestation.service';
 import { NgIf, NgFor } from '@angular/common';
 import Swal from 'sweetalert2';
-
+import { LocalStorageService } from '../../../services/local-storage.service';
 
 @Component({
   selector: 'app-votre-devis',
@@ -19,25 +19,43 @@ export class VotreDevisComponent implements OnChanges {
   @Output() messageEvent = new EventEmitter<number>();
   @Output() dataEvent = new EventEmitter<any>();
   prestations: any;
-  @Input() dataInfoVehicule: any;
+  @Input() infoVehiculeData: any;
   @Input() idType: any;
   @Input() idModele: any;
+  selectedPrestations: string[] = [];
+  totalPrix: number = 0;
 
   constructor(
     private formBuilder: FormBuilder,
-    private demandePrestationService: DemandePrestationService
+    private demandePrestationService: DemandePrestationService,
+    private localStorageService: LocalStorageService,
   )
   {
     this.form = this.formBuilder.group({
-      idPrestation: ['', [Validators.required]],
+      idPrestation: [[]],
     });
 
   }  
   
   ngOnChanges(changes: SimpleChanges) {
     if (changes['idType'] || changes['idModele']) {
-      console.log("Data received in VotreDevisComponent:", this.idType, this.idModele);
       this.getPrestation(this.idType, this.idModele);
+    }
+  }
+
+  ngOnInit() {
+    // Initialize the form group
+    this.form = new FormGroup({});
+
+    if (this.prestations && Array.isArray(this.prestations)) {
+      // Dynamically add form controls for each prestation
+      this.prestations.forEach((category: any) => {
+        category.prestations.forEach((prestation: any) => {
+          this.form.addControl(prestation._id, new FormControl(prestation.selected || false));
+        });
+      });
+    } else {
+      console.error("prestations data is not available or not an array.");
     }
   }
 
@@ -73,19 +91,8 @@ export class VotreDevisComponent implements OnChanges {
         if (Array.isArray(data) && data.length > 0) {
           this.prestations = [];
   
-          // Loop through the prestations array and map the required data
-          data.forEach((item: any) => {
-            this.prestations.push({
-              _id: item._id,
-              nom: item.nom,
-              typemoteur: item.typemoteur,  // Get 'typemoteur' from each item
-              modele: item.modele,          // Get 'modele' from each item
-              categorieprestation: item.categorieprestation,
-              prixunitaire: item.prixunitaire
-            });
-          });
+          this.prestations = this.formatPrestations(data).data.slice(1); // Remove first element (typemoteur, modele)
   
-          console.log("Transformed Prestation:", this.prestations); // Check the transformed data structure
         } else {
           console.error("Invalid data format or data is empty:", data);
         }
@@ -146,17 +153,102 @@ export class VotreDevisComponent implements OnChanges {
     );
   }
 
+  demandeDevis(infoVehicule: any): any {
+    try {
+      const iduser = this.localStorageService.getLoginInfo()?.iduser;
+  
+      this.demandePrestationService.demandeDevis(
+        infoVehicule.immatriculation,
+        infoVehicule.idType,
+        infoVehicule.idModele,
+        iduser,
+        this.selectedPrestations
+      ).subscribe({
+        next: (response) => {
+          console.log('Devis créé avec succès:', response);
+  
+          // Extract ID and total price from response
+          const idDevis = response.devis._id;
+  
+          // Show Swal confirmation popup
+          Swal.fire({
+            title: 'Devis créé avec succès!',
+            text: `Prix total: ${this.totalPrix} Ar. Voulez-vous accepter ce devis?`,
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'Accepter',
+            cancelButtonText: 'Refuser',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.acceptezDevis(idDevis); // Call accept function if confirmed
+            }else{
+              this.prestations.forEach((category: any) => {
+                category.prestations.forEach((prestation: any) => {
+                  prestation.selected = false; // Assuming "selected" is the property for checked prestations
+                });
+              });
+              console.log(this.prestations);              
+            }
+          });
+        },
+        error: (err) => {
+          console.error('Erreur lors de la demande de devis:', err);
+        }
+      });
+  
+    } catch (error) {
+      console.error('Erreur dans demandeDevis:', error);
+    }
+  }
+
+  
+  acceptezDevis(idDevis: any): void {
+    this.demandePrestationService.acceptezDevis(idDevis).subscribe({
+      next: (response) => {
+        console.log('Devis accepté avec succès:', response);
+        Swal.fire('Succès!', 'Le devis a été accepté avec succès.', 'success');
+      },
+      error: (err) => {
+        console.error('Erreur lors de l’acceptation du devis:', err);
+        Swal.fire('Erreur', 'Une erreur est survenue lors de l’acceptation du devis.', 'error');
+      }
+    });
+  }
+  
+
+  togglePrestationSelection(event: any, prestation: any) {
+    if (event.target.checked) {
+      // Add prestation ID if checked
+      this.selectedPrestations.push(prestation);
+      this.totalPrix += prestation.prixunitaire;
+    } else {
+      // Remove prestation ID if unchecked
+      this.selectedPrestations = this.selectedPrestations.filter(id => id !== prestation);
+    }
+
+    this.form.patchValue({ idPrestation: this.selectedPrestations });
+  }
+
   previous(): void {
     this.messageEvent.emit(1);
   }
 
   next(): void {
     this.check = true;
-    if (this.form.valid) {
+  
+    if (this.selectedPrestations.length > 0) { 
+      this.demandeDevis(this.infoVehiculeData);
+      console.log("this.form.value etoooooooooooooooooooooo", this.infoVehiculeData);
+      
       this.messageEvent.emit(3);
       this.dataEvent.emit(this.form.value);
     } else {
-      console.log('Formulaire non valide');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Aucune prestation sélectionnée',
+        text: 'Veuillez choisir au moins une prestation avant de continuer.',
+        confirmButtonText: 'OK'
+      });
     }
   }
 

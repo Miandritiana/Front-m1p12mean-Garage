@@ -5,20 +5,26 @@
             <div class="mb-3">
                 <label for="prestationSelect" class="form-label fs-5 mb-0">Préstation</label>
                 
-                <ng-container *ngFor="let prestation of prestations">
-                    <div class="category-section">
-                      <h5 class="category-title">{{ prestation.categorieprestation }}</h5>
-                      <div class="prestation-list">
+                <ng-container *ngFor="let category of prestations">
+                  <div class="category-section">
+                    <h5 class="category-title">{{ category.categorieprestation }}</h5>
+                    <div class="prestation-list">
+                      <ng-container *ngFor="let prestation of category.prestations">
                         <div class="prestation-item">
-                          <input type="checkbox" [id]="prestation._id" class="prestation-checkbox"/>
+                          <input type="checkbox" [id]="prestation._id" class="prestation-checkbox"
+                                 [(ngModel)]="prestation.selected" [ngModelOptions]="{standalone: true}" 
+                                 (change)="togglePrestationSelection($event, prestation)" />
                           <label for="{{ prestation._id }}" class="prestation-label">
                             <span class="prestation-name">{{ prestation.nom }}</span>
                             <span class="prestation-price">{{ prestation.prixunitaire }}</span>
                           </label>
                         </div>
-                      </div>
+                      </ng-container>
                     </div>
+                  </div>
                 </ng-container>
+                
+                
   
                 <div  class="text-danger" *ngIf="isValide('idPrestation')">
                     Veuillez choisir le type de préstation
