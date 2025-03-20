@@ -1,1 +1,43 @@
-<p>rendez-vous works!</p>
+<form [formGroup]="form" method="post" #uploadForm="ngForm" enctype="multipart/form-data">
+    <div class="row gx-5 justify-content-center px-5">
+        <div class="col-lg-12 m-3">
+
+            <div class="mb-3">
+                <label for="prestationSelect" class="form-label fs-5 mb-0">Date du rendez-vous</label>
+                <div class="date-selector">
+                    <!-- <input type="date" [(ngModel)]="selectedDate" formControlName="selectedDate" [ngModelOptions]="{standalone: true}" (change)="addDate()" class="form-control"/> -->
+                    <input type="date" formControlName="selectedDate" (change)="addDate()" class="form-control"/>
+                </div>
+
+                <div class="selected-dates d-flex flex-wrap gap-2 mt-3 justify-content-center">
+                    <span *ngFor="let date of selectedDates" class="badge bg-primary d-flex align-items-center p-2">
+                      {{ date }} 
+                      <i class="ms-2" style="cursor: pointer; color: white;" (click)="removeDate(date)">&#x2716;</i>
+                    </span>
+                </div>
+
+                <div  class="text-danger" *ngIf="showDateError">
+                    Veuillez choisir au moins une date.
+                </div>
+
+                <div class="text-danger" *ngIf="form.controls['selectedDate'].hasError('pastDate')">
+                    Vous ne pouvez pas choisir une date passée.
+                </div>
+
+            </div>
+
+
+            <div class="mb-3">
+                <label for="prestationSelect" class="form-label fs-5 mb-0">Information supplémentaire</label>
+                <textarea name="infoSupplementaire" class="form-control" name="infoSupplementaire"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-primary btn-md mt-3 w-100 mx-2" id="submitButton" type="button" (click)="valider()">Valider</button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</form>

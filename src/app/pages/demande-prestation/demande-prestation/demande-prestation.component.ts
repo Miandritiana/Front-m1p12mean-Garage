@@ -30,11 +30,11 @@ export class DemandePrestationComponent implements AfterViewInit {
 
   infoVehiculeData: any;
   votreDevisData: any;
-  confirmeDevisData: any;
   rendezVousData: any;
 
   idType: any;
   idModele: any;
+  idDevis: any;
 
   ngAfterViewInit(): void {
     this.stepper = new Stepper(document.querySelector('#stepper')!, {
@@ -49,6 +49,8 @@ export class DemandePrestationComponent implements AfterViewInit {
     this.stepperService.currentStep$.subscribe(step => {
       this.currentStep = step;
     });
+    console.log("Parent idDevis:", this.idDevis);
+
   }
 
   receiveMessage(message:any) {
@@ -87,13 +89,12 @@ export class DemandePrestationComponent implements AfterViewInit {
   }
 
   receiveDataVotreDevis(data:any) {
-    console.log(data);
-    
-    this.votreDevisData = data;
+    this.idDevis = data;
   }
 
-  receiveDataConfirmeDevis(data: any) {
-    this.confirmeDevisData = data;
+  receiveRendezVous(data: any) {
+    this.rendezVousData = data;
+    this.idDevis = data;
   }
 
 }

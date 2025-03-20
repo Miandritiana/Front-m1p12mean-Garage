@@ -3,56 +3,47 @@
     <div id="stepper" class="bs-stepper w-100">
       <div class="bs-stepper-header">
         <div class="step" [class.active]="currentStep === 1">
-          <button type="button" class="step-trigger pb-2" (click)="stepperService.setStep(1)">
+          <button type="button" class="step-trigger pb-2">
             <span class="bs-stepper-circle">1</span>
             <span class="bs-stepper-label">Véhicule</span>
           </button>
         </div>
         <div class="line"></div>
         <div class="step" [class.active]="currentStep === 2">
-          <button type="button" class="step-trigger pb-2" (click)="stepperService.setStep(2)">
+          <button type="button" class="step-trigger pb-2">
             <span class="bs-stepper-circle">2</span>
             <span class="bs-stepper-label">Votre devis</span>
           </button>
         </div>
         <div class="line"></div>
         <div class="step" [class.active]="currentStep === 3">
-          <button type="button" class="step-trigger pb-2" (click)="stepperService.setStep(3)">
+          <button type="button" class="step-trigger pb-2">
             <span class="bs-stepper-circle">3</span>
-            <span class="bs-stepper-label">Confirmer devis</span>
-          </button>
-        </div>
-        <div class="line"></div>
-        <div class="step" [class.active]="currentStep === 4">
-          <button type="button" class="step-trigger pb-2" (click)="stepperService.setStep(4)">
-            <span class="bs-stepper-circle">4</span>
             <span class="bs-stepper-label">Rendez-vous</span>
           </button>
         </div>
       </div>
 
-      <div class="bs-stepper-content">
-        <div class="content active">
+      <div class="bs-stepper-content d-flex justify-content-center">
+
+        <div class="content active w-50">
           <app-info-vehicule (messageEvent)="receiveMessage($event)" (dataEvent)="receiveDataInfoVehicule($event)"></app-info-vehicule>
         </div>
 
-        <div class="content">
+        <div class="content w-50">
           <app-votre-devis 
             (messageEvent)="receiveMessage($event)" 
-            (dateEvent)="receiveDataInfoVehicule($event)"
+            (dataEvent)="receiveDataVotreDevis($event)"
             [idType]="infoVehiculeData?.idType" 
             [idModele]="infoVehiculeData?.idModele"
             [infoVehiculeData]="infoVehiculeData">
           </app-votre-devis>
         </div>
 
-        <div class="content">
-          <app-confirme-devis (messageEvent)="receiveMessage($event)" (dateEvent)="receiveDataConfirmeDevis($event)"></app-confirme-devis>
+        <div class="content w-50">
+          <app-rendez-vous (messageEvent)="receiveMessage($event)" (dataEvent)="receiveDataVotreDevis($event)" [idDevis]="idDevis"></app-rendez-vous>
         </div>
 
-        <div class="content">
-          <app-rendez-vous (messageEvent)="receiveMessage($event)"></app-rendez-vous>
-        </div>
       </div>
 
     </div>

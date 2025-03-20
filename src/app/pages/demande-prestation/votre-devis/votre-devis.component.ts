@@ -24,6 +24,7 @@ export class VotreDevisComponent implements OnChanges {
   @Input() idModele: any;
   selectedPrestations: string[] = [];
   totalPrix: number = 0;
+  idDevis: any = "mamamia";
 
   constructor(
     private formBuilder: FormBuilder,
@@ -105,6 +106,7 @@ export class VotreDevisComponent implements OnChanges {
           title: 'Erreur',
           text: err?.error.message || "Une erreur s'est produite lors de la récupération des prestations.",  // Show error message from API
         });
+        this.messageEvent.emit(1);
       }
     });
   }
@@ -168,7 +170,7 @@ export class VotreDevisComponent implements OnChanges {
           console.log('Devis créé avec succès:', response);
   
           // Extract ID and total price from response
-          const idDevis = response.devis._id;
+          this.idDevis = response.devis._id;
   
           // Show Swal confirmation popup
           Swal.fire({
@@ -180,14 +182,14 @@ export class VotreDevisComponent implements OnChanges {
             cancelButtonText: 'Refuser',
           }).then((result) => {
             if (result.isConfirmed) {
-              this.acceptezDevis(idDevis); // Call accept function if confirmed
+              this.acceptezDevis(this.idDevis);
             }else{
               this.prestations.forEach((category: any) => {
                 category.prestations.forEach((prestation: any) => {
-                  prestation.selected = false; // Assuming "selected" is the property for checked prestations
+                  prestation.selected = false; 
                 });
               });
-              console.log(this.prestations);              
+                this.messageEvent.emit(2);
             }
           });
         },
@@ -238,10 +240,10 @@ export class VotreDevisComponent implements OnChanges {
   
     if (this.selectedPrestations.length > 0) { 
       this.demandeDevis(this.infoVehiculeData);
-      console.log("this.form.value etoooooooooooooooooooooo", this.infoVehiculeData);
       
       this.messageEvent.emit(3);
-      this.dataEvent.emit(this.form.value);
+      this.dataEvent.emit(this.idDevis);
+
     } else {
       Swal.fire({
         icon: 'warning',

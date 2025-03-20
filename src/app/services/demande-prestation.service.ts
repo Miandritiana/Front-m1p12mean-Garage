@@ -43,5 +43,12 @@ export class DemandePrestationService {
     return this.http.post(url, {});  // Assuming you're making a POST request, adjust if necessary
   }
 
+
+  demandeRendezVous(idDevis: any, propositionDates: Date[], infoSupp: any): Observable<any> {
+    const url = `${this.url}/rendezvous`;
+    const data = { iddevis: idDevis, propositiondates: propositionDates, infosup: infoSupp };
+    return this.http.post(url, data);  // Assuming you're making a POST request, adjust if necessary
+  }
+
   
 }
