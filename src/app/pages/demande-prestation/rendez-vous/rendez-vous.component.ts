@@ -79,13 +79,15 @@ export class RendezVousComponent implements OnChanges {
   demandeRendezVous() {
     this.infoSup = this.form.value.infoSupplementaire;
     console.log(this.infoSup);
+
+    this.selectedDatesOK = this.selectedDates.map((date) => new Date(date));
     
     this.demandePrestationService.demandeRendezVous(this.idDevis, this.selectedDatesOK, this.infoSup)
       .subscribe(
         (response) => {
           console.log(response);
           
-          if (response.status === 200) { // Ensure response is OK
+          if (response.status === 200) {
             Swal.fire({
               title: 'Votre demande a été envoyée!',
               text: `Dates demandées: ${this.selectedDatesOK.join(', ')}`,
@@ -93,17 +95,16 @@ export class RendezVousComponent implements OnChanges {
               confirmButtonText: 'OK'
             });
           } else {
-            // If the response contains an error status or message
             Swal.fire({
               title: 'Une erreur s’est produite',
               text: response.message || 'Veuillez essayer plus tard.',
               icon: 'error',
               confirmButtonText: 'OK'
             });
+            // this.messageEvent.emit(2);
           }
         },
         (error) => {
-          // Handle any errors in the request
           console.error('Error during request:', error);
           Swal.fire({
             title: 'Une erreur s’est produite',
@@ -111,6 +112,8 @@ export class RendezVousComponent implements OnChanges {
             icon: 'error',
             confirmButtonText: 'OK'
           });
+          // this.messageEvent.emit(2);
+
         }
       );
   }

@@ -168,9 +168,11 @@ export class VotreDevisComponent implements OnChanges {
       ).subscribe({
         next: (response) => {
           console.log('Devis créé avec succès:', response);
-  
+
           // Extract ID and total price from response
           this.idDevis = response.devis._id;
+
+          this.dataEvent.emit(this.idDevis);
   
           // Show Swal confirmation popup
           Swal.fire({
@@ -239,7 +241,7 @@ export class VotreDevisComponent implements OnChanges {
     this.check = true;
   
     if (this.selectedPrestations.length > 0) { 
-      this.demandeDevis(this.infoVehiculeData);
+      // this.demandeDevis(this.infoVehiculeData);
       
       this.messageEvent.emit(3);
       this.dataEvent.emit(this.idDevis);

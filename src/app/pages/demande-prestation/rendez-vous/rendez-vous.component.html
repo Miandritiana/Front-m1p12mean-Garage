@@ -6,12 +6,12 @@
                 <label for="prestationSelect" class="form-label fs-5 mb-0">Date du rendez-vous</label>
                 <div class="date-selector">
                     <!-- <input type="date" [(ngModel)]="selectedDate" formControlName="selectedDate" [ngModelOptions]="{standalone: true}" (change)="addDate()" class="form-control"/> -->
-                    <input type="date" formControlName="selectedDate" (change)="addDate()" class="form-control"/>
+                    <input type="datetime-local" formControlName="selectedDate" (change)="addDate()" class="form-control"/>
                 </div>
 
                 <div class="selected-dates d-flex flex-wrap gap-2 mt-3 justify-content-center">
                     <span *ngFor="let date of selectedDates" class="badge bg-primary d-flex align-items-center p-2">
-                      {{ date }} 
+                       {{ date | date:'medium' }}
                       <i class="ms-2" style="cursor: pointer; color: white;" (click)="removeDate(date)">&#x2716;</i>
                     </span>
                 </div>
