@@ -81,6 +81,10 @@ export class RendezVousComponent implements OnChanges {
     console.log(this.infoSup);
 
     this.selectedDatesOK = this.selectedDates.map((date) => new Date(date));
+
+    if (!this.idDevis) {
+      console.warn("idDevis is missing! Keeping last known value.");
+    }
     
     this.demandePrestationService.demandeRendezVous(this.idDevis, this.selectedDatesOK, this.infoSup)
       .subscribe(
@@ -113,6 +117,11 @@ export class RendezVousComponent implements OnChanges {
             confirmButtonText: 'OK'
           });
           // this.messageEvent.emit(2);
+
+          if (!this.idDevis) {
+            console.warn("idDevis is still missing! Ensure it is correctly passed as @Input.");
+          }
+
 
         }
       );
