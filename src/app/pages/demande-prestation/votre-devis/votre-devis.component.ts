@@ -196,7 +196,11 @@ export class VotreDevisComponent implements OnChanges {
           });
         },
         error: (err) => {
-          console.error('Erreur lors de la demande de devis:', err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: err.error.error,
+          });
         }
       });
   
@@ -241,7 +245,7 @@ export class VotreDevisComponent implements OnChanges {
     this.check = true;
   
     if (this.selectedPrestations.length > 0) { 
-      // this.demandeDevis(this.infoVehiculeData);
+      this.demandeDevis(this.infoVehiculeData);
       
       this.messageEvent.emit(3);
       this.dataEvent.emit(this.idDevis);
