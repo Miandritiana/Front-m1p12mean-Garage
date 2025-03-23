@@ -1,0 +1,41 @@
+<c-row class="mt-4">
+    <c-col xs="12">
+      <c-card>
+        <c-card-body>
+          <table cTable striped hover>
+            <thead>
+              <tr>
+                <th>Actions</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>E-mail</th>
+                <th>Téléphone</th>
+              </tr>
+              <tr>
+                <th>
+                  <button (click)="addMecanicien()" class="btn btn-primary">+</button>
+                </th>
+                <th><input [(ngModel)]="filters.nom" class="form-control" placeholder="Nom" /></th>
+                <th><input [(ngModel)]="filters.prenom" class="form-control" placeholder="Prénom" /></th>
+                <th><input [(ngModel)]="filters.email" class="form-control" placeholder="E-mail" /></th>
+                <th><input [(ngModel)]="filters.telephone" class="form-control" placeholder="Téléphone" /></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let mecanicien of filteredMecaniciens">
+                <td class="d-flex">
+                  <button (click)="editMecanicien(mecanicien)" class="btn btn-warning me-2">✏️</button>
+                  <button (click)="deleteMecanicien(mecanicien.id)" class="btn btn-danger">🗑️</button>
+                </td>
+                <td>{{ mecanicien.nom }}</td>
+                <td>{{ mecanicien.prenom }}</td>
+                <td>{{ mecanicien.email }}</td>
+                <td>{{ mecanicien.telephone }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+  

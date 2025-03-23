@@ -28,7 +28,6 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(DemandePrestationRoutingModule),
-
   ],
   exports: [DemandePrestationComponent]
 })

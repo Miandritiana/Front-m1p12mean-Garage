@@ -29,6 +29,23 @@ export const routes: Routes = [
     ]
   },
   {
+    path: '',
+    component: DefaultLayoutComponent,
+    data: {
+      title: 'Manager',
+    },
+    children: [
+      {
+        path: 'demande-prestation-manager',
+        loadChildren: () => import('./pages/demande-prestation-manager/routes').then((m) => m.routes)
+      },
+      {
+        path: 'parametre-mecanicien',
+        loadChildren: () => import('./pages/gestion-mecanicien/routes').then((m) => m.routes)
+      },
+    ]
+  },
+  {
     path: '404',
     loadComponent: () => import('./views/pages/page404/page404.component').then(m => m.Page404Component),
     data: {

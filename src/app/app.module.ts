@@ -4,6 +4,7 @@ import { AcceuilModule } from './pages/acceuil/acceuil.module';
 import { NgChartsModule } from 'ng2-charts';
 import { InscriptionComponent } from './pages/statistique/inscription/inscription.component';
 import { DemandePrestationComponent } from './pages/demande-prestation/demande-prestation/demande-prestation.component';
+import { DemandePrestationManagerComponent } from './pages/demande-prestation-manager/demande-prestation-manager/demande-prestation-manager.component';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { DemandePrestationComponent } from './pages/demande-prestation/demande-p
   ],
   declarations : [
     InscriptionComponent,
-    DemandePrestationComponent
+    DemandePrestationComponent,
+    DemandePrestationManagerComponent
   ]
 })
 export class AppModule { }

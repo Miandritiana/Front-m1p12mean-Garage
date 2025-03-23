@@ -65,6 +65,9 @@
                     Mot de passe requise
                   </div>
                 </c-input-group>
+                <div *ngIf="errorMessage" class="alert alert-danger">
+                  {{ errorMessage }}
+                </div>
                 <c-row>
                   <c-col xs="6">
                     <button cButton class="px-4" type="submit" style="background-color: #162e52; border-color: #162e52;">

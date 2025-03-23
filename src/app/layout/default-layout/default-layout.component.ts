@@ -66,10 +66,10 @@ export class DefaultLayoutComponent {
     DefaultLayoutComponent.nombre++;
     var role=this.localStorageService.getLoginInfo()?.role ?? '';
 
-    console.log(role);
+    console.log("rooooooole"+role);
     
     const menuByRole: Record<string, any[]> = {
-      client: [
+      "1": [
         { title: true, name: 'Client' },
         {
           name: 'Acceuil',
@@ -87,10 +87,11 @@ export class DefaultLayoutComponent {
           iconComponent: { name: 'cil-check-circle' },
         },
       ],
-      manager: [
+      "3": [
+        { title: true, name: 'Manager' },
         {
           name: 'Demande préstation',
-          url: '/demande-prestation',
+          url: '/demande-prestation-manager',
           iconComponent: { name: 'cil-file' },
         },
         {
@@ -116,7 +117,8 @@ export class DefaultLayoutComponent {
           iconComponent: { name: 'cil-history' },
         },
       ],
-      mecanicien: [
+      "2": [
+        { title: true, name: 'Mécanicien' },
         {
           title: true,
           name: 'Mécanicien',

@@ -22,6 +22,8 @@ export class DemandePrestationService {
 
   getPrestation(idType: any, idModele: any): any {
     const url = `${this.url}/prestation/${idType}/${idModele}`;
+    console.log(url);
+    
     return this.http.get<any>(url);
   }
   

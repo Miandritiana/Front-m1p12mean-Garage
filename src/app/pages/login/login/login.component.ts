@@ -88,7 +88,7 @@ export class LoginComponent implements OnInit {
       (error: HttpErrorResponse) => {
         // Handle error (e.g., show error message)
         console.error('Login failed:', error.error.message);
-        this.errorMessage = error.message;
+        this.errorMessage = error.error.message;
         
       }
     );
