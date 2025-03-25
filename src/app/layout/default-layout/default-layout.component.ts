@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { NgScrollbar } from 'ngx-scrollbar';
 import {LoaderComponent} from 'src/app/layout/loader/loader.component'
-import { IconDirective } from '@coreui/icons-angular';
 import {
   ContainerComponent,
   ShadowOnScrollDirective,
@@ -119,10 +118,6 @@ export class DefaultLayoutComponent {
       ],
       "2": [
         { title: true, name: 'Mécanicien' },
-        {
-          title: true,
-          name: 'Mécanicien',
-        },
         {
           name: 'Tache',
           url: '/tache',

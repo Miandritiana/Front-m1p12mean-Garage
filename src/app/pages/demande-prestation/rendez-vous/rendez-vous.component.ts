@@ -3,7 +3,7 @@ import { FormsModule, FormBuilder, ReactiveFormsModule, FormGroup, Validators } 
 import { NgIf, NgFor } from '@angular/common';
 import { DemandePrestationService } from '../../../services/demande-prestation.service';
 import Swal from 'sweetalert2';
-import { noPastDateValidator } from 'src/app/validator/noPastDateValidator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rendez-vous',
@@ -25,10 +25,13 @@ export class RendezVousComponent implements OnChanges {
   showDateError = false;
   infoSup!: string;
 
+  idDevisRendezVous = '';
+
 
   constructor(
     private formBuilder: FormBuilder,
-    private demandePrestationService: DemandePrestationService
+    private demandePrestationService: DemandePrestationService,
+    private router: Router, 
   )
   {
     this.form = this.formBuilder.group({
@@ -40,6 +43,7 @@ export class RendezVousComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['idDevis'] && changes['idDevis'].currentValue) {
       console.log("Updated idDevis in rendezvous:", this.idDevis);
+      this.idDevisRendezVous = this.idDevis;
     }
   }
 
@@ -86,18 +90,19 @@ export class RendezVousComponent implements OnChanges {
       console.warn("idDevis is missing! Keeping last known value.");
     }
     
-    this.demandePrestationService.demandeRendezVous(this.idDevis, this.selectedDatesOK, this.infoSup)
+    this.demandePrestationService.demandeRendezVous(this.idDevisRendezVous, this.selectedDatesOK, this.infoSup)
       .subscribe(
         (response) => {
           console.log(response);
           
-          if (response.status === 200) {
+          if (response.success) {
             Swal.fire({
               title: 'Votre demande a été envoyée!',
               text: `Dates demandées: ${this.selectedDatesOK.join(', ')}`,
               icon: 'success',
               confirmButtonText: 'OK'
             });
+          this.router.navigate(['/acceuil']);
           } else {
             Swal.fire({
               title: 'Une erreur s’est produite',
@@ -117,11 +122,6 @@ export class RendezVousComponent implements OnChanges {
             confirmButtonText: 'OK'
           });
           // this.messageEvent.emit(2);
-
-          if (!this.idDevis) {
-            console.warn("idDevis is still missing! Ensure it is correctly passed as @Input.");
-          }
-
 
         }
       );

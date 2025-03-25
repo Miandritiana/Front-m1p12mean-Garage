@@ -25,6 +25,8 @@ import {
 } from '@coreui/angular';
 
 import { IconDirective } from '@coreui/icons-angular';
+import { GarageService } from 'src/app/services/garage.service';
+import { NgIf, NgFor, NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-default-header',
@@ -49,6 +51,7 @@ import { IconDirective } from '@coreui/icons-angular';
     DropdownItemDirective,
     BadgeComponent,
     DropdownDividerDirective,
+    NgIf, NgFor, NgClass
   ],
 })
 export class DefaultHeaderComponent extends HeaderComponent {
@@ -57,12 +60,15 @@ export class DefaultHeaderComponent extends HeaderComponent {
   public nom: string = '';
   public prenom: string = '';
   public override role: string = '';
+  public idUser: string = '';
 
   readonly colorModes = [
     { name: 'light', text: 'Light', icon: 'cilSun' },
     { name: 'dark', text: 'Dark', icon: 'cilMoon' },
     { name: 'auto', text: 'Auto', icon: 'cilContrast' },
   ];
+
+  notifications: any[] = [];
 
   readonly icons = computed(() => {
     const currentMode = this.colorMode();
@@ -74,7 +80,8 @@ export class DefaultHeaderComponent extends HeaderComponent {
 
   constructor(
     private localStorageService: LocalStorageService,
-    private router: Router
+    private router: Router,
+    private garageService: GarageService
   ) {
     super();
   }
@@ -85,6 +92,8 @@ export class DefaultHeaderComponent extends HeaderComponent {
     this.nom = this.localStorageService.getLoginInfo()?.nom ?? '';
     this.prenom = this.localStorageService.getLoginInfo()?.prenom ?? '';
     this.role = this.localStorageService.getLoginInfo()?.role ?? '';
+    this.idUser = this.localStorageService.getLoginInfo()?.iduser ?? '';
+    this.loadNotifications();
   }
 
   handleLogoutClick(event: Event) {
@@ -93,4 +102,16 @@ export class DefaultHeaderComponent extends HeaderComponent {
     this.localStorageService.logout();
     this.router.navigate(['/login']);
   }
+
+  loadNotifications(): void {
+    this.garageService.getNotification(this.idUser).subscribe(
+      (data) => {
+        this.notifications = data;
+      },
+      (error) => {
+        console.error('Erreur de chargement des notifications', error);
+      }
+    );
+  }
+
 }

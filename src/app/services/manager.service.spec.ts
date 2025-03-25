@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SeuilNoteService } from './seuil-note.service';
+import { ManagerService } from './manager.service';
 
-describe('SeuilNoteService', () => {
-  let service: SeuilNoteService;
+describe('ManagerService', () => {
+  let service: ManagerService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(SeuilNoteService);
+    service = TestBed.inject(ManagerService);
   });
 
   it('should be created', () => {

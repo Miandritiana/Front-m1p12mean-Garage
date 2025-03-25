@@ -15,10 +15,6 @@ export const routes: Routes = [
     },
     children: [
       {
-        path: 'statistique',
-        loadChildren: () => import('./pages/statistique/routes').then((m) => m.routes)
-      },
-      {
         path: 'acceuil',
         loadChildren: () => import('./pages/acceuil/routes').then((m) => m.routes) 
       },
