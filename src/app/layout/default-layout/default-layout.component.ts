@@ -113,7 +113,7 @@ export class DefaultLayoutComponent {
         {
           name: 'Historique',
           url: '/historique',
-          iconComponent: { name: 'cil-history' },
+          iconComponent: { name: 'cil-list' },
         },
       ],
       "2": [

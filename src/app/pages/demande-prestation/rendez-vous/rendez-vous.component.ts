@@ -89,6 +89,11 @@ export class RendezVousComponent implements OnChanges {
     if (!this.idDevis) {
       console.warn("idDevis is missing! Keeping last known value.");
     }
+
+    console.log(this.selectedDatesOK);
+
+    console.log(this.selectedDates);
+    
     
     this.demandePrestationService.demandeRendezVous(this.idDevisRendezVous, this.selectedDatesOK, this.infoSup)
       .subscribe(
@@ -97,7 +102,7 @@ export class RendezVousComponent implements OnChanges {
           
           if (response.success) {
             Swal.fire({
-              title: 'Votre demande a été envoyée!',
+              title: 'Votre demande a été envoyée!',  
               text: `Dates demandées: ${this.selectedDatesOK.join(', ')}`,
               icon: 'success',
               confirmButtonText: 'OK'
