@@ -5,8 +5,7 @@
             <div class="mb-3">
                 <label for="prestationSelect" class="form-label fs-5 mb-0">Date du rendez-vous</label>
                 <div class="date-selector">
-                    <!-- <input type="date" [(ngModel)]="selectedDate" formControlName="selectedDate" [ngModelOptions]="{standalone: true}" (change)="addDate()" class="form-control"/> -->
-                    <input type="datetime-local" formControlName="selectedDate" (change)="addDate()" class="form-control"/>
+                    <input type="datetime-local" formControlName="selectedDate" (change)="addDate()" class="form-control" step="1"/>
                 </div>
 
                 <div class="selected-dates d-flex flex-wrap gap-2 mt-3 justify-content-center">

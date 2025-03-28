@@ -65,8 +65,6 @@ export class DefaultLayoutComponent {
     DefaultLayoutComponent.nombre++;
     var role=this.localStorageService.getLoginInfo()?.role ?? '';
 
-    console.log("rooooooole"+role);
-    
     const menuByRole: Record<string, any[]> = {
       "1": [
         { title: true, name: 'Client' },

@@ -1,6 +1,6 @@
 <div>
     <label for="name" class="form-label fs-6 mb-0">Recherche par date</label>
-    <input type="datetime-local" class="form-control" (change)="filterClientsByDate($event)">
+    <input type="datetime-local" class="form-control">
 
     <c-row class="mt-4">
         <div class="col-12">
@@ -14,13 +14,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let client of filteredClients">
-                        <td>{{ client.name }}</td>
+                    <tr *ngFor="let client of clients">
+                        <td>{{ client.client }}</td>
                         <td>
-                            <div *ngFor="let date of client.proposedDates">
+                            <div *ngFor="let date of client.propositiondates">
                                 <input 
                                     type="radio" 
-                                    name="date{{client.id}}" 
+                                    name="date{{client.idrendezvous}}" 
                                     [value]="date" 
                                     (change)="selectDate(client)">
                                 <span>{{ date }}</span>
@@ -29,8 +29,7 @@
                         <td>
                             <button 
                                 class="btn btn-success" 
-                                (click)="acceptDate(client)"
-                                [disabled]="!client.selectedDate">
+                                (click)="acceptDate(client)">
                                 Accepter
                             </button>
                         </td>

@@ -71,6 +71,8 @@ export class AcceuilComponent implements OnInit{
 
   ngOnInit(): void {
     var idClient=this.localStorageService.getLoginInfo()?.iduser ?? '';
+    console.log(idClient);
+    
     this.getRendezVousAttente(idClient);
     throw new Error('Method not implemented.');
   }
@@ -81,9 +83,12 @@ export class AcceuilComponent implements OnInit{
 
   getRendezVousAttente(idClient: string): any {
     this.clientService.rendezVousAttente(idClient).subscribe(
-      (response: any[]) => { // Explicitly define response as an array
+      
+      (response: any[]) => {
+        console.log(response);
+        
         this.rdvAttente = response.map((item: any) => ({
-          date: item.date || 'N/A', // Handle missing properties
+          date: item.createdAt || 'N/A', // Handle missing properties
           motif: item.motif || 'No motif provided'
         }));
       },

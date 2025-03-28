@@ -17,7 +17,7 @@ export class RendezVousComponent implements OnChanges {
   form!: FormGroup;
   selectedDate: string = '';
   selectedDates: string[] = [];
-  selectedDatesOK: Date[] = [];
+  selectedDatesOK: string[] = [];
   @Input() idDevis!: string;
   @Output() messageEvent = new EventEmitter<number>();
   @Output() dataEvent = new EventEmitter<any>();
@@ -84,30 +84,29 @@ export class RendezVousComponent implements OnChanges {
     this.infoSup = this.form.value.infoSupplementaire;
     console.log(this.infoSup);
 
-    this.selectedDatesOK = this.selectedDates.map((date) => new Date(date));
-
-    if (!this.idDevis) {
-      console.warn("idDevis is missing! Keeping last known value.");
-    }
+    this.selectedDatesOK = this.selectedDates.map((date) => new Date(date).toISOString());
 
     console.log(this.selectedDatesOK);
 
     console.log(this.selectedDates);
     
     
-    this.demandePrestationService.demandeRendezVous(this.idDevisRendezVous, this.selectedDatesOK, this.infoSup)
+    this.demandePrestationService.demandeRendezVous(this.idDevis, this.selectedDates, this.infoSup)
       .subscribe(
         (response) => {
           console.log(response);
           
-          if (response.success) {
+          if (response.status === 201) {
             Swal.fire({
               title: 'Votre demande a été envoyée!',  
               text: `Dates demandées: ${this.selectedDatesOK.join(', ')}`,
               icon: 'success',
               confirmButtonText: 'OK'
-            });
-          this.router.navigate(['/acceuil']);
+            }).then((result) => {
+              if (result.isConfirmed) {
+                  this.router.navigate(['/acceuil']);
+              }
+          });
           } else {
             Swal.fire({
               title: 'Une erreur s’est produite',

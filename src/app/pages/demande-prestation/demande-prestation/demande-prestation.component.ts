@@ -3,7 +3,6 @@ import { StepperService } from '../../../services/stepper.service';
 
 import { InfoVehiculeComponent } from '../info-vehicule/info-vehicule.component';
 import { VotreDevisComponent } from '../votre-devis/votre-devis.component';
-import { ConfirmeDevisComponent } from '../confirme-devis/confirme-devis.component';
 import { RendezVousComponent } from '../rendez-vous/rendez-vous.component';
 
 import { NgIf } from '@angular/common';
@@ -15,7 +14,6 @@ import Stepper from 'bs-stepper';
   imports: [
     InfoVehiculeComponent,
     VotreDevisComponent,
-    ConfirmeDevisComponent,
     RendezVousComponent,
     NgIf
   ],
