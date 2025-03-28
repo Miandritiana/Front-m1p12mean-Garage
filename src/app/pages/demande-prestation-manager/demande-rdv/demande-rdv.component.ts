@@ -45,7 +45,9 @@ export class DemandeRdvComponent implements OnInit {
 
   constructor(private managerService: ManagerService) {}
 
-  ngOnInit(): void {}
+  ngOnInit() {
+    this.getRendezVousEnAttente();
+  }
 
   // Handle the date selection
   selectDate(client: Client): void {

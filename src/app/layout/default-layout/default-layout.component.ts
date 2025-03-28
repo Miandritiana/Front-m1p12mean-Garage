@@ -110,7 +110,7 @@ export class DefaultLayoutComponent {
         },
         {
           name: 'Historique',
-          url: '/historique',
+          url: '/histo-prestation',
           iconComponent: { name: 'cil-list' },
         },
       ],

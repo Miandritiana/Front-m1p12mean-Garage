@@ -39,6 +39,10 @@ export const routes: Routes = [
         path: 'parametre-mecanicien',
         loadChildren: () => import('./pages/gestion-mecanicien/routes').then((m) => m.routes)
       },
+      {
+        path: 'histo-prestation',
+        loadChildren: () => import('./pages/histo-prestation/routes').then((m) => m.routes)
+      }
     ]
   },
   {
