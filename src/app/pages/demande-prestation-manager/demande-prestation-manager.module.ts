@@ -8,13 +8,13 @@ import { DemandePrestationManagerRoutingModule } from './demande-prestation-mana
 
 import { DemandePrestationManagerComponent } from './demande-prestation-manager/demande-prestation-manager.component';
 import { DemandeRdvComponent } from './demande-rdv/demande-rdv.component';
-import { RdvMecanicienComponent } from './rdv-mecanicien/rdv-mecanicien.component';
+import { HistoPrestationComponent } from './../histo-prestation/histo-prestation/histo-prestation.component';
 
 @NgModule({
   declarations: [
     DemandePrestationManagerComponent,
     DemandeRdvComponent,
-    RdvMecanicienComponent
+    HistoPrestationComponent
   ],
   imports: [
     CommonModule,

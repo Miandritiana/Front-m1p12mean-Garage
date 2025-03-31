@@ -22,6 +22,10 @@
 // We use those styles to show code examples, you should remove them in your application.
 @import "examples";
 
+body {
+  font-family: 'Poopins', sans-serif;
+}
+
 .table-hover {
     width: 100%;
     margin-bottom: 20px;

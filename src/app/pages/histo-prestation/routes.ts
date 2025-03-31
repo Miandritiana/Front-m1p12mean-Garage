@@ -14,7 +14,7 @@ export const routes: Routes = [
                 path: '',
                 component: HistoPrestationComponent,
                 data: {
-                    title: 'Histprique des prestations'
+                    title: 'Historique des prestations'
                 }
             }
         ]

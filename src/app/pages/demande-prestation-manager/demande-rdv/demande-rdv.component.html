@@ -1,41 +1,93 @@
-<div>
-    <label for="name" class="form-label fs-6 mb-0">Recherche par date</label>
-    <input type="datetime-local" class="form-control">
+<c-row class="mt-4">
+    <div class="col-12">
+        <h3>Clients et Rendez-vous</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Client</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let client of clients">
+                    <td>{{ client.client }}</td>
+                    <td>
+                        <div *ngFor="let date of client.propositiondates">
+                            <input 
+                                type="radio" 
+                                name="date{{client.idrendezvous}}" 
+                                [value]="date" 
+                                (change)="selectDate(date)">
+                            <span>{{ date }}</span>
+                        </div>
+                    </td>
+                    <td class="d-flex gap-2">
+                        <button 
+                            class="btn btn-success" 
+                            (click)="acceptDate(client)">
+                            Accepter
+                        </button>
+                        <button 
+                            class="btn btn-warning" 
+                            (click)="proposeDate(client)">
+                            Proposer une autre date
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</c-row>
 
-    <c-row class="mt-4">
-        <div class="col-12">
-            <h3>Clients et Rendez-vous</h3>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Client</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let client of clients">
-                        <td>{{ client.client }}</td>
-                        <td>
-                            <div *ngFor="let date of client.propositiondates">
-                                <input 
-                                    type="radio" 
-                                    name="date{{client.idrendezvous}}" 
-                                    [value]="date" 
-                                    (change)="selectDate(client)">
-                                <span>{{ date }}</span>
-                            </div>
-                        </td>
-                        <td>
-                            <button 
-                                class="btn btn-success" 
-                                (click)="acceptDate(client)">
-                                Accepter
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+
+
+<c-modal id="liveDemoModal" [visible]="showSaisie" alignment="center">
+    <c-modal-header> 
+      <button (click)="toggleLiveDemo()" cButtonClose></button>
+      <h5 cModalTitle>Choisissez un mécanicien</h5>
+    </c-modal-header>
+  
+    <c-modal-body>
+        <label cLabel>Liste des mécaniciens disponibles</label>
+      
+        <div *ngIf="mecaniciensDisponibles.length === 0" class="alert alert-info">
+          No mechanics available for the selected date
         </div>
-    </c-row>
-</div>
+      
+        <form [formGroup]="mecanicienForm" (ngSubmit)="save()" cForm>
+          <ul cListGroup *ngIf="mecaniciensDisponibles.length > 0">
+            <li cListGroupItem *ngFor="let mecanicien of mecaniciensDisponibles">
+              <c-form-check>
+                <input 
+                  cFormCheckInput 
+                  type="radio" 
+                  name="selectedMecanicien"
+                  formControlName="selectedMecanicien"
+                  [value]="mecanicien.id" 
+                  [id]="'mecanicien-' + mecanicien.id"
+                />
+                <label cFormCheckLabel [for]="'mecanicien-' + mecanicien.id">
+                  {{ mecanicien.nom }} {{ mecanicien.prenom }}
+                </label>
+              </c-form-check>
+            </li>
+          </ul>
+      
+          <c-row>
+            <c-col xs="12">
+              <button 
+                cButton 
+                color="primary" 
+                type="submit" 
+                class="w-100" 
+                [disabled]="!mecanicienForm.valid || mecaniciensDisponibles.length === 0"
+              >
+                Enregistrer
+              </button>
+            </c-col>
+          </c-row>
+        </form>
+    </c-modal-body>
+</c-modal>
+  
