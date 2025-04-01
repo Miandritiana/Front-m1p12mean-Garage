@@ -55,6 +55,7 @@ export class RendezVousComponent implements OnChanges {
       this.form.get('selectedDate')?.setValue(''); // Reset the input
     }
   }
+  
   removeDate(date: string) {
     this.selectedDates = this.selectedDates.filter(d => d !== date);
   }

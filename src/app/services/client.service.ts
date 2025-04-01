@@ -20,12 +20,6 @@ export class ClientService {
     });
     const body = { idclient };
   
-    // Log the full request details
-    console.log('🔹 Sending Request:');
-    console.log('➡️ URL:', url);
-    console.log('📩 Headers:', headers.keys().map(h => ({ [h]: headers.get(h) })));
-    console.log('📦 Body:', JSON.stringify(body, null, 2));
-  
     return this.http.request<any>('GET', url, { headers, body });
   }
   

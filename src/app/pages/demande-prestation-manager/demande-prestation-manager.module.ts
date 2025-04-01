@@ -14,7 +14,7 @@ import { HistoPrestationComponent } from './../histo-prestation/histo-prestation
   declarations: [
     DemandePrestationManagerComponent,
     DemandeRdvComponent,
-    HistoPrestationComponent
+    HistoPrestationComponent,
   ],
   imports: [
     CommonModule,

@@ -25,4 +25,15 @@ export class ManagerService {
     const data = { idrendezvous: idrendezvous, datevalide: datevalide, idmecanicien: idmecanicien, idclient: idclient };
     return this.http.post<any>(`${this.url}/rendezvous/valider`, data);
   }
+
+  proposeDate(idrendezvous: string, nouvelleDate: Date | null, idmecanicien: string | '', idclient: string): any {
+    const data = {
+      idrendezvous: idrendezvous,
+      nouvelleDate: nouvelleDate,
+      idmecanicien: idmecanicien,
+      idclient: idclient
+    }
+    return this.http.post<any>(`${this.url}/rendezvous/proposer`, data);
+  }
+  
 }

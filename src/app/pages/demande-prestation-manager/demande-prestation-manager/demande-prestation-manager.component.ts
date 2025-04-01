@@ -5,6 +5,7 @@ import { ButtonDirective, CardBodyComponent, CardComponent, ColComponent, RowCom
 import { IconDirective } from '@coreui/icons-angular';
 import { NgFor, NgIf } from '@angular/common';
 import { HistoPrestationComponent } from './../../histo-prestation/histo-prestation/histo-prestation.component';
+import { FormatDatePipe } from '../../../validator/FormatDatePipe';
 
 @Component({
   selector: 'app-demande-prestation-manager',
@@ -20,7 +21,8 @@ import { HistoPrestationComponent } from './../../histo-prestation/histo-prestat
     IconDirective,
     NgFor,
     NgIf,
-    HistoPrestationComponent
+    HistoPrestationComponent,
+    FormatDatePipe
   ],
   templateUrl: './demande-prestation-manager.component.html',
   styleUrl: './demande-prestation-manager.component.scss'

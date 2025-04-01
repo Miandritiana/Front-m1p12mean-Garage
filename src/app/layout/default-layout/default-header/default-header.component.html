@@ -23,7 +23,7 @@
         <ul cDropdownMenu class="pt-0 w-auto">
           <li *ngIf="notifications.length > 0" class="dropdown-header">Notifications</li>
           <li *ngFor="let notif of notifications">
-            <a cDropdownItem href="#">
+            <a cDropdownItem href="/#/demande-prestation-manager">
               <svg cIcon class="me-2" name="cilBell"></svg>
               <span [ngClass]="{ 'fw-bold': notif.status === 'false' }">{{ notif.message }}</span>
             </a>

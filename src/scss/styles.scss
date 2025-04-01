@@ -23,7 +23,7 @@
 @import "examples";
 
 body {
-  font-family: 'Poopins', sans-serif;
+  font-family: "Poopins", sans-serif;
 }
 
 .table-hover {
@@ -120,3 +120,149 @@ c-sidebar-nav-group .nav-link.active {
   }
 }
 
+
+
+
+table.table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+
+  th {
+    background-color: #003874;
+    color: white;
+    padding: 12px;
+    text-align: left;
+  }
+
+  td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  tbody tr:hover {
+    background-color: #f8f9fa;
+  }
+
+  input[type="radio"] {
+    accent-color: #003874;
+  }
+}
+
+.d-flex.gap-2 {
+  gap: 10px;
+}
+
+button.btn {
+  border-radius: 5px;
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+// Custom modal header
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  border-radius: 8px 8px 0 0;
+
+  h5 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #333;
+  }
+
+  .btn-close-custom {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.list-group-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: background 0.3s;
+
+  &:hover {
+    background: #f1f1f1;
+  }
+
+  input[type="radio"] {
+    margin-right: 10px;
+  }
+}
+
+button.w-100 {
+  padding: 10px;
+  font-weight: bold;
+}
+
+
+
+button.btn {
+  border-radius: 30px;  // Gives rounded corners for a modern look
+  padding: 8px 20px;    // Increases padding for better spacing
+  font-size: 14px;      // Adjusts font size for readability
+  font-weight: 600;     // Makes the text slightly bolder for better visibility
+  transition: all 0.3s ease;  // Smooth transitions for hover and focus effects
+  cursor: pointer;     // Ensures the cursor is a pointer when hovering over the button
+  
+  &.btn-success {
+    background-color: #28a745;
+    border: none;
+    color: white;
+    
+    &:hover {
+      background-color: #218838;  // Darker green on hover
+    }
+
+    &:disabled {
+      background-color: #c6e1c6;  // Light green when disabled
+      border: none;
+      color: #6c757d;
+      cursor: not-allowed;  // Shows a "not-allowed" cursor when disabled
+    }
+  }
+
+  &.btn-warning {
+    background-color: #ffc107;
+    border: none;
+    color: black;
+    
+    &:hover {
+      background-color: #e0a800;  // Darker yellow on hover
+    }
+
+    &:disabled {
+      background-color: #f8e0a3;  // Light yellow when disabled
+      border: none;
+      color: #6c757d;
+      cursor: not-allowed;
+    }
+  }
+  
+  &:focus {
+    outline: none;  // Removes default focus outline
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);  // Adds a blue shadow for focus
+  }
+}
