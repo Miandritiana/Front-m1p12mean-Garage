@@ -1,0 +1,39 @@
+<c-row class="mt-4">
+    <div class="col-12">
+      <h3 class="mb-3">Tâches</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Client</th>
+            <th scope="col">Prestation</th>
+            <th scope="col">Status</th>
+            <th scope="col">Détail</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tache of listTache">
+            <td class="align-items-center">{{ tache.client }}</td>
+            <td>
+              <ul>
+                <li *ngFor="let prestation of tache.prestations">
+                  {{ prestation.nom }} 
+                  <span class="badge rounded-pill" [ngClass]="getBadgeClass(prestation.avancement)">{{ getBadgeLabel(prestation.avancement) }}</span>
+                </li>
+              </ul>
+            </td>
+            <td>
+              <span class="badge rounded-pill" [ngClass]="getBadgeClass(tache.avancement)">
+                {{ getBadgeLabel(tache.avancement) }}
+              </span>
+            </td>
+            <td>
+                <button class="btn btn-outline-primary" (click)="goDetail(tache.idrendezvous)">
+                  Voir détail
+                </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </c-row>
+  

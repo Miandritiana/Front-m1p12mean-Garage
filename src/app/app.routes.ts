@@ -46,6 +46,19 @@ export const routes: Routes = [
     ]
   },
   {
+    path: '',
+    component: DefaultLayoutComponent,
+    data: {
+      title: 'Mécanicien',
+    },
+    children: [
+      {
+        path: 'tache',
+        loadChildren: () => import('./pages/mecanicien/routes').then((m) => m.routes)
+      }
+    ]
+  },
+  {
     path: '404',
     loadComponent: () => import('./views/pages/page404/page404.component').then(m => m.Page404Component),
     data: {

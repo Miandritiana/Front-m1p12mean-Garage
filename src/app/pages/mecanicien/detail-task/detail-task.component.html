@@ -1,0 +1,40 @@
+<c-row>
+    <c-col xs="12">
+        <c-card class="mb-4">
+            <c-card-body>
+                <div>
+                    <h3>Information du véhicule</h3>
+                    <p>Client: {{ listDetail.clientprenom }} {{ listDetail.clientnom }}</p>
+                    <p>Numéro d'immatriculation: {{ listDetail.immatriculation }}</p>
+                    <p>Type moteur: {{ listDetail.typemoteur }}</p>
+                    <p>Modèle: {{ listDetail.modele }}</p>
+                    <p class="f-w-300">Prix total: {{ listDetail.prixtotal | currency:'MGA' }}</p>
+                </div>
+
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Catégorie</th>
+                        <th scope="col">Prestation</th>
+                        <th scope="col">Prix unitaire</th>
+                        <th scope="col">Avancement</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let prestation of listDetail.prestations">
+                        <td class="align-items-center">{{ prestation.nomcategorieprestation }}</td>
+                        <td>{{ prestation.nom }}</td>
+                        <td>{{ prestation.prixunitaire | formatCurrencyMGA }}</td>
+                        <td>
+                          <span class="badge rounded-pill" [ngClass]="getBadgeClass(prestation.avancement)">
+                            {{ getBadgeLabel(prestation.avancement) }}
+                          </span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+            </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>

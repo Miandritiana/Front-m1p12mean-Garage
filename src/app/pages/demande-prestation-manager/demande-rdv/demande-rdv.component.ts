@@ -58,12 +58,9 @@ export class DemandeRdvComponent implements OnInit {
   selectedDateMap: { [key: string]: string } = {};
   idMecanicienSelected: string = '';
   proposeModal: boolean = false;
-  proposeForm!: FormGroup;
   proposeDateSelected: string = '';
-
-  mecanicienForm = new FormGroup({
-    selectedMecanicien: new FormControl('', Validators.required)
-  });
+  proposeForm!: FormGroup;
+  mecanicienForm!: FormGroup;
 
   constructor(
     private managerService: ManagerService,
@@ -71,6 +68,9 @@ export class DemandeRdvComponent implements OnInit {
   ) {
     this.proposeForm = this.formBuilder.group({
       selectedDatePropose: ['', [Validators.required]]
+    });
+    this.mecanicienForm = this.formBuilder.group({
+      selectedMecanicien: [null, Validators.required] // Add validation
     });
   }
 
@@ -100,6 +100,7 @@ export class DemandeRdvComponent implements OnInit {
     
     this.dateSelectedFormated = dateObject;
     this.getMecanicienDispo(this.dateSelectedFormated);
+    console.log(this.mecaniciensDisponibles.map(m => m.id));
     
   }
 
@@ -136,14 +137,16 @@ export class DemandeRdvComponent implements OnInit {
   }
 
   getMecanicienDispo(date: Date) {
+    console.log("getmecanicien date "+date);
+    
     this.managerService.mecaniciensDispo(date).subscribe({
       next: (mecaniciens: Mecanicien[]) => {
         this.mecaniciensDisponibles = mecaniciens;
-        // this.mecanicienForm.patchValue({ selectedMecanicien: null });
+        this.mecanicienForm.patchValue({ selectedMecanicien: null });
       },
       error: (err) => {
         console.error('Error fetching available mecanicien:', err);
-        this.mecaniciensDisponibles = []; // Clear the list on error
+        this.mecaniciensDisponibles = [];
       }
     });
     console.log(this.mecaniciensDisponibles);
@@ -160,38 +163,35 @@ export class DemandeRdvComponent implements OnInit {
   }
   
   save() {
-    console.log("etooooooooooo");
+    if (this.mecanicienForm.invalid) {
+      Swal.fire('Error', 'Choisissez un mécanicien', 'error');
+      return;
+    }
+  
+    const selectedId = this.mecanicienForm.value.selectedMecanicien;
+
+    console.log(this.idRendezVousSelected);
+    console.log(this.dateSelectedFormated);
+    console.log(selectedId);
+    console.log(this.idClientSelected);
     
-    // if (this.mecanicienForm.valid) {
-      const selectedId = this.mecanicienForm.value.selectedMecanicien;
-      
-      if (!this.idMecanicienSelected) {
-        Swal.fire('Error', 'Choisissez un mécanicien', 'error');
-        return;
-      }
+    
+    // this.managerService.rendezVousValider(
+    //   this.idRendezVousSelected,
+    //   this.dateSelectedFormated,
+    //   selectedId,
+    //   this.idClientSelected
+    // ).subscribe({
+    //   next: (response: any) => {  // Explicitly type 'response' as 'any'
+    //     Swal.fire('Success', 'Rendez-vous confirmé!', 'success');
+    //     this.toggleLiveDemo();
+    //     this.getRendezVousEnAttente();
+    //   },
+    //   error: (error: { error?: { message?: string } }) => {  // Explicitly type 'error'
+    //     Swal.fire('Error', error.error?.message || 'Erreur', 'error');
+    //   }
+    // });
 
-      console.log(selectedId);
-      console.log(this.idRendezVousSelected);
-      console.log(this.dateSelectedFormated);
-      console.log(this.idClientSelected);
-      
-
-      // this.managerService.rendezVousValider(
-      //   this.idRendezVousSelected,
-      //   this.dateSelectedFormated,
-      //   selectedId,
-      //   this.idClientSelected
-      // ).subscribe({
-      //   next: (response: { message: string }) => {
-      //     Swal.fire('Success', 'Appointment confirmed!', 'success');
-      //     this.toggleLiveDemo();
-      //     this.getRendezVousEnAttente();
-      //   },
-      //   error: (error: { error?: { message?: string } }) => {
-      //     Swal.fire('Error', error.error?.message || 'Failed to confirm appointment', 'error');
-      //   }
-      // });
-    // }
   }
 
   submitProposeDate() {

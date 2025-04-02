@@ -1,6 +1,6 @@
 <c-row class="mt-4">
     <div class="col-12">
-        <h3>Clients et Rendez-vous</h3>
+        <h3 class="mb-3">Clients et Rendez-vous</h3>
         <table class="table">
             <thead>
                 <tr>
@@ -9,9 +9,9 @@
                     <th scope="col">Action</th>
                 </tr>
             </thead>
-            <tbody class="align-items-center">
+            <tbody>
                 <tr *ngFor="let client of clients">
-                    <td>{{ client.client }}</td>
+                    <td class="align-items-center">{{ client.client }}</td>
                     <td>
                       <div *ngFor="let date of client.propositiondates">
                         <input 
@@ -23,9 +23,9 @@
                         <span>{{ date | formatDate:'full' }}</span>
                       </div>
                     </td>
-                    <td class="d-flex gap-2">
+                    <td class="d-flex">
                         <button 
-                            class="btn btn-success" 
+                            class="btn btn-success me-2" 
                             (click)="acceptDate(client)"
                             [disabled]="!selectedDateMap[client.idrendezvous]">
                             Accepter
@@ -57,11 +57,11 @@
           No mechanics available for the selected date
         </div>
       
-        <form [formGroup]="mecanicienForm" cForm>
+        <form [formGroup]="mecanicienForm" cForm (ngSubmit)="save()">
 
           <div class="list-group" *ngIf="mecaniciensDisponibles.length > 0">
             <label class="list-group-item" *ngFor="let mecanicien of mecaniciensDisponibles">
-              <input class="me-1" type="radio" name="mecanicien.id" [value]="mecanicien.id" (change)="selectedMecanicien(mecanicien.id)">
+              <input class="me-1" type="radio" formControlName="selectedMecanicien" [value]="mecanicien.id">
               <span>{{ mecanicien.nom }} {{ mecanicien.prenom }}</span>
             </label>
           </div>
