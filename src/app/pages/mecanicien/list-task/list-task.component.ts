@@ -97,7 +97,7 @@ export class ListTaskComponent implements OnInit{
   }
 
   goDetail(idrendezvous: string) {
-    this.router.navigate(['mecanicien/detail-task', idrendezvous]);
+    this.router.navigate(['/mecanicien/detail-task', idrendezvous]);
   }
 
 }

@@ -83,7 +83,19 @@ export class LoginComponent implements OnInit {
         // Handle successful login (e.g., store token, navigate)
         console.log('Login successful:', response);
         this.localStorageService.storeLoginInfo(response);
-        this.router.navigate(['/acceuil']);
+
+        const role=this.localStorageService.getLoginInfo()?.role ?? '';
+        
+        const defaultRoutes: Record<string, string> = {
+          "1": '/acceuil',
+          "2": '/tache',
+          "3": '/demande-prestation-manager'
+        };
+    
+        const redirectTo = defaultRoutes[role] || '/acceuil';
+    
+        this.router.navigate([redirectTo]);
+
       },
       (error: HttpErrorResponse) => {
         // Handle error (e.g., show error message)

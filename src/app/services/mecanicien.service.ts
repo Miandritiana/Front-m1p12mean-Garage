@@ -26,4 +26,12 @@ export class MecanicienService {
     return this.http.get<any[]>(`${this.url}/rendezvous/detailsdevis/${idrendezvous}`);
   }
 
+  avancement(idrendezvous: string, idprestation: string) {
+    const data = {
+      idrendezvous: idrendezvous,
+      idprestation: idprestation
+    };
+    return this.http.post<any[]>(`${this.url}/rendezvous/changeravancement`, data);
+  }
+
 }

@@ -25,7 +25,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DetailTaskComponent implements OnInit {
 
-  listDetail: any[] = [];
+  listDetail: any = {};
+  idrendezvous: string = '';
 
   constructor (
     private mecanicienService: MecanicienService,
@@ -35,12 +36,11 @@ export class DetailTaskComponent implements OnInit {
   {}
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      const idrendezvous = params.get('idrendezvous');
-      if (idrendezvous) {
-        this.getDetail(idrendezvous);
-      }
-    });
+    // Retrieve the idrendezvous from the route parameters
+    this.idrendezvous = this.route.snapshot.paramMap.get('idrendezvous')!;
+    
+    // You can now use this.idrendezvous to fetch details for the task, for example
+    this.getDetail(this.idrendezvous);
   }
 
   getBadgeClass(avancement: number): string {
@@ -71,7 +71,7 @@ export class DetailTaskComponent implements OnInit {
 
   getDetail(idrendezvous: string) {
     this.mecanicienService.detailTache(idrendezvous).subscribe(
-      (data: any[])=> {
+      (data: any)=> {
         this.listDetail = data;
       }
     )

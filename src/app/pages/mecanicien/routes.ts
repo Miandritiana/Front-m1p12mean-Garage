@@ -6,16 +6,12 @@ import { DetailTaskComponent } from "./detail-task/detail-task.component";
 export const routes: Routes = [
     {
         path: '',
+        component: MecanicienComponent,
         children: [
             {
-                path: '',
-                component: ListTaskComponent, // Liste des tâches par défaut
-                data: { title: 'Mécanicien - Tâches' }
-            },
-            {
-                path: 'detail-task/:idrendezvous',
-                component: DetailTaskComponent, // Affichage du détail d'une tâche
-                data: { title: 'Mécanicien - Détail de la tâche' }
+                path: 'detail-task/:idrendezvous', // ✅ Dynamic route parameter
+                component: DetailTaskComponent,
+                data: { title: 'Détail Tâche' }
             }
         ]
     }

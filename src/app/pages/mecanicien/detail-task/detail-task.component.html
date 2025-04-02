@@ -3,12 +3,13 @@
         <c-card class="mb-4">
             <c-card-body>
                 <div>
+                    <h2>Details for Task {{ idrendezvous }}</h2>
                     <h3>Information du véhicule</h3>
                     <p>Client: {{ listDetail.clientprenom }} {{ listDetail.clientnom }}</p>
                     <p>Numéro d'immatriculation: {{ listDetail.immatriculation }}</p>
                     <p>Type moteur: {{ listDetail.typemoteur }}</p>
                     <p>Modèle: {{ listDetail.modele }}</p>
-                    <p class="f-w-300">Prix total: {{ listDetail.prixtotal | currency:'MGA' }}</p>
+                    <p class="f-w-300">Prix total: {{ listDetail.prixtotal | formatCurrencyMGA }}</p>
                 </div>
 
                 <table class="table">
