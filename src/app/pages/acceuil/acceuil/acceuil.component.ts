@@ -28,6 +28,7 @@ import { Router } from '@angular/router';
 import { ClientService } from '../../../services/client.service';
 import { LocalStorageService } from '../../../services/local-storage.service';
 import { RendezVous } from '../../../modele/RendezVous';
+import { FormatDatePipe } from '../../../validator/FormatDatePipe';
 
 @Component({
   selector: 'app-acceuil',
@@ -53,7 +54,8 @@ import { RendezVous } from '../../../modele/RendezVous';
     NgFor,
     NgIf,
     NgStyle,
-    DemandePrestationComponent
+    DemandePrestationComponent,
+    FormatDatePipe
   ],
   templateUrl: './acceuil.component.html',
   styleUrl: './acceuil.component.scss'
@@ -89,7 +91,7 @@ export class AcceuilComponent implements OnInit{
         
         this.rdvAttente = response.map((item: any) => ({
           date: item.createdAt || 'N/A', // Handle missing properties
-          motif: item.motif || 'No motif provided'
+          motif: item.infosup || 'No motif provided'
         }));
       },
       (error) => {

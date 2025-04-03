@@ -153,44 +153,34 @@ export class DemandeRdvComponent implements OnInit {
     
   }
 
-  selectedMecanicien(idmecanicien: string) {
-    console.log("etooooooooooooooooooooooooooooooooooooooo");
+  selectMecanicien(mecanicien: any) {
     
-    this.idMecanicienSelected = idmecanicien;
+    this.idMecanicienSelected = mecanicien._id;
     console.log(this.idMecanicienSelected);
     
-    // this.save();
   }
   
   save() {
-    if (this.mecanicienForm.invalid) {
+    if (this.idMecanicienSelected === '') {
       Swal.fire('Error', 'Choisissez un mécanicien', 'error');
       return;
     }
-  
-    const selectedId = this.mecanicienForm.value.selectedMecanicien;
-
-    console.log(this.idRendezVousSelected);
-    console.log(this.dateSelectedFormated);
-    console.log(selectedId);
-    console.log(this.idClientSelected);
     
-    
-    // this.managerService.rendezVousValider(
-    //   this.idRendezVousSelected,
-    //   this.dateSelectedFormated,
-    //   selectedId,
-    //   this.idClientSelected
-    // ).subscribe({
-    //   next: (response: any) => {  // Explicitly type 'response' as 'any'
-    //     Swal.fire('Success', 'Rendez-vous confirmé!', 'success');
-    //     this.toggleLiveDemo();
-    //     this.getRendezVousEnAttente();
-    //   },
-    //   error: (error: { error?: { message?: string } }) => {  // Explicitly type 'error'
-    //     Swal.fire('Error', error.error?.message || 'Erreur', 'error');
-    //   }
-    // });
+    this.managerService.rendezVousValider(
+      this.idRendezVousSelected,
+      this.dateSelectedFormated,
+      this.idMecanicienSelected,
+      this.idClientSelected
+    ).subscribe({
+      next: (response: any) => {  // Explicitly type 'response' as 'any'
+        Swal.fire('Success', 'Rendez-vous confirmé!', 'success');
+        this.toggleLiveDemo();
+        this.getRendezVousEnAttente();
+      },
+      error: (error: { error?: { message?: string } }) => {  // Explicitly type 'error'
+        Swal.fire('Error', error.error?.message || 'Erreur', 'error');
+      }
+    });
 
   }
 

@@ -13,14 +13,7 @@ export class ClientService {
   constructor(private http: HttpClient) { }
 
   rendezVousAttente(idclient: string): Observable<any> {
-    const url = `${this.url}/rendezvous/enattente`;
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    });
-    const body = { idclient };
-  
-    return this.http.request<any>('GET', url, { headers, body });
+    return this.http.get<any>(`${this.url}/rendezvous/enattente/${idclient}`);
   }
   
 

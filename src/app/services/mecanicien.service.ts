@@ -33,7 +33,27 @@ export class MecanicienService {
     };
     return this.http.post<{
       nouveauAvancement: any; message: string 
-}>(`${this.url}/rendezvous/changeravancement`, data);
+    }>(`${this.url}/rendezvous/changeravancement`, data);
+  }
+
+  deletePrestation(idrendezvous: string, idprestation: string) {
+    const data = {
+      idrendezvous: idrendezvous,
+      idprestation: idprestation
+    };
+    return this.http.delete<any>(`${this.url}/supprimerprestation`, { body: data });
+  }
+
+  prestationByModeleAndTypemoteur(modele: string, type: string) {
+    return this.http.get<any>(`${this.url}/prestation/${modele}/${type}`);
+  }
+
+  addPrestation(idrendezvous: string, idprestation: string) {
+    const data = {
+      idrendezvous: idrendezvous,
+      idprestation: idprestation
+    };
+    return this.http.post<any>(`${this.url}/rendezvous/ajouterprestation`, data);
   }
 
 }

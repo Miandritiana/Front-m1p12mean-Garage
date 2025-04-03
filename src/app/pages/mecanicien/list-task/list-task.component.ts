@@ -50,6 +50,8 @@ export class ListTaskComponent implements OnInit{
 
   listTache: any[] = [];
   @Output() dataEvent = new EventEmitter<any>();
+  isAppear: boolean = true;
+
 
 
   constructor (
@@ -99,6 +101,7 @@ export class ListTaskComponent implements OnInit{
   }
 
   goDetail(idrendezvous: string) {
+    // this.isAppear = false;
     this.dataEvent.emit(idrendezvous);
   }
 

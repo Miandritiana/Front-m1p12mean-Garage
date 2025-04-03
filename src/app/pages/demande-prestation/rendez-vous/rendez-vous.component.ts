@@ -4,11 +4,12 @@ import { NgIf, NgFor } from '@angular/common';
 import { DemandePrestationService } from '../../../services/demande-prestation.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { FormatDatePipe } from '../../../validator/FormatDatePipe';
 
 @Component({
   selector: 'app-rendez-vous',
   standalone: true,
-  imports: [FormsModule, NgIf, NgFor, ReactiveFormsModule],
+  imports: [FormsModule, NgIf, NgFor, ReactiveFormsModule, FormatDatePipe],
   templateUrl: './rendez-vous.component.html',
   styleUrl: './rendez-vous.component.scss'
 })
@@ -92,7 +93,7 @@ export class RendezVousComponent implements OnChanges {
     console.log(this.selectedDates);
     
     
-    this.demandePrestationService.demandeRendezVous(this.idDevis, this.selectedDates, this.infoSup)
+    this.demandePrestationService.demandeRendezVous(this.idDevisRendezVous, this.selectedDates, this.infoSup)
       .subscribe(
         (response) => {
           console.log(response);

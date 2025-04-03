@@ -24,7 +24,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let rowData of rdvAttente">
-                <td class="text-nowrap">{{ rowData.date }}</td>
+                <td class="text-nowrap">{{ rowData.date ? (rowData.date.toString() | formatDate:'full') : '' }}</td>
                 <td class="text-nowrap">{{ rowData.motif }}</td>
                 </tr>
             </tbody>

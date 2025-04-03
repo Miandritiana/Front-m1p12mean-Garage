@@ -54,14 +54,14 @@
         <h5>Liste des mécaniciens disponibles</h5>
       
         <div *ngIf="mecaniciensDisponibles.length === 0" class="alert alert-info">
-          No mechanics available for the selected date
+          Il n'y a pas de mécanicien disponible pour cette date.
         </div>
       
         <form [formGroup]="mecanicienForm" cForm (ngSubmit)="save()">
 
           <div class="list-group" *ngIf="mecaniciensDisponibles.length > 0">
             <label class="list-group-item" *ngFor="let mecanicien of mecaniciensDisponibles">
-              <input class="me-1" type="radio" formControlName="selectedMecanicien" [value]="mecanicien.id">
+              <input class="me-1" type="radio" name="selectedMecanicien" [value]="mecanicien.id" (click)="selectMecanicien(mecanicien)">
               <span>{{ mecanicien.nom }} {{ mecanicien.prenom }}</span>
             </label>
           </div>
