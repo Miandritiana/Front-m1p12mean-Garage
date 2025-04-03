@@ -35,7 +35,7 @@ export class MecanicienComponent implements OnInit {
     ngOnInit(): void {
       const userRole = this.localStorageService.getLoginInfo()?.role ?? '';
   
-      if (userRole != '3') {
+      if (userRole != '2') {
         Swal.fire({
           icon: 'error',
           title: 'Accès refusé',

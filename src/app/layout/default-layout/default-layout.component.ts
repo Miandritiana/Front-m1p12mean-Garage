@@ -100,12 +100,12 @@ export class DefaultLayoutComponent {
               name: 'Mécanicien',
               url: '/parametre-mecanicien',
               icon: 'nav-icon-bullet',
-            },
-            {
-              name: 'Préstation',
-              url: '/parametre-prestation',
-              icon: 'nav-icon-bullet',
-            },
+            }
+            // {
+            //   name: 'Préstation',
+            //   url: '/parametre-prestation',
+            //   icon: 'nav-icon-bullet',
+            // },
           ],
         },
         {
@@ -120,6 +120,11 @@ export class DefaultLayoutComponent {
           name: 'Tache',
           url: '/tache',
           iconComponent: { name: 'cil-task' },
+        },
+        {
+          name: 'Changer mot de passe',
+          url: '/change-mdp',
+          iconComponent: { name: 'cil-pencil' },
         },
       ],
     };

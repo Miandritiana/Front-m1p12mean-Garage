@@ -36,4 +36,21 @@ export class ManagerService {
     return this.http.post<any>(`${this.url}/rendezvous/proposer`, data);
   }
   
+  histoRdvValider(dateheure?: Date, avancement?: number) {
+    const data: any = {}; // Initialize an empty object
+  
+    if (dateheure) {
+      data.dateheure = dateheure;
+    }
+    if (avancement !== undefined) {
+      data.avancement = avancement;
+    }
+  
+    return this.http.post<any>(`${this.url}/rendezvous/valides`, data);
+  }
+
+  histoRdvDetail(idrendezvous: string) {
+    return this.http.get<any>(`${this.url}/rendezvous/detailsdevis/${idrendezvous}`);
+  }
+  
 }

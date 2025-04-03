@@ -16,8 +16,9 @@ import {
   TextColorDirective,
   TableDirective
 } from '@coreui/angular';
-import { CrudMecanicienService } from 'src/app/services/crud-mecanicien.service';
+import { CrudMecanicienService } from './../../../services/crud-mecanicien.service';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-gestion-mecanicien',
@@ -46,6 +47,13 @@ export class GestionMecanicienComponent implements OnInit {
 
   mecaniciens: any[] = [];
   filters = { id: '', nom: '', prenom: '', email: '', telephone: '' };
+  newMecanicien = {
+    nom: '',
+    prenom: '',
+    email: '',
+    telephone: '',
+    mdp: ''
+  };
 
   constructor(private mecanicienService: CrudMecanicienService) {}
 
@@ -59,26 +67,47 @@ export class GestionMecanicienComponent implements OnInit {
     });
   }
 
-  get filteredMecaniciens() {
-    return this.mecaniciens.filter(mecanicien => 
-      (!this.filters.id || mecanicien.id.toString().includes(this.filters.id)) &&
-      (!this.filters.nom || mecanicien.nom.toLowerCase().includes(this.filters.nom.toLowerCase())) &&
-      (!this.filters.prenom || mecanicien.prenom.toLowerCase().includes(this.filters.prenom.toLowerCase())) &&
-      (!this.filters.email || mecanicien.email.toLowerCase().includes(this.filters.email.toLowerCase())) &&
-      (!this.filters.telephone || mecanicien.telephone.includes(this.filters.telephone))
-    );
+  addMecanicien() {
+    if (!this.newMecanicien.nom || !this.newMecanicien.prenom || !this.newMecanicien.email || 
+        !this.newMecanicien.telephone || !this.newMecanicien.mdp) {
+  
+      Swal.fire({
+        icon: 'warning',
+        title: 'Champs requis!',
+        text: 'Veuillez remplir tous les champs.',
+        confirmButtonColor: '#3085d6'
+      });
+      return;
+    }
+  
+    this.mecanicienService.addMecanicien(this.newMecanicien).subscribe(() => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Succès!',
+        text: 'Le mécanicien a été ajouté avec succès.',
+        confirmButtonColor: '#28a745'
+      });
+  
+      this.loadMecaniciens(); // Reload the list
+      this.resetForm(); // Reset the form after submission
+    }, error => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur!',
+        text: 'Une erreur s\'est produite lors de l\'ajout du mécanicien.',
+        confirmButtonColor: '#d33'
+      });
+    });
   }
 
-  addMecanicien() {
-    const newMecanicien = { 
-      nom: 'Nouveau', 
-      prenom: 'Mecanicien', 
-      email: 'new@example.com', 
-      telephone: '0340011122' 
+  resetForm() {
+    this.newMecanicien = {
+      nom: '',
+      prenom: '',
+      email: '',
+      telephone: '',
+      mdp: ''
     };
-    this.mecanicienService.addMecanicien(newMecanicien).subscribe(() => {
-      this.loadMecaniciens();
-    });
   }
 
   editMecanicien(mecanicien: any) {

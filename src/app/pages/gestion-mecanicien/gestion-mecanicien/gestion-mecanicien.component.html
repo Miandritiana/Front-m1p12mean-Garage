@@ -10,19 +10,21 @@
                 <th>Prénom</th>
                 <th>E-mail</th>
                 <th>Téléphone</th>
+                <th>Mot de passe</th>
               </tr>
               <tr>
-                <th>
+                <td>
                   <button (click)="addMecanicien()" class="btn btn-primary">+</button>
-                </th>
-                <th><input [(ngModel)]="filters.nom" class="form-control" placeholder="Nom" /></th>
-                <th><input [(ngModel)]="filters.prenom" class="form-control" placeholder="Prénom" /></th>
-                <th><input [(ngModel)]="filters.email" class="form-control" placeholder="E-mail" /></th>
-                <th><input [(ngModel)]="filters.telephone" class="form-control" placeholder="Téléphone" /></th>
+                </td>
+                <td><input type="text" class="form-control" placeholder="Nom" [(ngModel)]="newMecanicien.nom"/></td>
+                <td><input type="text" class="form-control" placeholder="Prénom" [(ngModel)]="newMecanicien.prenom"/></td>
+                <td><input type="mail" class="form-control" placeholder="E-mail" [(ngModel)]="newMecanicien.email"/></td>
+                <td><input type="tel" class="form-control" placeholder="Téléphone" [(ngModel)]="newMecanicien.telephone"/></td>
+                <td><input type="text" class="form-control" placeholder="***" [(ngModel)]="newMecanicien.mdp"/></td>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let mecanicien of filteredMecaniciens">
+              <tr *ngFor="let mecanicien of mecaniciens">
                 <td class="d-flex">
                   <button (click)="editMecanicien(mecanicien)" class="btn btn-warning me-2">✏️</button>
                   <button (click)="deleteMecanicien(mecanicien.id)" class="btn btn-danger">🗑️</button>

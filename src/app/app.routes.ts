@@ -55,6 +55,11 @@ export const routes: Routes = [
       {
         path: 'tache',
         loadChildren: () => import('./pages/mecanicien/routes').then((m) => m.routes)
+      },
+      {
+        path: 'change-mdp',
+        loadComponent: () => import('./pages/mecanicien/change-mdp/change-mdp.component').then(m => m.ChangeMdpComponent),
+        data: { title: 'Changer le mot de passe' }
       }
     ]
   },

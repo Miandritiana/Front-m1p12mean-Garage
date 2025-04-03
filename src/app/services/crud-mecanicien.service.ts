@@ -25,12 +25,13 @@ export class CrudMecanicienService {
     return this.http.put<any>(this.url + '/users/mecanicien/'+idMecanicien, mecanicien);
   }
 
-  changeMdp(idMecanicien: string, oldpassword: string, newpassword: string): Observable<any> {
+
+  newPassword(idMecanicien: string, oldpassword: string, newpassword: string) {
     const data = {
       oldpassword: oldpassword,
       newpassword: newpassword
     }
-    return this.http.put<any>(this.url + '/users/changepassword/'+idMecanicien, data);
+    return this.http.post<any>(this.url + '/users/changepassword/'+idMecanicien, data);
   }
 
 }

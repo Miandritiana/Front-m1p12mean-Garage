@@ -1,4 +1,92 @@
-<div>
-    <label for="name" class="form-label fs-6 mb-0">Recherche par date</label>
-    <input type="datetime-local" class="form-control">
-</div>
+<c-row class="mt-4">
+    <div class="mb-3">
+        <h4>Recherche par date</h4>
+        <input type="datetime-local" class="form-control">
+    </div>
+    <div class="col-12">
+      <h3>Historique des rendez-vous valider</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Client</th>
+            <th scope="col">Prestation</th>
+            <th scope="col">Status</th>
+            <th scope="col">Détail</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let histo of histoRdvValider">
+            <td class="align-items-center">{{ histo.client }}</td>
+            <td>
+              <ul>
+                <li *ngFor="let prestation of histo.prestations">
+                  {{ prestation.nom }} 
+                  <span class="badge rounded-pill" [ngClass]="getBadgeClass(prestation.avancement)">{{ getBadgeLabel(prestation.avancement) }}</span>
+                </li>
+              </ul>
+            </td>
+            <td>
+              <span class="badge rounded-pill" [ngClass]="getBadgeClass(histo.avancement)">
+                {{ getBadgeLabel(histo.avancement) }}
+              </span>
+            </td>
+            <td>
+                <button class="btn btn-outline-primary" (click)="goDetail(histo.idrendezvous)">
+                  Voir détail
+                </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </c-row>
+  
+
+
+
+
+
+
+  <c-row class="mt-3">
+    <c-col xs="12">
+        <div class="d-flex justify-content-between">
+          <h3>Details du tache</h3>
+        </div>
+          <c-card class="mb-4">
+            <c-card-body>
+                <div>
+                    <h3>Information</h3>
+                  <p>Client: {{ listDetail.clientprenom }} {{ listDetail.clientnom }}</p>
+                  <p>Numéro d'immatriculation: {{ listDetail.immatriculation }}</p>
+                  <p>Type moteur: {{ listDetail.typemoteur }}</p>
+                  <p>Modèle: {{ listDetail.modele }}</p>
+                  <p class="f-w-300">Prix total: {{ listDetail.prixtotal | formatCurrencyMGA }}</p>
+                </div>
+
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Catégorie</th>
+                        <th scope="col">Prestation</th>
+                        <th scope="col">Prix unitaire</th>
+                        <th scope="col">Avancement</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let prestation of listDetail.prestations">
+                        <td class="align-items-center">{{ prestation.nomcategorieprestation }}</td>
+                        <td>{{ prestation.nom }}</td>
+                        <td>{{ prestation.prixunitaire | formatCurrencyMGA }}</td>
+                        <td>
+                          <span class="badge rounded-pill" [ngClass]="getBadgeClass(prestation.avancement)">
+                            {{ getBadgeLabel(prestation.avancement) }}
+                          </span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+            </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>
