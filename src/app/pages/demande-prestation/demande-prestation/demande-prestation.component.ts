@@ -7,6 +7,9 @@ import { RendezVousComponent } from '../rendez-vous/rendez-vous.component';
 
 import { NgIf } from '@angular/common';
 import Stepper from 'bs-stepper';
+import { Router } from '@angular/router';
+import { LocalStorageService } from '../../../services/local-storage.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-demande-prestation',
@@ -41,13 +44,31 @@ export class DemandePrestationComponent implements AfterViewInit {
     });
   }
 
-  constructor(public stepperService: StepperService) { }
+  constructor(
+    public stepperService: StepperService,
+    private router: Router, 
+    private localStorageService: LocalStorageService
+  ) { }
 
   ngOnInit() {
     this.stepperService.currentStep$.subscribe(step => {
       this.currentStep = step;
     });
     console.log("Parent idDevis:", this.idDevis);
+
+
+    const userRole = this.localStorageService.getLoginInfo()?.role ?? '';
+
+    if (userRole != '1') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Accès refusé',
+        text: 'Vous n\'avez pas accès à cette page.',
+        confirmButtonText: 'OK'
+      }).then(() => {
+        this.router.navigate(['/login']);
+      });
+    }
 
   }
 

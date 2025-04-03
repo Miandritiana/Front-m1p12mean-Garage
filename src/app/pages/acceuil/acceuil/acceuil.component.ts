@@ -29,6 +29,7 @@ import { ClientService } from '../../../services/client.service';
 import { LocalStorageService } from '../../../services/local-storage.service';
 import { RendezVous } from '../../../modele/RendezVous';
 import { FormatDatePipe } from '../../../validator/FormatDatePipe';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-acceuil',
@@ -76,7 +77,19 @@ export class AcceuilComponent implements OnInit{
     console.log(idClient);
     
     this.getRendezVousAttente(idClient);
-    throw new Error('Method not implemented.');
+
+    const userRole = this.localStorageService.getLoginInfo()?.role ?? '';
+
+    if (userRole != '1') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Accès refusé',
+        text: 'Vous n\'avez pas accès à cette page.',
+        confirmButtonText: 'OK'
+      }).then(() => {
+        this.router.navigate(['/login']);
+      });
+    }
   }
 
   goToDemandePrestation() {

@@ -1,7 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { ListTaskComponent } from '../list-task/list-task.component';
 import { DetailTaskComponent } from '../detail-task/detail-task.component';
+
+
+import { Router } from '@angular/router';
+import { LocalStorageService } from '../../../services/local-storage.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-mecanicien',
@@ -13,11 +18,33 @@ import { DetailTaskComponent } from '../detail-task/detail-task.component';
   templateUrl: './mecanicien.component.html',
   styleUrl: './mecanicien.component.scss'
 })
-export class MecanicienComponent {
+export class MecanicienComponent implements OnInit {
+
+      constructor(
+        private router: Router, 
+        private localStorageService: LocalStorageService
+      ) { }
 
   idRdv: string = '';
 
   receiveIdRdv(data: string) {
     this.idRdv = data;
   }
+
+  
+    ngOnInit(): void {
+      const userRole = this.localStorageService.getLoginInfo()?.role ?? '';
+  
+      if (userRole != '3') {
+        Swal.fire({
+          icon: 'error',
+          title: 'Accès refusé',
+          text: 'Vous n\'avez pas accès à cette page.',
+          confirmButtonText: 'OK'
+        }).then(() => {
+          this.router.navigate(['/login']);
+        });
+      }
+      
+    }
 }
