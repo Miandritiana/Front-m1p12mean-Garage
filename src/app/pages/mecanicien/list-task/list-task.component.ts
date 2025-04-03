@@ -105,4 +105,8 @@ export class ListTaskComponent implements OnInit{
     this.dataEvent.emit(idrendezvous);
   }
 
+
+  reload() {
+    this.getListTache(this.localStorageService.getLoginInfo()?.iduser ?? '');
+  }
 }

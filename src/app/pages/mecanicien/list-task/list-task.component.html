@@ -1,6 +1,9 @@
 <c-row class="mt-4" *ngIf="isAppear">
     <div class="col-12">
-      <h3>Tâches</h3>
+      <div class="d-flex justify-content-between">
+        <h3>Tâches</h3>
+        <button class="btn btn-outline-primary mb-2" (click)="reload()">🔄</button>
+      </div>
       <table class="table">
         <thead>
           <tr>

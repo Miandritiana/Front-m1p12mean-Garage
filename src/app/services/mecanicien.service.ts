@@ -41,7 +41,7 @@ export class MecanicienService {
       idrendezvous: idrendezvous,
       idprestation: idprestation
     };
-    return this.http.delete<any>(`${this.url}/rendrezvous/supprimerprestation`, { body: data });
+    return this.http.delete<any>(`${this.url}/rendezvous/supprimerprestation`, { body: data });
   }
 
   prestationByModeleAndTypemoteur(modele: string, type: string) {
