@@ -22,7 +22,7 @@ import { DetailTaskComponent } from './detail-task/detail-task.component';
     StepsModule,
     FormsModule,
     ReactiveFormsModule,
-    // RouterModule.forChild(MecanicienRoutingModule),
+    RouterModule.forChild(MecanicienRoutingModule),
     RouterModule 
   ]
 })

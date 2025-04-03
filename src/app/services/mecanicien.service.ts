@@ -31,7 +31,9 @@ export class MecanicienService {
       idrendezvous: idrendezvous,
       idprestation: idprestation
     };
-    return this.http.post<any[]>(`${this.url}/rendezvous/changeravancement`, data);
+    return this.http.post<{
+      nouveauAvancement: any; message: string 
+}>(`${this.url}/rendezvous/changeravancement`, data);
   }
 
 }

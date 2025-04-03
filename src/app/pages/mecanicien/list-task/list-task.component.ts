@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import {
   ButtonDirective,
@@ -49,6 +49,8 @@ import { Router } from '@angular/router';
 export class ListTaskComponent implements OnInit{
 
   listTache: any[] = [];
+  @Output() dataEvent = new EventEmitter<any>();
+
 
   constructor (
     private mecanicienService: MecanicienService,
@@ -97,7 +99,7 @@ export class ListTaskComponent implements OnInit{
   }
 
   goDetail(idrendezvous: string) {
-    this.router.navigate(['/mecanicien/detail-task', idrendezvous]);
+    this.dataEvent.emit(idrendezvous);
   }
 
 }

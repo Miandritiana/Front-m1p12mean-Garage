@@ -1,1 +1,2 @@
-<app-list-task></app-list-task>
+<app-list-task (dataEvent)="receiveIdRdv($event)"></app-list-task>
+<app-detail-task [idRdv]="idRdv"></app-detail-task>

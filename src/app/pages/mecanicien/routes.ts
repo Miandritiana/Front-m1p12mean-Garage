@@ -9,7 +9,7 @@ export const routes: Routes = [
         component: MecanicienComponent,
         children: [
             {
-                path: 'detail-task/:idrendezvous', // ✅ Dynamic route parameter
+                path: 'detail',
                 component: DetailTaskComponent,
                 data: { title: 'Détail Tâche' }
             }

@@ -15,4 +15,9 @@ import { DetailTaskComponent } from '../detail-task/detail-task.component';
 })
 export class MecanicienComponent {
 
+  idRdv: string = '';
+
+  receiveIdRdv(data: string) {
+    this.idRdv = data;
+  }
 }
