@@ -177,8 +177,8 @@ export class DemandeRdvComponent implements OnInit {
         this.toggleLiveDemo();
         this.getRendezVousEnAttente();
       },
-      error: (error: { error?: { message?: string } }) => {  // Explicitly type 'error'
-        Swal.fire('Error', error.error?.message || 'Erreur', 'error');
+      error: (error: any) => {  // Explicitly type 'error'
+        Swal.fire('Error', error?.error || 'Erreur', 'error');
       }
     });
 
@@ -193,6 +193,7 @@ export class DemandeRdvComponent implements OnInit {
     const date = this.proposeForm.get('selectedDatePropose')?.value;
     
     if (date) {
+      this.getMecanicienDispo(date);
       this.proposeDateSelected = date;
       this.toggleLiveDemoPropose(); // Close current modal
       this.showSaisie = true;   // Open mechanic selection modal

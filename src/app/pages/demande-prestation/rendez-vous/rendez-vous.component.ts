@@ -36,7 +36,8 @@ export class RendezVousComponent implements OnChanges {
   )
   {
     this.form = this.formBuilder.group({
-      selectedDate: ['', [Validators.required]]
+      selectedDate: ['', [Validators.required]],
+      infoSupplementaire: ['']
     });
 
   }
@@ -84,7 +85,7 @@ export class RendezVousComponent implements OnChanges {
 
   demandeRendezVous() {
     this.infoSup = this.form.value.infoSupplementaire;
-    console.log(this.infoSup);
+    console.log("info supp "+this.infoSup);
 
     this.selectedDatesOK = this.selectedDates.map((date) => new Date(date).toISOString());
 
