@@ -36,6 +36,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
+              "static.json",
               "src/_redirects"
             ],
             "styles": [
