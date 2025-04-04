@@ -59,8 +59,8 @@ export class LoginComponent implements OnInit {
     private localStorageService: LocalStorageService
   ) {
     this.loginForm = this.fb.group({
-      login: ['', Validators.required],
-      motDePasse: ['', Validators.required],
+      login: ['admin@gmail.com', Validators.required],
+      motDePasse: ['123', Validators.required],
     });
   }
 

@@ -111,17 +111,16 @@ export class GestionMecanicienComponent implements OnInit {
   }
 
   editMecanicien(mecanicien: any) {
-    const updatedMecanicien = { ...mecanicien, nom: 'Modifié' };
-    this.mecanicienService.modifierMecanicien(mecanicien.id, updatedMecanicien).subscribe(() => {
-      this.loadMecaniciens();
-    });
+    // const updatedMecanicien = { ...mecanicien, nom: 'Modifié' };
+    // this.mecanicienService.modifierMecanicien(mecanicien.id, updatedMecanicien).subscribe(() => {
+    //   this.loadMecaniciens();
+    // });
   }
 
   deleteMecanicien(id: string) {
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce mécanicien ?')) {
-      // Call delete service when implemented
-      this.mecaniciens = this.mecaniciens.filter(m => m.id !== id);
-    }
+    // if (confirm('Êtes-vous sûr de vouloir supprimer ce mécanicien ?')) {
+    //   // Call delete service when implemented
+    // }
   }
 
 }

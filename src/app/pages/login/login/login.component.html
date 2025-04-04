@@ -34,15 +34,6 @@
                     placeholder="Login"
                     formControlName="login"
                   />
-                  <div
-                    *ngIf="
-                      loginForm.get('login')?.invalid &&
-                      loginForm.get('login')?.touched
-                    "
-                    class="error"
-                  >
-                    Login requise
-                  </div>
                 </c-input-group>
                 <c-input-group class="mb-4">
                   <span cInputGroupText>
@@ -55,15 +46,6 @@
                     type="password"
                     formControlName="motDePasse"
                   />
-                  <div
-                    *ngIf="
-                      loginForm.get('motDePasse')?.invalid &&
-                      loginForm.get('motDePasse')?.touched
-                    "
-                    class="error"
-                  >
-                    Mot de passe requise
-                  </div>
                 </c-input-group>
                 <div *ngIf="errorMessage" class="alert alert-danger">
                   {{ errorMessage }}

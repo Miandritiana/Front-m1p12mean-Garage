@@ -1,7 +1,10 @@
 <c-row class="mt-4">
     <div class="mb-3">
         <h4>Recherche par date</h4>
-        <input type="datetime-local" class="form-control">
+        <div class="d-flex justify-content-between">
+          <input type="datetime-local" class="form-control w-60 me-2" [(ngModel)]="selectedDate">
+          <button class="btn btn-primary w-40" (click)="appliquer()">Appliquer</button>
+        </div>
     </div>
     <div class="col-12">
       <h3>Historique des rendez-vous valider</h3>

@@ -23,7 +23,9 @@ import { LocalStorageService } from '../../../services/local-storage.service';
 import { Router } from '@angular/router';
 import { ManagerService } from '../../../services/manager.service';
 import { FormatCurrencyPipe } from '../../../validator/FormatCurrencyPipe';
-
+import { format } from 'date-fns';
+import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-rendez-vous-valide',
@@ -44,7 +46,8 @@ import { FormatCurrencyPipe } from '../../../validator/FormatCurrencyPipe';
     ModalModule,
     FormCheckComponent,
     NgFor, NgStyle, NgIf, NgClass,
-    FormatCurrencyPipe
+    FormatCurrencyPipe,
+    FormsModule
   ],
   templateUrl: './rendez-vous-valide.component.html',
   styleUrl: './rendez-vous-valide.component.scss'
@@ -55,6 +58,9 @@ export class RendezVousValideComponent implements OnInit {
 
     histoRdvValider: any[] = [];
     listDetail: any = {};
+
+    selectedDate: string = '';
+    selectedDateFormated: Date | null = null;
   
   constructor (
     private localStorageService : LocalStorageService,
@@ -96,11 +102,40 @@ export class RendezVousValideComponent implements OnInit {
   }
 
   getHisto() {
+    let dateParam = this.selectedDate ? format(new Date(this.selectedDate), "yyyy-MM-dd'T'HH:mm:ss") : undefined;
+
     this.managerService.histoRdvValider(undefined, undefined).subscribe(
       (data) => {
         this.histoRdvValider = data;
       }
     );
+  }
+
+  appliquer() {
+
+    const dateObject = new Date(this.selectedDate);
+    this.selectedDateFormated = dateObject;
+
+    console.log(this.selectedDateFormated);
+    
+
+    this.managerService.histoRdvValider(this.selectedDateFormated, undefined).subscribe(
+      (data) => {
+        this.histoRdvValider = data;
+      },
+      (error) => {
+        console.error('Erreur lors du chargement des rendez-vous', error);
+              // Check if the error has a message
+        const errorMessage = error?.error?.message || 'Une erreur est survenue';
+
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: errorMessage,
+        });
+      }
+    );
+    
   }
 
   getDetail(idRdv: string) {
