@@ -15,10 +15,10 @@ import {
   TextColorDirective,
   ModalModule,
   FormCheckComponent
-} 
+}
 from '@coreui/angular';
 
-import { NgFor, NgStyle, NgIf, NgClass } from '@angular/common';
+import { NgFor, NgStyle, NgIf, NgClass, CommonModule } from '@angular/common';
 import { LocalStorageService } from '../../../services/local-storage.service';
 import { Router } from '@angular/router';
 import { ManagerService } from '../../../services/manager.service';
@@ -47,7 +47,7 @@ import Swal from 'sweetalert2';
     FormCheckComponent,
     NgFor, NgStyle, NgIf, NgClass,
     FormatCurrencyPipe,
-    FormsModule
+    FormsModule, CommonModule
   ],
   templateUrl: './rendez-vous-valide.component.html',
   styleUrl: './rendez-vous-valide.component.scss'
@@ -61,12 +61,12 @@ export class RendezVousValideComponent implements OnInit {
 
     selectedDate: string = '';
     selectedDateFormated: Date | null = null;
-  
+
   constructor (
     private localStorageService : LocalStorageService,
     private router: Router,
     private managerService : ManagerService
-  ) 
+  )
   {}
 
   ngOnInit(){
@@ -117,7 +117,7 @@ export class RendezVousValideComponent implements OnInit {
     this.selectedDateFormated = dateObject;
 
     console.log(this.selectedDateFormated);
-    
+
 
     this.managerService.histoRdvValider(this.selectedDateFormated, undefined).subscribe(
       (data) => {
@@ -135,7 +135,7 @@ export class RendezVousValideComponent implements OnInit {
         });
       }
     );
-    
+
   }
 
   getDetail(idRdv: string) {

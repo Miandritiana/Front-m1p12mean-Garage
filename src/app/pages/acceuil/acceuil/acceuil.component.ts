@@ -18,7 +18,7 @@ import {
   RowComponent,
   TableDirective,
   TextColorDirective,
-  
+
 } from '@coreui/angular';
 import { IconDirective } from '@coreui/icons-angular';
 import { NgFor, NgStyle, NgIf } from '@angular/common';
@@ -67,15 +67,15 @@ export class AcceuilComponent implements OnInit{
   errorMessage: string = '';
 
   constructor(
-    private router: Router, 
+    private router: Router,
     private clientService: ClientService,
-    private localStorageService : LocalStorageService) 
+    private localStorageService : LocalStorageService)
   { }
 
   ngOnInit(): void {
     var idClient=this.localStorageService.getLoginInfo()?.iduser ?? '';
     console.log(idClient);
-    
+
     this.getRendezVousAttente(idClient);
 
     const userRole = this.localStorageService.getLoginInfo()?.role ?? '';
@@ -98,13 +98,14 @@ export class AcceuilComponent implements OnInit{
 
   getRendezVousAttente(idClient: string): any {
     this.clientService.rendezVousAttente(idClient).subscribe(
-      
+
       (response: any[]) => {
         console.log(response);
-        
+
         this.rdvAttente = response.map((item: any) => ({
           date: item.createdAt || 'N/A', // Handle missing properties
-          motif: item.infosup || 'No motif provided'
+          motif: item.infosup || 'No motif provided',
+          prestations: item.prestations || []
         }));
       },
       (error) => {

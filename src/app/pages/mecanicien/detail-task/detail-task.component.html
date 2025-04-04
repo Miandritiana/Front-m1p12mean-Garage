@@ -1,7 +1,7 @@
 <c-row class="mt-3" *ngIf="isAppear()">
     <c-col xs="12">
         <div class="d-flex justify-content-between">
-          <h3>Details du tache</h3>
+          <h3>Details des taches</h3>
           <button class="btn btn-outline-primary d-none" (click)="goBack()">Return back to list</button>
         </div>
           <c-card class="mb-4">
@@ -64,15 +64,15 @@
 
     <div class="list-group">
       <label class="list-group-item" *ngFor="let prestation of prestationResult">
-        <input 
-          class="me-1" 
-          type="radio" 
+        <input
+          class="me-1"
+          type="radio"
           name="selectedPrestation"
-          (click)="selectPrestation(prestation)"> 
+          (click)="selectPrestation(prestation)">
         <span>{{ prestation.nom }} - {{ prestation.prixunitaire | formatCurrencyMGA }}</span>
       </label>
     </div>
-      
+
   </c-modal-body>
   <c-modal-footer>
     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Fermer</button>

@@ -14,11 +14,11 @@ import {
   RowComponent,
   TextColorDirective,
   ModalModule,
-  FormCheckComponent
-} 
+  FormCheckComponent,
+}
 from '@coreui/angular';
 
-import { NgFor, NgStyle, NgIf, NgClass } from '@angular/common';
+import { NgFor, NgStyle, NgIf, NgClass, CommonModule } from '@angular/common';
 import { MecanicienService } from '../../../services/mecanicien.service';
 import { LocalStorageService } from '../../../services/local-storage.service';
 import { Router } from '@angular/router';
@@ -41,7 +41,7 @@ import { Router } from '@angular/router';
     TextColorDirective,
     ModalModule,
     FormCheckComponent,
-    NgFor, NgStyle, NgIf, NgClass
+    NgFor, NgStyle, NgIf, NgClass, CommonModule
   ],
   templateUrl: './list-task.component.html',
   styleUrl: './list-task.component.scss'
@@ -58,7 +58,7 @@ export class ListTaskComponent implements OnInit{
     private mecanicienService: MecanicienService,
     private localStorageService : LocalStorageService,
     private router: Router
-  ) 
+  )
   {}
 
   ngOnInit() {

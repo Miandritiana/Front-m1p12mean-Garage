@@ -7,6 +7,7 @@
       <table class="table">
         <thead>
           <tr>
+            <th scope="col">Date</th>
             <th scope="col">Client</th>
             <th scope="col">Prestation</th>
             <th scope="col">Status</th>
@@ -15,11 +16,12 @@
         </thead>
         <tbody>
           <tr *ngFor="let tache of listTache">
+            <td class="align-items-center">{{ tache.datevalide | date:'dd/MM/yyyy HH:mm' }}</td>
             <td class="align-items-center">{{ tache.client }}</td>
             <td>
               <ul>
                 <li *ngFor="let prestation of tache.prestations">
-                  {{ prestation.nom }} 
+                  {{ prestation.nom }}
                   <span class="badge rounded-pill" [ngClass]="getBadgeClass(prestation.avancement)">{{ getBadgeLabel(prestation.avancement) }}</span>
                 </li>
               </ul>
@@ -39,4 +41,3 @@
       </table>
     </div>
   </c-row>
-  

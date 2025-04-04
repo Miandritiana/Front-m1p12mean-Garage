@@ -19,12 +19,20 @@
             <thead>
                 <tr cTableColor="light">
                 <th scope="col">Date</th>
+                <th scope="col">Prestations demandées</th>
                 <th scope="col">Motif</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let rowData of rdvAttente">
                 <td class="text-nowrap">{{ rowData.date ? (rowData.date.toString() | formatDate:'full') : '' }}</td>
+                <td>
+                  <ul class="mb-0">
+                    <li *ngFor="let prestation of rowData.prestations">
+                      {{ prestation.nom || prestation }}
+                    </li>
+                  </ul>
+                </td>
                 <td class="text-nowrap">{{ rowData.motif }}</td>
                 </tr>
             </tbody>

@@ -7,11 +7,13 @@
         </div>
     </div>
     <div class="col-12">
-      <h3>Historique des rendez-vous valider</h3>
+      <h3>Historique des rendez-vous</h3>
       <table class="table">
         <thead>
           <tr>
+            <th scope="col">Date</th>
             <th scope="col">Client</th>
+            <th scope="col">Mécanicien</th>
             <th scope="col">Prestation</th>
             <th scope="col">Status</th>
             <th scope="col">Détail</th>
@@ -19,11 +21,13 @@
         </thead>
         <tbody>
           <tr *ngFor="let histo of histoRdvValider">
+            <td class="align-items-center">{{ histo.datevalide  | date:'dd/MM/yyyy HH:mm'  }}</td>
             <td class="align-items-center">{{ histo.client }}</td>
+            <td class="align-items-center">{{ histo.mecanicien }}</td>
             <td>
               <ul>
                 <li *ngFor="let prestation of histo.prestations">
-                  {{ prestation.nom }} 
+                  {{ prestation.nom }}
                   <span class="badge rounded-pill" [ngClass]="getBadgeClass(prestation.avancement)">{{ getBadgeLabel(prestation.avancement) }}</span>
                 </li>
               </ul>
@@ -43,7 +47,7 @@
       </table>
     </div>
   </c-row>
-  
+
 
 
 
@@ -53,12 +57,12 @@
   <c-row class="mt-3">
     <c-col xs="12">
         <div class="d-flex justify-content-between">
-          <h3>Details du tache</h3>
+          <h3>Details des taches</h3>
         </div>
           <c-card class="mb-4">
             <c-card-body>
                 <div>
-                    <h3>Information</h3>
+                    <h3>Informations</h3>
                   <p>Client: {{ listDetail.clientprenom }} {{ listDetail.clientnom }}</p>
                   <p>Numéro d'immatriculation: {{ listDetail.immatriculation }}</p>
                   <p>Type moteur: {{ listDetail.typemoteur }}</p>

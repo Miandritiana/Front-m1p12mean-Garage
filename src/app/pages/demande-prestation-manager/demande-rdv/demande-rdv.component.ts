@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { NgFor, NgStyle, NgIf, DatePipe } from '@angular/common';
+import { NgFor, NgStyle, NgIf, DatePipe, CommonModule } from '@angular/common';
 
 import {
   ButtonDirective,
@@ -41,7 +41,7 @@ import { FormatDatePipe } from '../../../validator/FormatDatePipe';
     InputGroupTextDirective,
     RowComponent,
     TextColorDirective, NgFor, NgStyle, NgIf, ModalModule, FormCheckComponent,
-    ReactiveFormsModule, FormatDatePipe
+    ReactiveFormsModule, FormatDatePipe, CommonModule
   ],
   templateUrl: './demande-rdv.component.html',
   styleUrl: './demande-rdv.component.scss'
@@ -91,17 +91,17 @@ export class DemandeRdvComponent implements OnInit {
 
     // Convert the string to a Date object
     const dateObject = new Date(dateSelected);
-    
+
     // Verify the date is valid
     if (isNaN(dateObject.getTime())) {
       console.error('Invalid date string:', dateSelected);
       return;
     }
-    
+
     this.dateSelectedFormated = dateObject;
     this.getMecanicienDispo(this.dateSelectedFormated);
     console.log(this.mecaniciensDisponibles.map(m => m.id));
-    
+
   }
 
   acceptDate(client: Client) {
@@ -138,7 +138,7 @@ export class DemandeRdvComponent implements OnInit {
 
   getMecanicienDispo(date: Date) {
     console.log("getmecanicien date "+date);
-    
+
     this.managerService.mecaniciensDispo(date).subscribe({
       next: (mecaniciens: Mecanicien[]) => {
         this.mecaniciensDisponibles = mecaniciens;
@@ -150,22 +150,22 @@ export class DemandeRdvComponent implements OnInit {
       }
     });
     console.log(this.mecaniciensDisponibles);
-    
+
   }
 
   selectMecanicien(mecanicien: any) {
-    
+
     this.idMecanicienSelected = mecanicien._id;
     console.log(this.idMecanicienSelected);
-    
+
   }
-  
+
   save() {
     if (this.idMecanicienSelected === '') {
       Swal.fire('Error', 'Choisissez un mécanicien', 'error');
       return;
     }
-    
+
     this.managerService.rendezVousValider(
       this.idRendezVousSelected,
       this.dateSelectedFormated,
@@ -189,9 +189,9 @@ export class DemandeRdvComponent implements OnInit {
       this.proposeForm.markAllAsTouched();
       return;
     }
-  
+
     const date = this.proposeForm.get('selectedDatePropose')?.value;
-    
+
     if (date) {
       this.getMecanicienDispo(date);
       this.proposeDateSelected = date;
@@ -199,5 +199,5 @@ export class DemandeRdvComponent implements OnInit {
       this.showSaisie = true;   // Open mechanic selection modal
     }
   }
-  
+
 }
